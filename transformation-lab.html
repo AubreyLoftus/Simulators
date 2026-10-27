@@ -6,315 +6,414 @@
 <title>Transformation Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Lexend:wght@400;500;600&display=swap">
 <style>
-/* Layout: graph-paper board on the left, a numbered 1-2-3 control panel on the right; coordinates table below. */
+/* Layout: one-screen app. Board (shape picker, graph paper, legend + buttons) | controls (1-2-3 steps, Run) | Play card, coordinates, settings. Single light theme by design, matching Polygon Angle Lab. */
 :root{
-  --paper:#EEF2F7; --panel:#FFFFFF; --ink:#172131; --muted:#556275; --rule:#D3DBE6;
-  --grid:#E4EAF2; --grid-strong:#C6D0DE;
-  --pre:#2C5AA8; --img:#D4521F; --aid:#7A3FB8;
-  --tint:#E6EEFA; --chip:#F3F6FA; --on-pre:#FFFFFF; --on-img:#FFFFFF; --err:#B3261E;
-  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
-  --body:'Atkinson Hyperlegible','Segoe UI',system-ui,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --paper:#0F141C; --panel:#161D28; --ink:#E7EDF5; --muted:#9BA8BA; --rule:#2A3546;
-    --grid:#1F2835; --grid-strong:#334156;
-    --pre:#82A8EC; --img:#FF8C5A; --aid:#C39AF3;
-    --tint:#1E2A3D; --chip:#1C2432; --on-pre:#0D1320; --on-img:#1A0F08; --err:#FF8A80;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#0F141C; --panel:#161D28; --ink:#E7EDF5; --muted:#9BA8BA; --rule:#2A3546;
-  --grid:#1F2835; --grid-strong:#334156;
-  --pre:#82A8EC; --img:#FF8C5A; --aid:#C39AF3;
-  --tint:#1E2A3D; --chip:#1C2432; --on-pre:#0D1320; --on-img:#1A0F08; --err:#FF8A80;
-  color-scheme:dark;
+  color-scheme:light;
+  --page:#E4E6EB; --panel:#FBF9F4; --card:#FBF9F4; --white:#FFFFFF; --vtx:#FFFFFF;
+  --ink:#2B2D42; --muted:#5E6275;
+  --grid:#EEE9DF; --grid-strong:#DED7C8;
+  --pre:#5B6BBF; --pre-soft:#E1E4F5; --img:#E8775A; --img-ink:#B4452A; --img-soft:#FCE3DA; --aid:#2E7D8C; --aid-soft:#DDEFF1;
+  --sun:#F2C14E; --sun-soft:#FDF1CF;
+  --head:#E7E8EE; --err:#B3261E;
+  --display:'Fredoka','Trebuchet MS',system-ui,sans-serif;
+  --body:'Lexend','Segoe UI',system-ui,sans-serif;
+  --mono:'Lexend','Segoe UI',system-ui,sans-serif;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{margin:0}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45}
-.wrap{max-width:1260px;margin:0 auto;padding-block:22px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
-.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 24px}
-.eyebrow{margin:0 0 2px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
-h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;line-height:1.05;text-wrap:balance}
-h1 .p{color:var(--img)}
-.lede{margin:0;max-width:52ch;color:var(--muted)}
-.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
-.legend span{display:inline-flex;align-items:center;gap:6px}
-.sw{width:14px;height:10px;border-radius:2px;display:inline-block}
-.sw.pre{border:2px dashed var(--pre)}
-.sw.img{background:var(--img)}
-.sw.aid{height:2px;background:var(--aid)}
+body{background:var(--page);color:var(--ink);font-family:var(--body);font-size:13px;line-height:1.4}
+.app{max-width:1500px;margin:0 auto;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:10px}
 
-.layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(320px,1fr);gap:18px;align-items:start}
-@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}}
-.card{background:var(--panel);border:1px solid var(--rule);border-radius:14px}
-.board{padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
-.shapebar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
-.lbl{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
-.vertsRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.vertsRow label{font-size:13px;color:var(--muted)}
-.vertsRow input{flex:1 1 220px;min-width:0;font-family:var(--mono);font-size:13px}
-.canvasWrap{position:relative;width:100%;max-width:100%}
-canvas{display:block;width:100%;aspect-ratio:1/1;max-width:100%;border-radius:10px;border:1px solid var(--rule);background:var(--panel)}
-.now{position:absolute;top:10px;left:10px;right:10px;width:fit-content;max-width:calc(100% - 20px);padding:6px 10px;border-radius:8px;background:var(--panel);border:1px solid var(--rule);font-size:13px;font-weight:700;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.08);pointer-events:none}
-.now .k{color:var(--img);margin-right:6px;font-family:var(--mono)}
-.boardfoot{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
-.boardfoot .spacer{flex:1}
-.hint{margin:0;font-size:13px;color:var(--muted)}
+/* header */
+.top{display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;min-height:34px}
+.logo{width:30px;height:30px;flex:none}
+h1{margin:0;font-family:var(--display);font-weight:700;font-size:25px;letter-spacing:-.01em;line-height:1.1;white-space:nowrap}
+.lede{margin:0;color:var(--muted);font-size:12.5px;line-height:1.3;max-width:60ch}
 
-.panel{padding:16px;display:flex;flex-direction:column;gap:16px;min-width:0}
-.tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--chip);border:1px solid var(--rule);border-radius:10px;padding:3px;gap:3px}
-.tabs button{border:0;background:transparent;color:var(--muted);font:700 14px var(--body);padding:9px 8px;border-radius:7px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
-.tabs button[aria-selected="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.pill{font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:999px;background:var(--tint);color:var(--pre);font-weight:700}
-.stepblock{display:flex;flex-direction:column;gap:10px}
-h2{margin:0;font-family:var(--display);font-weight:600;font-size:18px;display:flex;align-items:center;gap:8px}
-h2 .n{width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--panel);font:700 13px var(--mono);display:inline-grid;place-items:center;flex:none}
-.types{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-@media (max-width:1100px) and (min-width:901px){.types{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:460px){.types{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.type{border:1.5px solid var(--rule);background:var(--panel);color:var(--ink);border-radius:10px;padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;font:700 14px var(--body)}
-.type svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;color:var(--pre)}
-.type small{font-weight:400;color:var(--muted);font-size:12px}
-.type[aria-pressed="true"]{border-color:var(--pre);background:var(--tint);box-shadow:inset 0 0 0 1px var(--pre)}
-.type:hover{border-color:var(--pre)}
+/* cards + buttons */
+.card{background:var(--card);border:1.5px solid var(--ink);border-radius:12px}
+.btn{font:600 13.5px var(--display);color:var(--ink);background:var(--white);border:1.5px solid var(--ink);border-radius:9px;padding:6px 12px;cursor:pointer;box-shadow:0 3px 0 var(--ink);transition:transform .06s,box-shadow .06s;line-height:1.15}
+.btn:hover{background:var(--pre-soft)}
+.btn:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:0 3px 0 var(--muted);border-color:var(--muted)}
+.btn.primary{background:var(--pre);color:var(--white)}
+.btn.primary:hover{background:#4D5DB0}
+.btn.sm{font-size:12.5px;padding:5px 10px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--aid);outline-offset:2px}
 
-.det{display:flex;flex-direction:column;gap:10px}
-.sub{margin:0;font-size:12px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--muted)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.chip{border:1px solid var(--rule);background:var(--chip);color:var(--ink);font:700 14px var(--body);padding:8px 12px;border-radius:8px;cursor:pointer;line-height:1.1}
-.chip:hover{border-color:var(--pre)}
-.chip[aria-pressed="true"]{background:var(--pre);border-color:var(--pre);color:var(--on-pre)}
-.chips.small .chip{font-size:13px;padding:6px 10px;font-family:var(--mono);font-weight:600}
-.custom{display:inline-flex;align-items:center;gap:4px}
-.custom input{width:84px}
-.custom.on input{border-color:var(--pre);box-shadow:0 0 0 1px var(--pre)}
-input[type=text],input[type=number]{font:15px var(--body);color:var(--ink);background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:8px 10px}
-input:focus-visible,button:focus-visible{outline:2px solid var(--pre);outline-offset:2px}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.field{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:700}
-.field input{width:100%;font-family:var(--mono)}
-.field small{font-weight:400;color:var(--muted)}
-.other{display:flex;flex-direction:column;gap:10px;padding:10px;border:1px dashed var(--rule);border-radius:10px}
-.eqrow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-family:var(--mono);font-size:15px}
-.eqrow input{width:72px;font-family:var(--mono)}
-.centerline{margin:0;font-size:14px;color:var(--muted)}
-.centerline b{color:var(--ink);font-family:var(--mono);font-weight:600}
-.link{border:0;background:none;color:var(--pre);font:700 13px var(--body);cursor:pointer;padding:2px 4px;text-decoration:underline;text-underline-offset:2px}
-.note{margin:0;font-size:13px;color:var(--muted)}
+/* layout: stacked by default, one screen on laptop / Chromebook sizes */
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.col{display:flex;flex-direction:column;gap:12px;min-width:0}
+@media (min-width:760px){
+  .layout{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+  .col3{grid-column:1 / -1;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:start}
+}
+@media (min-width:1100px) and (min-height:540px){
+  html,body{height:100%;overflow:hidden}
+  .app{height:100%}
+  .layout{flex:1;min-height:0;--side:min(calc(100dvh - 172px),40vw);grid-template-columns:calc(var(--side) + 3px) minmax(0,1.08fr) minmax(0,1fr);align-items:stretch}
+  .col{min-height:0}
+  .col3{grid-column:auto;display:flex;align-items:stretch}
+  .board{height:100%}
+  .canvasWrap{flex:1;min-height:0;aspect-ratio:auto}
+  .controls{height:100%;overflow:auto}
+  .data{flex:1 1 auto;min-height:90px}
+}
 
-.preview{border-radius:10px;background:var(--tint);padding:10px 12px;display:flex;flex-direction:column;gap:4px}
-.preview .d{font-weight:700}
-.preview code{font-family:var(--mono);font-size:14px;color:var(--pre)}
-.preview.bad{background:transparent;border:1px solid var(--err)}
-.preview.bad .d{color:var(--err);font-weight:400}
+/* board */
+.board{overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.boardhead{background:var(--head);border-bottom:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 10px 9px;flex:none}
+.arrow{border:0;background:none;padding:3px;cursor:pointer;border-radius:8px;display:grid;place-items:center}
+.arrow svg{width:40px;height:24px}
+.arrow:hover svg path{fill:#25697A}
+.arrow:disabled{opacity:.35;cursor:not-allowed}
+.figtab{position:relative;min-width:140px;text-align:center;background:var(--pre);color:var(--white);border:1.5px solid var(--ink);border-radius:8px;padding:4px 16px;font:700 16px var(--display);box-shadow:0 3px 0 var(--ink)}
+.figtab::before,.figtab::after{content:"";position:absolute;top:-9px;width:9px;height:13px;background:var(--white);border:1.5px solid var(--ink);border-radius:5px}
+.figtab::before{left:14px}.figtab::after{right:14px}
+.canvasWrap{position:relative;background:var(--panel);display:flex;align-items:center;justify-content:center;overflow:hidden;aspect-ratio:1/1;max-width:100%}
+canvas{display:block;flex:none;max-width:100%;max-height:100%;background:var(--panel)}
+.now{position:absolute;top:8px;left:8px;max-width:calc(100% - 16px);padding:5px 10px;border-radius:9px;background:var(--white);border:1.5px solid var(--ink);box-shadow:0 3px 0 var(--ink);font:600 13px var(--display);pointer-events:none}
+.now .k{color:var(--img-ink);margin-right:6px}
+.draghint{position:absolute;left:8px;bottom:6px;margin:0;font-size:11.5px;color:var(--muted);background:color-mix(in srgb,var(--panel) 85%,transparent);padding:2px 6px;border-radius:6px;pointer-events:none}
+.prompt{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);background:var(--img);color:var(--white);border:1.5px solid var(--ink);box-shadow:0 3px 0 var(--ink);border-radius:999px;padding:7px 16px;font:700 15px var(--display);white-space:nowrap;pointer-events:none;animation:nudge 1.2s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(-50%) translateY(-4px)}}
+.boardfoot{flex:none;border-top:1.5px solid var(--ink);background:var(--pre-soft);display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap;padding:8px 10px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:11.5px;font-weight:500}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.sw{width:14px;height:10px;border-radius:3px;display:inline-block}
+.sw.pre{border:2px dashed var(--pre);background:var(--white)}
+.sw.img{background:var(--img);border:1.5px solid var(--ink)}
+.sw.tgt{border:2px dashed var(--aid);background:var(--aid-soft)}
+.footbtns{display:flex;gap:8px}
+.vertsBox{position:absolute;left:8px;right:8px;bottom:8px;background:var(--white);border:1.5px solid var(--ink);border-radius:10px;box-shadow:0 3px 0 var(--ink);padding:8px;display:flex;flex-direction:column;gap:6px}
+.vertsRow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.vertsRow label{font:600 13px var(--display)}
+.vertsRow input{flex:1 1 160px;min-width:0}
+.err{margin:0;color:var(--err);font-size:12px}
 
-.check{display:inline-flex;align-items:center;gap:8px;font-size:14px;cursor:pointer}
-.check input{width:17px;height:17px;accent-color:var(--pre)}
-.btn{border:1px solid var(--rule);background:var(--chip);color:var(--ink);font:700 14px var(--body);padding:8px 12px;border-radius:8px;cursor:pointer}
-.btn:hover{border-color:var(--pre)}
-.btn:disabled,.chip:disabled,.run:disabled{opacity:.5;cursor:not-allowed}
-.run{width:100%;border:0;background:var(--img);color:var(--on-img);font:800 20px var(--display);letter-spacing:.01em;padding:14px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 0 rgba(0,0,0,.15)}
-.run:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.15)}
-.run svg{width:18px;height:18px;fill:currentColor}
-.ctl{display:flex;flex-direction:column;gap:12px}
-.serieshead{display:flex;align-items:center;gap:8px}
-.serieshead h3{margin:0;font-family:var(--display);font-weight:600;font-size:16px}
-.slist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;counter-reset:s}
-.slist li{display:flex;align-items:center;gap:10px;padding:8px 8px 8px 10px;border:1px solid var(--rule);border-radius:9px;background:var(--panel);font-size:14px}
-.slist li.active{border-color:var(--img);box-shadow:inset 3px 0 0 var(--img)}
-.slist .sn{font:700 12px var(--mono);color:var(--muted);flex:none}
+/* inputs */
+input[type=text],input[type=number]{font:14px var(--body);color:var(--ink);background:var(--white);border:1.5px solid var(--ink);border-radius:8px;padding:5px 8px}
+
+/* controls card */
+.controls{padding:12px;display:flex;flex-direction:column;gap:11px;min-width:0}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:none}
+.tabs button{font:600 13.5px var(--display);color:var(--ink);background:var(--white);border:1.5px solid var(--ink);border-radius:9px;padding:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 3px 0 var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--white)}
+.pill{font:600 9.5px var(--body);letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:999px;background:var(--img);color:var(--white);border:1px solid var(--ink)}
+.stepblock{display:flex;flex-direction:column;gap:7px;flex:none}
+h2{margin:0;font-family:var(--display);font-weight:700;font-size:16.5px;display:flex;align-items:center;gap:7px;line-height:1.2}
+h2 .n{width:22px;height:22px;border-radius:50%;background:var(--img);color:var(--white);border:1.5px solid var(--ink);font:700 12.5px var(--display);display:inline-grid;place-items:center;flex:none}
+.types{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.type{border:1.5px solid var(--ink);background:var(--white);color:var(--ink);border-radius:10px;padding:6px 2px 5px;display:flex;flex-direction:column;align-items:center;gap:0;cursor:pointer;font:600 13.5px var(--display);box-shadow:0 3px 0 var(--ink);min-width:0}
+.type svg{width:24px;height:24px;stroke:var(--aid);fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;margin-bottom:1px}
+.type small{font:400 10.5px var(--body);color:var(--muted)}
+.type:hover{background:var(--pre-soft)}
+.type[aria-pressed="true"]{background:var(--pre);color:var(--white)}
+.type[aria-pressed="true"] svg{stroke:var(--white)}
+.type[aria-pressed="true"] small{color:var(--pre-soft)}
+.type:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.det{display:flex;flex-direction:column;gap:7px}
+.lrow{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.lrow > .sub{min-width:62px}
+.sub{margin:0;font:600 12.5px var(--display);color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{border:1.5px solid var(--ink);background:var(--white);color:var(--ink);font:600 13px var(--display);padding:4px 10px;border-radius:999px;cursor:pointer;line-height:1.2}
+.chip:hover{background:var(--pre-soft)}
+.chip[aria-pressed="true"]{background:var(--pre);color:var(--white)}
+.chips.small .chip{font-size:12.5px;padding:3px 9px}
+.custom{display:inline-flex;align-items:center;gap:3px;font-weight:600}
+.custom input{width:70px;border-radius:999px;padding:4px 10px}
+.custom.on input{background:var(--pre-soft);box-shadow:0 0 0 2px var(--pre)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.field{display:flex;flex-direction:column;gap:3px;font:600 12.5px var(--display)}
+.field input{width:100%}
+.field small{font:400 11px var(--body);color:var(--muted)}
+.other{display:flex;flex-direction:column;gap:7px;padding:8px;border:1.5px dashed var(--muted);border-radius:10px;background:var(--white)}
+.eqrow{display:flex;align-items:center;gap:5px;flex-wrap:wrap;font-weight:600}
+.eqrow input{width:62px}
+.centerline{margin:0;font-size:12.5px;color:var(--muted)}
+.centerline b{color:var(--ink);font-weight:600}
+.link{border:0;background:none;color:var(--pre);font:600 12.5px var(--display);cursor:pointer;padding:1px 3px;text-decoration:underline;text-underline-offset:2px}
+.note{margin:0;font-size:11.5px;color:var(--muted)}
+.preview{border:1.5px solid var(--ink);border-radius:10px;background:var(--pre-soft);padding:6px 10px;display:flex;flex-direction:column;gap:1px;flex:none}
+.preview .d{font:600 14px var(--display)}
+.preview code{font:500 13px var(--body);color:var(--pre)}
+.preview.bad{background:var(--white);border-color:var(--err)}
+.preview.bad .d{color:var(--err);font:400 12.5px var(--body)}
+.ctl{display:flex;flex-direction:column;gap:8px;min-height:0}
+.stepblock.grow{flex:1 1 auto;min-height:0}
+.run{width:100%;border:1.5px solid var(--ink);background:var(--img);color:var(--white);font:700 20px var(--display);letter-spacing:.01em;padding:9px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 4px 0 var(--ink);transition:transform .06s,box-shadow .06s;flex:none}
+.run:hover:not(:disabled){background:#DE6849}
+.run:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.run:disabled{opacity:.6;cursor:not-allowed}
+.run svg{width:16px;height:16px;fill:currentColor}
+.run.wait{background:var(--sun);color:var(--ink)}
+.seriesbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.slist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;overflow:auto;min-height:56px;flex:1 1 auto}
+.slist li{display:flex;align-items:center;gap:8px;padding:5px 6px 5px 9px;border:1.5px solid var(--ink);border-radius:9px;background:var(--white);font-size:12.5px}
+.slist li.active{background:var(--img-soft);box-shadow:inset 4px 0 0 var(--img)}
+.slist .sn{font:700 12.5px var(--display);color:var(--img-ink);flex:none}
 .slist .sd{flex:1;min-width:0}
-.slist .x{border:0;background:none;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:2px 6px;border-radius:6px}
+.slist .x{border:0;background:none;color:var(--muted);font-size:19px;line-height:1;cursor:pointer;padding:1px 5px;border-radius:6px}
 .slist .x:hover{color:var(--err)}
-.row{display:flex;gap:8px;flex-wrap:wrap}
-.speed{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center;font-size:13px;color:var(--muted);border-top:1px solid var(--rule);padding-top:14px}
-.speed label{font-weight:700;color:var(--ink)}
-.speed input{width:100%;accent-color:var(--img)}
-.speed .ends{grid-column:2;display:flex;justify-content:space-between;font-size:12px}
 
-.data{padding:16px;display:flex;flex-direction:column;gap:12px}
-.data h2{font-size:18px}
-.tablewrap{overflow-x:auto}
-table{border-collapse:collapse;font-family:var(--mono);font-size:14px;font-variant-numeric:tabular-nums;min-width:100%}
-th{font:700 12px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:6px 14px 6px 0;border-bottom:1px solid var(--rule);white-space:nowrap}
-td{padding:6px 14px 6px 0;border-bottom:1px solid var(--rule);white-space:nowrap}
-td .vl{font-weight:600;display:inline-block;min-width:3.2em}
-.log{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14px}
-.log code{font-family:var(--mono);font-size:13px;color:var(--pre);margin-left:6px}
-.err{margin:0;color:var(--err);font-size:13px}
-@media (prefers-reduced-motion:reduce){.run:active:not(:disabled){transform:none}}
+/* play card */
+.play{padding:12px;display:flex;flex-direction:column;gap:9px;flex:none;background:var(--sun-soft)}
+.playhead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.playhead h2{font-size:17px}
+.modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.mode{border:1.5px solid var(--ink);background:var(--white);color:var(--ink);border-radius:10px;padding:5px 3px;cursor:pointer;font:600 12.5px var(--display);box-shadow:0 3px 0 var(--ink);display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.15;text-align:center}
+.mode svg{width:20px;height:20px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mode[aria-pressed="true"]{background:var(--ink);color:var(--white)}
+.mode[aria-pressed="true"] svg{stroke:var(--sun)}
+.mode:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.msg{background:var(--white);border:1.5px solid var(--ink);border-radius:10px;padding:7px 10px;min-height:52px;font-size:12.5px;display:flex;flex-direction:column;gap:2px}
+.msg b{font:700 14.5px var(--display)}
+.msg.win{background:#E3F4E9;border-color:#1E7A48}
+.msg.win b{color:#1E6A40}
+.msg.miss b{color:var(--img-ink)}
+.playrow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.stats{display:flex;gap:6px;flex-wrap:wrap}
+.stat{background:var(--white);border:1.5px solid var(--ink);border-radius:999px;padding:2px 9px;font:600 12px var(--display);font-variant-numeric:tabular-nums;display:inline-flex;gap:4px;align-items:center}
+.stat svg{width:13px;height:13px}
+.stat.bump{animation:bump .5s ease}
+@keyframes bump{40%{transform:scale(1.25);background:var(--sun)}}
+.spacer{flex:1}
+
+/* coordinates */
+.data{padding:10px 12px;display:flex;flex-direction:column;gap:7px;min-height:0;overflow:hidden}
+.data h2{font-size:15px}
+.datascroll{overflow:auto;min-height:0;display:flex;flex-direction:column;gap:7px}
+.tablewrap{overflow-x:auto;border:1.5px solid var(--ink);border-radius:9px;background:var(--white);flex:none}
+table{border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums;min-width:100%}
+th{font:600 11.5px var(--display);text-align:left;padding:4px 12px 4px 8px;background:var(--pre-soft);border-bottom:1.5px solid var(--ink);white-space:nowrap}
+td{padding:3px 12px 3px 8px;border-bottom:1px solid var(--grid-strong);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td .vl{font-weight:600;display:inline-block;min-width:2.8em}
+.log{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px;font-size:12px}
+.log code{font:500 12px var(--body);color:var(--pre);margin-left:5px}
+
+/* settings */
+.settings{padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:7px;flex:none}
+.pillcheck{border:1.5px solid var(--ink);border-radius:999px;background:var(--white);padding:4px 10px;display:flex;align-items:center;gap:7px;font:600 12.5px var(--display);cursor:pointer;min-width:0}
+.pillcheck input{width:15px;height:15px;accent-color:var(--pre);margin:0;flex:none}
+.speed{display:flex;align-items:center;gap:7px;font:600 12.5px var(--display);padding:0 4px}
+.speed input{flex:1;min-width:0;accent-color:var(--img)}
+@media (prefers-reduced-motion:reduce){.btn,.run,.type{transition:none}.prompt,.stat.bump{animation:none}.btn:active:not(:disabled),.run:active:not(:disabled),.type:active,.mode:active{transform:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="app">
   <header class="top">
-    <div>
-      <p class="eyebrow">Coordinate plane · Rigid motions &amp; dilations</p>
-      <h1>Transformation Lab<span class="p">′</span></h1>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:6px">
-      <p class="lede">Pick a transformation, set the details, and press Run to watch the figure move to its image.</p>
-      <div class="legend"><span><i class="sw pre"></i>Pre-image</span><span><i class="sw img"></i>Image</span><span><i class="sw aid"></i>Line, center or path</span></div>
-    </div>
+    <svg class="logo" viewBox="0 0 34 34" aria-hidden="true">
+      <path d="M5 27 L13 9 L21 27 Z" fill="#E1E4F5" stroke="#5B6BBF" stroke-width="2" stroke-dasharray="3 2.5" stroke-linejoin="round"/>
+      <path d="M14 29 L22 11 L30 29 Z" fill="#E8775A" stroke="#2B2D42" stroke-width="2.2" stroke-linejoin="round"/>
+      <circle cx="22" cy="11" r="2.6" fill="#fff" stroke="#2B2D42" stroke-width="1.6"/>
+      <circle cx="14" cy="29" r="2.6" fill="#fff" stroke="#2B2D42" stroke-width="1.6"/>
+      <circle cx="30" cy="29" r="2.6" fill="#fff" stroke="#2B2D42" stroke-width="1.6"/>
+    </svg>
+    <h1>Transformation Lab</h1>
+    <p class="lede">Pick a move, set the details, and press Run. Then test yourself: predict where A′ lands, or hit the target.</p>
   </header>
 
   <main class="layout">
+    <!-- Board -->
     <section class="card board" aria-label="Coordinate plane">
-      <div class="shapebar">
-        <span class="lbl">Figure</span>
-        <div class="chips" id="presets" role="group" aria-label="Figure presets">
-          <button class="chip" data-shape="triangle" aria-pressed="true">Triangle</button>
-          <button class="chip" data-shape="rectangle" aria-pressed="false">Rectangle</button>
-          <button class="chip" data-shape="trapezoid" aria-pressed="false">Trapezoid</button>
-          <button class="chip" data-shape="lshape" aria-pressed="false">L-shape</button>
-          <button class="chip" data-shape="pentagon" aria-pressed="false">Pentagon</button>
-        </div>
+      <div class="boardhead">
+        <button class="arrow" id="figPrev" aria-label="Previous shape"><svg viewBox="0 0 44 26"><path d="M1 13 L15 1 V8 H43 V18 H15 V25 Z" fill="#2E7D8C" stroke="#2B2D42" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+        <div class="figtab" id="figName">Triangle</div>
+        <button class="arrow" id="figNext" aria-label="Next shape"><svg viewBox="0 0 44 26"><path d="M43 13 L29 1 V8 H1 V18 H29 V25 Z" fill="#2E7D8C" stroke="#2B2D42" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
       </div>
-      <div class="vertsRow">
-        <label for="verts">Vertices</label>
-        <input id="verts" type="text" spellcheck="false" autocomplete="off">
-        <button id="plot" class="btn">Plot</button>
+      <div id="presets" hidden>
+        <button class="chip" data-shape="triangle" aria-pressed="true">Triangle</button>
+        <button class="chip" data-shape="rectangle" aria-pressed="false">Rectangle</button>
+        <button class="chip" data-shape="trapezoid" aria-pressed="false">Trapezoid</button>
+        <button class="chip" data-shape="lshape" aria-pressed="false">L-shape</button>
+        <button class="chip" data-shape="pentagon" aria-pressed="false">Pentagon</button>
       </div>
-      <p id="vertsErr" class="err" hidden></p>
-      <div class="canvasWrap">
+      <div class="canvasWrap" id="canvasWrap">
         <canvas id="cv" role="img" aria-label="Coordinate plane showing the figure and its image"></canvas>
         <div id="now" class="now" hidden></div>
+        <p class="draghint" id="dragHint">Drag any dot to change your shape.</p>
+        <div id="prompt" class="prompt" hidden></div>
+        <div id="vertsBox" class="vertsBox" hidden>
+          <div class="vertsRow">
+            <label for="verts">Points</label>
+            <input id="verts" type="text" spellcheck="false" autocomplete="off">
+            <button id="plot" class="btn sm primary">Plot</button>
+            <button id="vertsClose" class="btn sm" aria-label="Close">✕</button>
+          </div>
+          <p id="vertsErr" class="err" hidden></p>
+        </div>
       </div>
       <div class="boardfoot">
-        <label class="check"><input type="checkbox" id="labels" checked> Vertex labels</label>
-        <label class="check"><input type="checkbox" id="aids" checked> Helper lines</label>
-        <span class="spacer"></span>
-        <button id="reset" class="btn">Reset to original</button>
+        <div class="legend"><span><i class="sw pre"></i>Pre-image</span><span><i class="sw img"></i>Image</span><span id="lgTarget" hidden><i class="sw tgt"></i>Target</span></div>
+        <div class="footbtns">
+          <button id="reset" class="btn sm">Reset</button>
+          <button id="vertsToggle" class="btn sm" aria-expanded="false">Type points</button>
+        </div>
       </div>
-      <p class="hint" id="dragHint">Drag any vertex to reshape the figure. Press Reset first if an image is showing.</p>
     </section>
 
-    <aside class="card panel" aria-label="Transformation controls">
-      <div class="tabs" role="tablist">
-        <button role="tab" id="tab-single" aria-selected="true">One transformation</button>
-        <button role="tab" id="tab-series" aria-selected="false">Series <span class="pill">Advanced</span></button>
-      </div>
-
-      <div class="stepblock">
-        <h2><span class="n">1</span>Choose a transformation</h2>
-        <div class="types" id="types">
-          <button class="type" data-type="translate" aria-pressed="false">
-            <svg viewBox="0 0 24 24"><path d="M2 18l4-7 4 7z"/><path d="M12 11h9m-3-3 3 3-3 3"/></svg>Translation<small>slide</small></button>
-          <button class="type" data-type="reflect" aria-pressed="false">
-            <svg viewBox="0 0 24 24"><path d="M12 2v20" stroke-dasharray="2 2.5"/><path d="M3 17l6-9v9z"/><path d="M21 17l-6-9v9z"/></svg>Reflection<small>flip</small></button>
-          <button class="type" data-type="rotate" aria-pressed="true">
-            <svg viewBox="0 0 24 24"><path d="M19.5 13A7.5 7.5 0 1 1 16 6.3"/><path d="M17.5 2.5 16.4 6.6l-4-1"/><circle cx="12" cy="13" r="1.2" fill="currentColor"/></svg>Rotation<small>turn</small></button>
-          <button class="type" data-type="dilate" aria-pressed="false">
-            <svg viewBox="0 0 24 24"><path d="M3 21l4-6 3 6z"/><path d="M3 21l10-15 8 15z" opacity=".55"/></svg>Dilation<small>resize</small></button>
+    <!-- Controls -->
+    <div class="col">
+      <section class="card controls panel" aria-label="Transformation controls">
+        <div class="tabs" role="tablist">
+          <button role="tab" id="tab-single" aria-selected="true">One move</button>
+          <button role="tab" id="tab-series" aria-selected="false">Series <span class="pill">Advanced</span></button>
         </div>
-      </div>
 
-      <div class="stepblock">
-        <h2><span class="n">2</span>Set the details</h2>
-
-        <div id="det-translate" class="det" hidden>
-          <div class="fields">
-            <label class="field">Horizontal shift<input id="tx" type="number" step="1" value="3"><small>+ moves right, − moves left</small></label>
-            <label class="field">Vertical shift<input id="ty" type="number" step="1" value="-2"><small>+ moves up, − moves down</small></label>
+        <div class="stepblock">
+          <h2><span class="n">1</span>Choose a move</h2>
+          <div class="types" id="types">
+            <button class="type" data-type="translate" aria-pressed="false">
+              <svg viewBox="0 0 24 24"><path d="M2 18l4-7 4 7z"/><path d="M12 11h9m-3-3 3 3-3 3"/></svg>Translate<small>slide</small></button>
+            <button class="type" data-type="reflect" aria-pressed="false">
+              <svg viewBox="0 0 24 24"><path d="M12 2v20" stroke-dasharray="2 2.5"/><path d="M3 17l6-9v9z"/><path d="M21 17l-6-9v9z"/></svg>Reflect<small>flip</small></button>
+            <button class="type" data-type="rotate" aria-pressed="true">
+              <svg viewBox="0 0 24 24"><path d="M19.5 13A7.5 7.5 0 1 1 16 6.3"/><path d="M17.5 2.5 16.4 6.6l-4-1"/><circle cx="12" cy="13" r="1.2"/></svg>Rotate<small>turn</small></button>
+            <button class="type" data-type="dilate" aria-pressed="false">
+              <svg viewBox="0 0 24 24"><path d="M3 21l4-6 3 6z"/><path d="M3 21l10-15 8 15z" opacity=".6"/></svg>Dilate<small>resize</small></button>
           </div>
         </div>
 
-        <div id="det-reflect" class="det" hidden>
-          <p class="sub">Line of reflection</p>
-          <div class="chips" data-group="refl">
-            <button class="chip" data-val="x" aria-pressed="true">Over the x-axis</button>
-            <button class="chip" data-val="y" aria-pressed="false">Over the y-axis</button>
-            <button class="chip" data-val="yx" aria-pressed="false">y = x</button>
-            <button class="chip" data-val="ynx" aria-pressed="false">y = −x</button>
-            <button class="chip" data-val="other" aria-pressed="false">Other line…</button>
-          </div>
-          <div id="reflOther" class="other" hidden>
-            <div class="chips small" data-group="reflForm">
-              <button class="chip" data-val="vert" aria-pressed="true">x = a</button>
-              <button class="chip" data-val="horz" aria-pressed="false">y = b</button>
-              <button class="chip" data-val="line" aria-pressed="false">y = mx + b</button>
+        <div class="stepblock">
+          <h2><span class="n">2</span>Set the details</h2>
+
+          <div id="det-translate" class="det" hidden>
+            <div class="fields">
+              <label class="field">Slide left or right<input id="tx" type="number" step="1" value="3"><small>+ right, − left</small></label>
+              <label class="field">Slide up or down<input id="ty" type="number" step="1" value="-2"><small>+ up, − down</small></label>
             </div>
-            <div id="rf-vert" class="eqrow"><span>x =</span><input id="rvk" type="text" inputmode="decimal" value="2" aria-label="x equals"></div>
-            <div id="rf-horz" class="eqrow" hidden><span>y =</span><input id="rhk" type="text" inputmode="decimal" value="1" aria-label="y equals"></div>
-            <div id="rf-line" class="eqrow" hidden><span>y =</span><input id="rm" type="text" inputmode="decimal" value="2" aria-label="slope m"><span>x +</span><input id="rb" type="text" inputmode="decimal" value="1" aria-label="y-intercept b"></div>
+          </div>
+
+          <div id="det-reflect" class="det" hidden>
+            <div class="chips" data-group="refl">
+              <button class="chip" data-val="x" aria-pressed="true">Over the x-axis</button>
+              <button class="chip" data-val="y" aria-pressed="false">Over the y-axis</button>
+              <button class="chip" data-val="yx" aria-pressed="false">y = x</button>
+              <button class="chip" data-val="ynx" aria-pressed="false">y = −x</button>
+              <button class="chip" data-val="other" aria-pressed="false">Other line…</button>
+            </div>
+            <div id="reflOther" class="other" hidden>
+              <div class="chips small" data-group="reflForm">
+                <button class="chip" data-val="vert" aria-pressed="true">x = a</button>
+                <button class="chip" data-val="horz" aria-pressed="false">y = b</button>
+                <button class="chip" data-val="line" aria-pressed="false">y = mx + b</button>
+              </div>
+              <div id="rf-vert" class="eqrow"><span>x =</span><input id="rvk" type="text" inputmode="decimal" value="2" aria-label="x equals"></div>
+              <div id="rf-horz" class="eqrow" hidden><span>y =</span><input id="rhk" type="text" inputmode="decimal" value="1" aria-label="y equals"></div>
+              <div id="rf-line" class="eqrow" hidden><span>y =</span><input id="rm" type="text" inputmode="decimal" value="2" aria-label="slope m"><span>x +</span><input id="rb" type="text" inputmode="decimal" value="1" aria-label="y-intercept b"></div>
+            </div>
+          </div>
+
+          <div id="det-rotate" class="det">
+            <div class="lrow"><span class="sub">Direction</span>
+              <div class="chips" data-group="rotDir">
+                <button class="chip" data-val="ccw" aria-pressed="true">↺ Counterclockwise</button>
+                <button class="chip" data-val="cw" aria-pressed="false">↻ Clockwise</button>
+              </div>
+            </div>
+            <div class="lrow"><span class="sub">Angle</span>
+              <div class="chips" data-group="rotDeg" data-custom="rotCustom">
+                <button class="chip" data-val="90" aria-pressed="true">90°</button>
+                <button class="chip" data-val="180" aria-pressed="false">180°</button>
+                <button class="chip" data-val="270" aria-pressed="false">270°</button>
+                <span class="custom"><input id="rotCustom" type="text" inputmode="decimal" placeholder="other" aria-label="Other angle in degrees"><span>°</span></span>
+              </div>
+            </div>
+            <p class="centerline">Turn around: <b id="rotCenterTxt">the origin (0, 0)</b> <button class="link" id="rotCenterBtn">Change</button></p>
+            <div id="rotCenterFields" class="eqrow" hidden><span>(</span><input id="rcx" type="text" inputmode="decimal" value="0" aria-label="Center x"><span>,</span><input id="rcy" type="text" inputmode="decimal" value="0" aria-label="Center y"><span>)</span><button class="link" id="rotCenterReset">Use origin</button></div>
+          </div>
+
+          <div id="det-dilate" class="det" hidden>
+            <div class="lrow"><span class="sub">Scale factor</span>
+              <div class="chips" data-group="dilK" data-custom="dilCustom">
+                <button class="chip" data-val="0.5" aria-pressed="false">½</button>
+                <button class="chip" data-val="2" aria-pressed="true">2</button>
+                <button class="chip" data-val="3" aria-pressed="false">3</button>
+                <span class="custom"><input id="dilCustom" type="text" inputmode="decimal" placeholder="other" aria-label="Other scale factor"></span>
+              </div>
+            </div>
+            <p class="note">Bigger than 1 makes it larger. Between 0 and 1 makes it smaller. Fractions like 1/3 work.</p>
+            <p class="centerline">Center: <b id="dilCenterTxt">the origin (0, 0)</b> <button class="link" id="dilCenterBtn">Change</button></p>
+            <div id="dilCenterFields" class="eqrow" hidden><span>(</span><input id="dcx" type="text" inputmode="decimal" value="0" aria-label="Center x"><span>,</span><input id="dcy" type="text" inputmode="decimal" value="0" aria-label="Center y"><span>)</span><button class="link" id="dilCenterReset">Use origin</button></div>
           </div>
         </div>
 
-        <div id="det-rotate" class="det">
-          <p class="sub">Direction</p>
-          <div class="chips" data-group="rotDir">
-            <button class="chip" data-val="ccw" aria-pressed="true">↺ Counterclockwise</button>
-            <button class="chip" data-val="cw" aria-pressed="false">↻ Clockwise</button>
-          </div>
-          <p class="sub">Angle</p>
-          <div class="chips" data-group="rotDeg" data-custom="rotCustom">
-            <button class="chip" data-val="90" aria-pressed="true">90°</button>
-            <button class="chip" data-val="180" aria-pressed="false">180°</button>
-            <button class="chip" data-val="270" aria-pressed="false">270°</button>
-            <span class="custom"><input id="rotCustom" type="text" inputmode="decimal" placeholder="other" aria-label="Other angle in degrees"><span>°</span></span>
-          </div>
-          <p class="centerline">Center of rotation: <b id="rotCenterTxt">the origin (0, 0)</b> <button class="link" id="rotCenterBtn">Change</button></p>
-          <div id="rotCenterFields" class="eqrow" hidden><span>(</span><input id="rcx" type="text" inputmode="decimal" value="0" aria-label="Center x"><span>,</span><input id="rcy" type="text" inputmode="decimal" value="0" aria-label="Center y"><span>)</span><button class="link" id="rotCenterReset">Use origin</button></div>
-        </div>
+        <div id="preview" class="preview" aria-live="polite"><span class="d"></span><code></code></div>
 
-        <div id="det-dilate" class="det" hidden>
-          <p class="sub">Scale factor</p>
-          <div class="chips" data-group="dilK" data-custom="dilCustom">
-            <button class="chip" data-val="0.5" aria-pressed="false">½</button>
-            <button class="chip" data-val="2" aria-pressed="true">2</button>
-            <button class="chip" data-val="3" aria-pressed="false">3</button>
-            <span class="custom"><input id="dilCustom" type="text" inputmode="decimal" placeholder="other" aria-label="Other scale factor"></span>
+        <div class="stepblock grow">
+          <h2><span class="n">3</span><span id="step3">Run it</span></h2>
+          <div id="singleCtl" class="ctl">
+            <button id="run" class="run"><svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg><span>Run</span></button>
           </div>
-          <p class="note">Greater than 1 enlarges. Between 0 and 1 shrinks. Fractions like 1/3 work.</p>
-          <p class="centerline">Center of dilation: <b id="dilCenterTxt">the origin (0, 0)</b> <button class="link" id="dilCenterBtn">Change</button></p>
-          <div id="dilCenterFields" class="eqrow" hidden><span>(</span><input id="dcx" type="text" inputmode="decimal" value="0" aria-label="Center x"><span>,</span><input id="dcy" type="text" inputmode="decimal" value="0" aria-label="Center y"><span>)</span><button class="link" id="dilCenterReset">Use origin</button></div>
-        </div>
-      </div>
-
-      <div id="preview" class="preview" aria-live="polite"><span class="d"></span><code></code></div>
-
-      <div class="stepblock">
-        <h2><span class="n">3</span><span id="step3">Run it</span></h2>
-        <div id="singleCtl" class="ctl">
-          <label class="check"><input type="checkbox" id="chain"> Start from the last image instead of the original</label>
-          <button id="run" class="run"><svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg><span>Run</span></button>
-        </div>
-        <div id="seriesCtl" class="ctl" hidden>
-          <button id="addStep" class="btn">+ Add this transformation as a step</button>
-          <div class="serieshead"><h3>Series</h3><span id="exTag" class="pill">Example</span></div>
-          <ol id="seriesList" class="slist"></ol>
-          <p id="seriesEmpty" class="hint" hidden>No steps yet. Set up a transformation above, then add it as a step.</p>
-          <div class="row">
-            <button id="reverse" class="btn">Reverse order</button>
-            <button id="clearSeries" class="btn">Clear series</button>
+          <div id="seriesCtl" class="ctl" hidden style="flex:1 1 auto">
+            <div class="seriesbar">
+              <button id="addStep" class="btn sm primary">+ Add as a step</button>
+              <button id="reverse" class="btn sm">Reverse</button>
+              <button id="clearSeries" class="btn sm">Clear</button>
+              <span id="exTag" class="pill">Example</span>
+            </div>
+            <ol id="seriesList" class="slist"></ol>
+            <p id="seriesEmpty" class="note" hidden>No steps yet. Set up a move above, then add it as a step.</p>
+            <button id="runSeries" class="run"><svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg><span>Run series</span></button>
           </div>
-          <button id="runSeries" class="run"><svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg><span>Run series</span></button>
         </div>
-      </div>
+      </section>
+    </div>
 
-      <div class="speed">
-        <label for="speed">Speed</label>
-        <input type="range" id="speed" min="1" max="5" value="3">
-        <span class="ends"><span>Slow</span><span>Fast</span></span>
-      </div>
-    </aside>
+    <!-- Play, coordinates, settings -->
+    <div class="col col3">
+      <section class="card play" aria-label="Play">
+        <div class="playhead">
+          <h2>Play</h2>
+          <div class="stats">
+            <span class="stat" id="stStreak" title="Correct in a row"><svg viewBox="0 0 16 16"><path d="M8 1.5c.5 2.6 3.8 4 3.8 7.6A3.8 3.8 0 0 1 4.2 9.1c0-1.6.8-2.6 1.6-3.3.1 1.3.7 2 1.4 2.3C6.9 5.7 7.4 3.4 8 1.5z" fill="#E8775A" stroke="#2B2D42" stroke-width="1.1" stroke-linejoin="round"/></svg><span>0</span></span>
+            <span class="stat" id="stBest" title="Best streak">Best <span>0</span></span>
+            <span class="stat" id="stScore" title="Correct out of tries"><span>0 / 0</span></span>
+          </div>
+        </div>
+        <div class="modes" id="modes">
+          <button class="mode" data-mode="explore" aria-pressed="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Explore</button>
+          <button class="mode" data-mode="predict" aria-pressed="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/><path d="M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4"/></svg>Predict A′</button>
+          <button class="mode" data-mode="target" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 19 9 6l5 13z" stroke-dasharray="3 2.5"/><path d="m14 12 6 0m-2.5-2.5L20 12l-2.5 2.5"/></svg>Hit the target</button>
+        </div>
+        <div class="msg" id="msg" aria-live="polite"><b>Watch the demo</b><span>The triangle turns 90° around the origin. Then it's your turn.</span></div>
+        <div class="playrow" id="targetRow" hidden>
+          <div class="chips small" id="levels">
+            <button class="chip" data-level="1" aria-pressed="true">1 move</button>
+            <button class="chip" data-level="2" aria-pressed="false">2 moves</button>
+          </div>
+          <span class="spacer"></span>
+          <button class="btn sm" id="hintBtn">Hint</button>
+          <button class="btn sm primary" id="newTarget">New target</button>
+        </div>
+      </section>
+
+      <section class="card data" aria-label="Coordinates">
+        <h2>Coordinates</h2>
+        <div class="datascroll">
+          <div class="tablewrap"><table id="coords"></table></div>
+          <ol id="log" class="log" hidden></ol>
+        </div>
+      </section>
+
+      <section class="card settings" aria-label="Display settings">
+        <label class="pillcheck"><input type="checkbox" id="labels" checked> Point labels</label>
+        <label class="pillcheck"><input type="checkbox" id="aids" checked> Helper lines</label>
+        <label class="pillcheck"><input type="checkbox" id="chain"> Build on last image</label>
+        <div class="speed"><label for="speed">Speed</label><input type="range" id="speed" min="1" max="5" value="3"></div>
+      </section>
+    </div>
   </main>
-
-  <section class="card data" aria-label="Coordinates">
-    <h2>Coordinates</h2>
-    <div class="tablewrap"><table id="coords"></table></div>
-    <ol id="log" class="log" hidden></ol>
-  </section>
 </div>
 
 <script>
+
 (() => {
 const $ = id => document.getElementById(id);
 const cv = $('cv'), ctx = cv.getContext('2d');
@@ -500,7 +599,7 @@ function updatePreview() {
 /* ---------- drawing ---------- */
 function readColors() {
   const cs = getComputedStyle(document.documentElement);
-  ['panel', 'ink', 'muted', 'grid', 'grid-strong', 'pre', 'img', 'aid'].forEach(k => C[k] = cs.getPropertyValue('--' + k).trim());
+  ['panel', 'ink', 'muted', 'grid', 'grid-strong', 'pre', 'img', 'aid', 'img-ink', 'vtx', 'sun'].forEach(k => C[k] = cs.getPropertyValue('--' + k).trim());
   C.mono = cs.getPropertyValue('--mono').trim() || 'monospace';
 }
 function rgba(hex, a) {
@@ -553,18 +652,18 @@ function drawPoly(pts, col, o) {
   ctx.save();
   ctx.globalAlpha = o.faint ? 0.55 : 1;
   ctx.beginPath(); pts.forEach((p, i) => i ? ctx.lineTo(X(p[0]), Y(p[1])) : ctx.moveTo(X(p[0]), Y(p[1]))); ctx.closePath();
-  ctx.fillStyle = rgba(col, o.solid ? 0.22 : 0.08); ctx.fill();
-  ctx.setLineDash(o.solid ? [] : [6, 5]); ctx.lineWidth = o.solid ? 2.5 : 1.75; ctx.strokeStyle = col; ctx.lineJoin = 'round'; ctx.stroke();
+  ctx.fillStyle = rgba(col, o.solid ? 0.88 : 0.1); ctx.fill();
+  ctx.setLineDash(o.solid ? [] : [7, 5]); ctx.lineWidth = o.solid ? 2.75 : 2; ctx.strokeStyle = o.solid ? C.ink : col; ctx.lineJoin = 'round'; ctx.stroke();
   ctx.setLineDash([]);
-  if (o.solid) pts.forEach(p => { ctx.beginPath(); ctx.arc(X(p[0]), Y(p[1]), 4, 0, 7); ctx.fillStyle = col; ctx.fill(); });
+  if (o.solid) pts.forEach(p => { ctx.beginPath(); ctx.arc(X(p[0]), Y(p[1]), 6, 0, 7); ctx.fillStyle = C.vtx; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = C.ink; ctx.stroke(); });
   if ($('labels').checked) {
     const cx = pts.reduce((s, p) => s + X(p[0]), 0) / pts.length, cy = pts.reduce((s, p) => s + Y(p[1]), 0) / pts.length;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     pts.forEach((p, i) => {
       const sx = X(p[0]), sy = Y(p[1]); let dx = sx - cx, dy = sy - cy; const d = Math.hypot(dx, dy);
       if (d < 1) { dx = 0.7; dy = -0.7; } else { dx /= d; dy /= d; }
-      const off = o.solid ? 15 : 13;
-      haloText(LET[i] + primes(o.primes), sx + dx * off, sy + dy * off, col, `600 ${o.solid ? 14 : 12}px ${C.mono}`);
+      const off = o.solid ? 19 : 14;
+      haloText(LET[i] + primes(o.primes), sx + dx * off, sy + dy * off, col === C.img ? C['img-ink'] : col, `600 ${o.solid ? 15 : 13}px ${C.mono}`);
     });
   }
   ctx.restore();
@@ -656,6 +755,7 @@ function render() {
   G = { R, pad, u, W, X: x => pad + (x + R) * u, Y: y => pad + (R - y) * u };
   drawGrid();
   ctx.save(); ctx.beginPath(); ctx.rect(pad - 4, pad - 4, W - 2 * pad + 8, W - 2 * pad + 8); ctx.clip();
+  if (window.TLoverlay) window.TLoverlay(ctx, 'under');
   const S = state.stages, A = state.anim, aids = $('aids').checked;
   if (aids) { if (A) drawAids(A.t, A.base, A.s); else if (S.length > 1) drawAids(S[S.length - 1].t, S[S.length - 2].pts, 1); }
   S.forEach((st, i) => {
@@ -664,6 +764,7 @@ function render() {
     else drawPoly(st.pts, C.img, { solid: last && !A, faint: !(last && !A), primes: i });
   });
   if (A) drawPoly(A.base.map(p => at(A.t, p, A.s)), C.img, { solid: true, primes: S.length });
+  if (window.TLoverlay) window.TLoverlay(ctx, 'top');
   ctx.restore();
 }
 
@@ -699,10 +800,11 @@ function startAnim(base, t, done, n) {
   state.anim = { base, t, s: 0, start: performance.now(), dur, done };
   schedule();
 }
-const allPts = () => state.stages.flatMap(s => s.pts);
+const allPts = () => state.stages.flatMap(s => s.pts).concat(window.TLextraPts ? window.TLextraPts() : []);
 
-function runSingle() {
+function runSingle(force) {
   if (state.running) return;
+  if (force !== true && window.TLbeforeRun && !window.TLbeforeRun('single')) return;
   const r = updatePreview(); if (!r.ok) return;
   const t = r.t;
   if (!($('chain').checked && state.stages.length > 1)) state.stages = [state.stages[0]];
@@ -713,10 +815,12 @@ function runSingle() {
   startAnim(base, t, () => {
     state.stages.push({ pts: target, t });
     state.running = false; syncUI(); renderTable(); schedule();
+    if (window.TLafterRun) window.TLafterRun('single');
   });
 }
-function runSeries() {
+function runSeries(force) {
   if (state.running || !state.seq.length) return;
+  if (force !== true && window.TLbeforeRun && !window.TLbeforeRun('series')) return;
   state.stages = [state.stages[0]];
   let cur = state.stages[0].pts; const all = [...cur];
   const chain = state.seq.map(t => { cur = finalPts(t, cur); all.push(...cur, ...centerOf(t)); return cur; });
@@ -730,7 +834,7 @@ function runSeries() {
       state.stages.push({ pts: chain[i], t }); renderTable(); schedule();
       i++;
       if (i < state.seq.length) setTimeout(step, reduceMotion ? 150 : 550);
-      else { state.running = false; state.activeStep = -1; renderSeries(); syncUI(); }
+      else { state.running = false; state.activeStep = -1; renderSeries(); syncUI(); if (window.TLafterRun) window.TLafterRun('series'); }
     }, i + 1);
   };
   step();
@@ -741,12 +845,12 @@ function syncUI() {
   const r = state.running;
   ['run', 'runSeries', 'addStep', 'reset', 'plot', 'reverse', 'clearSeries'].forEach(id => $(id).disabled = r);
   document.querySelectorAll('#presets .chip').forEach(b => b.disabled = r);
-  $('run').querySelector('span').textContent = r ? 'Running…' : 'Run';
-  $('runSeries').querySelector('span').textContent = r ? 'Running…' : 'Run series';
+  $('run').querySelector('span').textContent = r ? 'Running…' : (window.TLrunLabel ? window.TLrunLabel('single') : 'Run');
+  $('runSeries').querySelector('span').textContent = r ? 'Running…' : (window.TLrunLabel ? window.TLrunLabel('series') : 'Run series');
   if (!r) $('runSeries').disabled = !state.seq.length;
   $('dragHint').textContent = state.stages.length > 1
-    ? 'To reshape the figure, press Reset to original, then drag a vertex.'
-    : 'Drag any vertex to snap it to a new grid point.';
+    ? 'To change the shape, press Reset to original, then drag a dot.'
+    : 'Drag any dot to change your shape.';
 }
 function figName(n, i) { return Array.from({ length: n }, (_, k) => LET[k] + primes(i)).join(''); }
 function renderTable() {
@@ -854,7 +958,7 @@ $('seriesList').addEventListener('click', e => {
 });
 $('reverse').addEventListener('click', () => { state.seq.reverse(); state.seqExample = false; renderSeries(); });
 $('clearSeries').addEventListener('click', () => { state.seq = []; state.seqExample = false; renderSeries(); });
-$('reset').addEventListener('click', () => { state.stages = [state.stages[0]]; showNow(null); fitView(state.stages[0].pts); renderTable(); syncUI(); });
+$('reset').addEventListener('click', () => { state.stages = [state.stages[0]]; showNow(null); fitView(allPts()); renderTable(); syncUI(); if (window.TLonReset) window.TLonReset(); });
 $('labels').addEventListener('change', schedule);
 $('aids').addEventListener('change', schedule);
 
@@ -909,11 +1013,281 @@ new MutationObserver(refresh).observe(document.documentElement, { attributes: tr
 new ResizeObserver(schedule).observe(cv);
 if (document.fonts) document.fonts.ready.then(refresh);
 
+window.TL = { state, runSingle, runSeries, finalPts, describe, rule, fmt, pt, primes, LET, schedule, render, fitView,
+  allPts: () => allPts(), showNow, syncUI, renderTable, updatePreview, haloText, rgba,
+  get G() { return G; }, get C() { return C; } };
 /* init */
 readColors();
 $('verts').value = ptsToStr(state.stages[0].pts);
 setType('rotate'); setMode('single');
 renderSeries(); renderTable(); syncUI(); schedule();
+})();
+
+</script>
+<script>
+/* Board helpers: shape stepper, typed points, canvas sizing */
+(() => {
+  const $ = id => document.getElementById(id);
+  const chips = [...document.querySelectorAll('#presets .chip')];
+  const name = $('figName'), prev = $('figPrev'), next = $('figNext');
+  const cur = () => chips.findIndex(c => c.getAttribute('aria-pressed') === 'true');
+  const upd = () => {
+    const i = cur();
+    name.textContent = i < 0 ? 'My shape' : chips[i].textContent;
+    prev.disabled = next.disabled = chips[0].disabled;
+  };
+  prev.addEventListener('click', () => { const i = cur(); chips[i < 0 ? chips.length - 1 : (i - 1 + chips.length) % chips.length].click(); });
+  next.addEventListener('click', () => { const i = cur(); chips[i < 0 ? 0 : (i + 1) % chips.length].click(); });
+  new MutationObserver(upd).observe($('presets'), { attributes: true, subtree: true, attributeFilter: ['aria-pressed', 'disabled'] });
+  upd();
+  const tog = $('vertsToggle'), box = $('vertsBox');
+  const setBox = open => { box.hidden = !open; tog.setAttribute('aria-expanded', String(open)); if (open) $('verts').focus(); };
+  tog.addEventListener('click', () => setBox(box.hidden));
+  $('vertsClose').addEventListener('click', () => setBox(false));
+  $('plot').addEventListener('click', () => setTimeout(() => { if ($('vertsErr').hidden) setBox(false); }, 0));
+  const wrap = $('canvasWrap'), cv = $('cv');
+  const fit = () => {
+    const r = wrap.getBoundingClientRect(), s = Math.floor(Math.min(r.width, r.height));
+    if (s > 0) { cv.style.width = s + 'px'; cv.style.height = s + 'px'; }
+  };
+  new ResizeObserver(fit).observe(wrap); fit();
+})();
+</script>
+<script>
+/* Play modes: Explore, Predict A′, Hit the target */
+(() => {
+  const TL = window.TL, S = TL.state, $ = id => document.getElementById(id), cv = $('cv');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let mode = 'explore', level = 1, awaiting = null, guess = null, target = null, hint = 0, solved = false, demo = true;
+  let particles = [], fxOn = false;
+  const score = { right: 0, total: 0, streak: 0, best: 0 };
+  try { score.best = +localStorage.getItem('tl-best') || 0; } catch (e) {}
+
+  const ri = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const sig = p => JSON.stringify(p);
+  const near = (p, q, tol) => Math.hypot(p[0] - q[0], p[1] - q[1]) <= tol;
+  const lastPts = () => S.stages[S.stages.length - 1].pts;
+  const nm = (i, k) => TL.LET[i] + TL.primes(k);
+
+  function say(title, body, kind) {
+    const m = $('msg'); m.className = 'msg' + (kind ? ' ' + kind : '');
+    m.innerHTML = ''; const b = document.createElement('b'); b.textContent = title; m.appendChild(b);
+    if (body) { const s = document.createElement('span'); s.textContent = body; m.appendChild(s); }
+  }
+  function showStats(bumpWhich) {
+    $('stStreak').lastElementChild.textContent = score.streak;
+    $('stBest').lastElementChild.textContent = score.best;
+    $('stScore').lastElementChild.textContent = `${score.right} / ${score.total}`;
+    (bumpWhich || []).forEach(id => { const el = $(id); el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); });
+  }
+  function record(ok, counts) {
+    if (counts !== false) score.total++;
+    if (ok) {
+      score.right++; score.streak++;
+      if (score.streak > score.best) { score.best = score.streak; try { localStorage.setItem('tl-best', score.best); } catch (e) {} }
+      showStats(['stStreak', 'stScore']);
+    } else { score.streak = 0; showStats(['stScore']); }
+  }
+  function prompt(text) { const p = $('prompt'); p.hidden = !text; p.textContent = text || ''; $('dragHint').hidden = !!text; }
+
+  /* celebration burst */
+  function celebrate(pt) {
+    if (reduce || !TL.G) return;
+    const G = TL.G, C = TL.C, cols = [C.img, C.pre, C.aid, C.sun];
+    const x = G.X(pt[0]), y = G.Y(pt[1]);
+    for (let i = 0; i < 46; i++) {
+      const a = Math.random() * Math.PI * 2, v = 2 + Math.random() * 5;
+      particles.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 2.5, r: 3 + Math.random() * 3, c: pick(cols), life: 1, sq: Math.random() < .5 });
+    }
+    if (!fxOn) { fxOn = true; requestAnimationFrame(tick); }
+  }
+  function tick() {
+    particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.18; p.vx *= 0.985; p.life -= 0.018; });
+    particles = particles.filter(p => p.life > 0);
+    TL.render();
+    if (particles.length) requestAnimationFrame(tick); else { fxOn = false; TL.render(); }
+  }
+
+  /* drawing on the board */
+  window.TLextraPts = () => {
+    const out = [];
+    if (mode === 'target' && target) out.push(...target.pts);
+    if (guess) out.push(guess);
+    return out;
+  };
+  window.TLoverlay = (ctx, layer) => {
+    const G = TL.G, C = TL.C;
+    if (layer === 'under' && mode === 'target' && target) {
+      const base = S.stages[0].pts;
+      if (sig(base) !== target.base) {
+        target.base = sig(base);
+        let p = base; target.moves.forEach(m => p = TL.finalPts(m, p)); target.pts = p;
+        setTimeout(() => TL.fitView(TL.allPts()), 0);
+      }
+      const P = target.pts;
+      ctx.save();
+      ctx.beginPath(); P.forEach((q, i) => i ? ctx.lineTo(G.X(q[0]), G.Y(q[1])) : ctx.moveTo(G.X(q[0]), G.Y(q[1]))); ctx.closePath();
+      ctx.fillStyle = TL.rgba(C.aid, solved ? 0.08 : 0.16); ctx.fill();
+      ctx.setLineDash([9, 6]); ctx.lineWidth = 3; ctx.strokeStyle = C.aid; ctx.lineJoin = 'round'; ctx.stroke(); ctx.setLineDash([]);
+      if (document.getElementById('labels').checked) {
+        const cx = P.reduce((s, q) => s + G.X(q[0]), 0) / P.length, cy = P.reduce((s, q) => s + G.Y(q[1]), 0) / P.length;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        P.forEach((q, i) => {
+          const sx = G.X(q[0]), sy = G.Y(q[1]); let dx = sx - cx, dy = sy - cy; const d = Math.hypot(dx, dy) || 1;
+          TL.haloText(nm(i, target.moves.length), sx + dx / d * 16, sy + dy / d * 16, C.aid, `700 14px ${C.mono}`);
+        });
+      }
+      ctx.restore();
+    }
+    if (layer === 'top') {
+      if (guess) {
+        const x = G.X(guess[0]), y = G.Y(guess[1]);
+        ctx.save();
+        ctx.lineWidth = 3; ctx.strokeStyle = C.aid; ctx.fillStyle = TL.rgba(C.sun, 0.55);
+        ctx.beginPath(); ctx.arc(x, y, 10, 0, 7); ctx.fill(); ctx.stroke();
+        ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x - 16, y); ctx.lineTo(x - 6, y); ctx.moveTo(x + 6, y); ctx.lineTo(x + 16, y);
+        ctx.moveTo(x, y - 16); ctx.lineTo(x, y - 6); ctx.moveTo(x, y + 6); ctx.lineTo(x, y + 16); ctx.stroke();
+        ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+        TL.haloText('Your guess', x + 12, y - 10, C.aid, `700 13px ${C.mono}`);
+        ctx.restore();
+      }
+      particles.forEach(p => {
+        ctx.globalAlpha = Math.max(0, p.life); ctx.fillStyle = p.c;
+        if (p.sq) ctx.fillRect(p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
+        else { ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill(); }
+      });
+      ctx.globalAlpha = 1;
+    }
+  };
+  window.TLrunLabel = kind => mode === 'predict' ? (kind === 'single' ? 'Predict, then Run' : 'Predict, then Run series') : (kind === 'single' ? 'Run' : 'Run series');
+
+  /* run hooks */
+  window.TLbeforeRun = kind => {
+    demo = false;
+    if (mode !== 'predict') return true;
+    if (kind === 'single' && !TL.updatePreview().ok) return false;
+    const k = kind === 'single' ? ((document.getElementById('chain').checked && S.stages.length > 1) ? S.stages.length : 1) : S.seq.length;
+    awaiting = kind; guess = null; TL.schedule();
+    prompt(`Click where ${nm(0, k)} will land`);
+    say(`Where will ${nm(0, k)} land?`, 'Click a point on the grid. Then watch the move to check your guess.');
+    document.querySelectorAll('.run').forEach(b => b.classList.add('wait'));
+    return false;
+  };
+  cv.addEventListener('pointerdown', e => {
+    if (!awaiting) return;
+    e.stopImmediatePropagation(); e.preventDefault();
+    const r = cv.getBoundingClientRect(), G = TL.G, lim = Math.floor(G.R);
+    const x = Math.max(-lim, Math.min(lim, Math.round((e.clientX - r.left - G.pad) / G.u - G.R)));
+    const y = Math.max(-lim, Math.min(lim, Math.round(G.R - (e.clientY - r.top - G.pad) / G.u)));
+    guess = [x, y]; const kind = awaiting; awaiting = null;
+    prompt(null); document.querySelectorAll('.run').forEach(b => b.classList.remove('wait'));
+    say(`Your guess: (${TL.fmt(x)}, ${TL.fmt(y)})`, 'Watch closely…');
+    TL.schedule();
+    setTimeout(() => kind === 'single' ? TL.runSingle(true) : TL.runSeries(true), 450);
+  }, { capture: true });
+  cv.addEventListener('touchstart', e => { if (awaiting) e.preventDefault(); }, { passive: false, capture: true });
+
+  window.TLafterRun = kind => {
+    const k = S.stages.length - 1, A = lastPts()[0];
+    if (mode === 'predict' && guess) {
+      const ok = near(guess, A, 0.75);
+      record(ok);
+      if (ok) { say('Nailed it!', `${nm(0, k)} landed at ${TL.pt(A)}, right where you said.`, 'win'); celebrate(A); }
+      else {
+        const d = Math.hypot(guess[0] - A[0], guess[1] - A[1]);
+        say('Not quite.', `${nm(0, k)} landed at ${TL.pt(A)}. Your guess was ${TL.fmt(+d.toFixed(1))} ${+d.toFixed(1) === 1 ? 'unit' : 'units'} away. Check the coordinates table, then try another.`, 'miss');
+      }
+      return;
+    }
+    if (mode === 'target' && target && !solved) {
+      const P = lastPts(), hit = P.length === target.pts.length && P.every((p, i) => near(p, target.pts[i], 0.01));
+      if (hit) {
+        solved = true;
+        if (hint > 1) { score.total++; score.right++; showStats(['stScore']); } else record(true);
+        say(hint > 1 ? 'You hit it, with a hint.' : 'Bullseye!', `${nm(0, k)} matches the target exactly. Press New target for another.`, 'win');
+        celebrate(P[0]);
+      } else if (target.moves.length === 2 && k < 2) {
+        say('One move done.', 'Now pick the second move. Keep "Build on last image" checked, or use the Series tab.', null);
+        document.getElementById('chain').checked = true;
+      } else {
+        record(false);
+        const off = P.filter((p, i) => !near(p, target.pts[i], 0.01)).length;
+        say('Missed the target.', `${off} of ${P.length} points are off. Look at where ${TL.LET[0]} needs to go, then try again.`, 'miss');
+      }
+      return;
+    }
+    if (mode === 'explore') {
+      if (demo) { demo = false; say('Your turn!', 'Pick a move, set the details, and press Run. Ready for a challenge? Try Predict A′ or Hit the target.'); }
+    }
+  };
+  window.TLonReset = () => { guess = null; awaiting = null; prompt(null); document.querySelectorAll('.run').forEach(b => b.classList.remove('wait')); TL.schedule(); };
+
+  /* targets */
+  function genMove() {
+    const kind = pick(['translate', 'translate', 'reflect', 'reflect', 'rotate', 'rotate', 'dilate']);
+    if (kind === 'translate') { let a, b; do { a = ri(-6, 6); b = ri(-6, 6); } while (Math.abs(a) + Math.abs(b) < 2); return { type: 'translate', a, b }; }
+    if (kind === 'reflect') return { type: 'reflect', kind: pick(['x', 'y', 'x', 'y', 'yx', 'ynx']) };
+    if (kind === 'rotate') { const deg = pick([90, 180, 270]), dir = pick(['ccw', 'cw']); return { type: 'rotate', deg, dir, ang: dir === 'cw' ? -deg : deg, cx: 0, cy: 0 }; }
+    return { type: 'dilate', k: 2, cx: 0, cy: 0 };
+  }
+  function newTarget() {
+    const base = S.stages[0].pts;
+    const setKey = p => sig(p.map(q => q.join(',')).sort());
+    for (let t = 0; t < 400; t++) {
+      const moves = [genMove()];
+      if (level === 2) { let m2; do { m2 = genMove(); } while (m2.type === moves[0].type); moves.push(m2); }
+      let p = base; moves.forEach(m => p = TL.finalPts(m, p));
+      if (p.some(q => Math.abs(q[0]) > 9 || Math.abs(q[1]) > 9)) continue;
+      if (setKey(p) === setKey(base)) continue;
+      target = { moves, pts: p, base: sig(base) }; break;
+    }
+    solved = false; hint = 0; guess = null;
+    S.stages = [S.stages[0]]; TL.showNow(null); TL.renderTable(); TL.syncUI();
+    document.getElementById('chain').checked = false;
+    TL.fitView(TL.allPts()); TL.schedule();
+    say(level === 1 ? 'Hit the target' : 'Hit the target in 2 moves',
+      level === 1 ? `Find one move that lands your shape exactly on the dashed target, with ${TL.LET[0]} on ${nm(0, 1)}. Then press Run.`
+                  : `Find two moves in a row that land your shape on the target, with ${TL.LET[0]} on ${nm(0, 2)}. Use the Series tab or "Build on last image."`);
+  }
+  const TYPE = { translate: 'a translation (slide)', reflect: 'a reflection (flip)', rotate: 'a rotation (turn)', dilate: 'a dilation (resize)' };
+  $('hintBtn').addEventListener('click', () => {
+    if (!target || solved) return;
+    hint++;
+    if (hint === 1) say('Hint', target.moves.length === 1 ? `It's ${TYPE[target.moves[0].type]}.` : `Move 1 is ${TYPE[target.moves[0].type]}. Move 2 is ${TYPE[target.moves[1].type]}.`);
+    else say('Answer', target.moves.map((m, i) => (target.moves.length > 1 ? `Move ${i + 1}: ` : '') + TL.describe(m) + '.').join(' ') + ' (Solving with the answer won\'t add to your streak.)');
+    if (hint > 2) hint = 2;
+  });
+  $('newTarget').addEventListener('click', newTarget);
+  $('levels').addEventListener('click', e => {
+    const b = e.target.closest('[data-level]'); if (!b) return;
+    level = +b.dataset.level;
+    $('levels').querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c === b)));
+    newTarget();
+  });
+
+  /* modes */
+  function setMode(m) {
+    if (S.running) return;
+    mode = m; awaiting = null; guess = null; prompt(null); demo = false;
+    document.querySelectorAll('.run').forEach(b => b.classList.remove('wait'));
+    $('modes').querySelectorAll('.mode').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+    $('targetRow').hidden = m !== 'target'; $('lgTarget').hidden = m !== 'target';
+    if (m === 'target') newTarget();
+    else {
+      target = null;
+      if (m === 'predict') say('Predict A′', 'Set up a move and press Run. Before it moves, click where you think A′ will land.');
+      else say('Explore', 'Pick a move, set the details, and press Run. Drag the dots to change your shape.');
+      TL.fitView(TL.allPts());
+    }
+    TL.syncUI(); TL.schedule();
+  }
+  $('modes').addEventListener('click', e => { const b = e.target.closest('[data-mode]'); if (b) setMode(b.dataset.mode); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && awaiting) { awaiting = null; prompt(null); document.querySelectorAll('.run').forEach(b => b.classList.remove('wait')); say('Prediction canceled.', 'Press Run when you are ready.'); } });
+
+  showStats();
+  /* demo on load */
+  setTimeout(() => { if (demo && !S.running && S.stages.length === 1) TL.runSingle(true); }, 900);
 })();
 </script>
 </body>
