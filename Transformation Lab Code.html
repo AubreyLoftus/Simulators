@@ -1,46 +1,13 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Transformation Lab Code</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Lexend:wght@400;500&display=swap">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transformation Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Lexend:wght@400;500;600&display=swap">
 <style>
-:root{color-scheme:light;--page:#E4E6EB;--card:#FBF9F4;--ink:#2B2D42;--muted:#5E6275;--pre:#5B6BBF;--img:#E8775A;--ok:#1E6A40;--okbg:#E3F4E9;
---display:'Fredoka','Trebuchet MS',system-ui,sans-serif;--body:'Lexend','Segoe UI',system-ui,sans-serif}
-*{box-sizing:border-box}
-body{margin:0;background:var(--page);color:var(--ink);font:14px/1.45 var(--body)}
-.wrap{max-width:900px;margin:0 auto;padding-block:20px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:14px}
-h1{margin:0;font:700 26px var(--display)}
-.card{background:var(--card);border:1.5px solid var(--ink);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px}
-ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
-.copy{align-self:flex-start;font:700 20px var(--display);color:#fff;background:var(--img);border:1.5px solid var(--ink);border-radius:12px;padding:10px 22px;box-shadow:0 4px 0 var(--ink);cursor:pointer}
-.copy:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
-.copy:focus-visible{outline:3px solid var(--pre);outline-offset:2px}
-.status{margin:0;font-weight:500}
-.status.ok{color:var(--ok);background:var(--okbg);border:1.5px solid var(--ok);border-radius:8px;padding:6px 10px}
-textarea{width:100%;height:260px;font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;border:1.5px solid var(--ink);border-radius:9px;padding:10px;background:#fff;color:var(--ink);resize:vertical}
-code{background:#fff;border:1px solid #cfd2dc;border-radius:5px;padding:0 4px}
-.meta{margin:0;color:var(--muted);font-size:13px}
-</style>
-<div class="wrap">
-  <h1>Transformation Lab code for GitHub</h1>
-  <div class="card">
-    <ol>
-      <li>Press <b>Copy all code</b>.</li>
-      <li>In GitHub, open <code>transformation-lab.html</code>, click the pencil, select everything (Ctrl + A), and paste (Ctrl + V).</li>
-      <li>Press <b>Commit changes</b>. Wait for the green check in the Actions tab, then press Ctrl + Shift + R on your page.</li>
-    </ol>
-    <button class="copy" id="copy">Copy all code</button>
-    <p class="status" id="status" aria-live="polite"></p>
-    <p class="meta">1,297 lines. It starts with <code>&lt;!doctype html&gt;</code> and ends with <code>&lt;/html&gt;</code>.</p>
-    <textarea id="code" readonly spellcheck="false" aria-label="Full page code">&lt;!doctype html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;utf-8&quot;&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-&lt;title&gt;Transformation Lab&lt;/title&gt;
-&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
-&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Lexend:wght@400;500;600&amp;display=swap&quot;&gt;
-&lt;style&gt;
 /* Layout: one-screen app. Board (shape picker, graph paper, legend + buttons) | controls (1-2-3 steps, Run) | Play card, coordinates, settings. Single light theme by design, matching Polygon Angle Lab. */
 :root{
   color-scheme:light;
@@ -50,9 +17,9 @@ code{background:#fff;border:1px solid #cfd2dc;border-radius:5px;padding:0 4px}
   --pre:#5B6BBF; --pre-soft:#E1E4F5; --img:#E8775A; --img-ink:#B4452A; --img-soft:#FCE3DA; --aid:#2E7D8C; --aid-soft:#DDEFF1;
   --sun:#F2C14E; --sun-soft:#FDF1CF;
   --head:#E7E8EE; --err:#B3261E;
-  --display:&#x27;Fredoka&#x27;,&#x27;Trebuchet MS&#x27;,system-ui,sans-serif;
-  --body:&#x27;Lexend&#x27;,&#x27;Segoe UI&#x27;,system-ui,sans-serif;
-  --mono:&#x27;Lexend&#x27;,&#x27;Segoe UI&#x27;,system-ui,sans-serif;
+  --display:'Fredoka','Trebuchet MS',system-ui,sans-serif;
+  --body:'Lexend','Segoe UI',system-ui,sans-serif;
+  --mono:'Lexend','Segoe UI',system-ui,sans-serif;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -106,7 +73,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--aid);outline-of
 .arrow:hover svg path{fill:#25697A}
 .arrow:disabled{opacity:.35;cursor:not-allowed}
 .figtab{position:relative;min-width:140px;text-align:center;background:var(--pre);color:var(--white);border:1.5px solid var(--ink);border-radius:8px;padding:4px 16px;font:700 16px var(--display);box-shadow:0 3px 0 var(--ink)}
-.figtab::before,.figtab::after{content:&quot;&quot;;position:absolute;top:-9px;width:9px;height:13px;background:var(--white);border:1.5px solid var(--ink);border-radius:5px}
+.figtab::before,.figtab::after{content:"";position:absolute;top:-9px;width:9px;height:13px;background:var(--white);border:1.5px solid var(--ink);border-radius:5px}
 .figtab::before{left:14px}.figtab::after{right:14px}
 .canvasWrap{position:relative;background:var(--panel);display:flex;align-items:center;justify-content:center;overflow:hidden;aspect-ratio:1/1;max-width:100%}
 canvas{display:block;flex:none;max-width:100%;max-height:100%;background:var(--panel)}
@@ -136,7 +103,7 @@ input[type=text],input[type=number]{font:14px var(--body);color:var(--ink);backg
 .controls{padding:12px;display:flex;flex-direction:column;gap:11px;min-width:0}
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:none}
 .tabs button{font:600 13.5px var(--display);color:var(--ink);background:var(--white);border:1.5px solid var(--ink);border-radius:9px;padding:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 3px 0 var(--ink)}
-.tabs button[aria-selected=&quot;true&quot;]{background:var(--ink);color:var(--white)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--white)}
 .pill{font:600 9.5px var(--body);letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:999px;background:var(--img);color:var(--white);border:1px solid var(--ink)}
 .stepblock{display:flex;flex-direction:column;gap:7px;flex:none}
 h2{margin:0;font-family:var(--display);font-weight:700;font-size:16.5px;display:flex;align-items:center;gap:7px;line-height:1.2}
@@ -146,18 +113,18 @@ h2 .n{width:22px;height:22px;border-radius:50%;background:var(--img);color:var(-
 .type svg{width:24px;height:24px;stroke:var(--aid);fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;margin-bottom:1px}
 .type small{font:400 10.5px var(--body);color:var(--muted)}
 .type:hover{background:var(--pre-soft)}
-.type[aria-pressed=&quot;true&quot;]{background:var(--pre);color:var(--white)}
-.type[aria-pressed=&quot;true&quot;] svg{stroke:var(--white)}
-.type[aria-pressed=&quot;true&quot;] small{color:var(--pre-soft)}
+.type[aria-pressed="true"]{background:var(--pre);color:var(--white)}
+.type[aria-pressed="true"] svg{stroke:var(--white)}
+.type[aria-pressed="true"] small{color:var(--pre-soft)}
 .type:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
 .det{display:flex;flex-direction:column;gap:7px}
 .lrow{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.lrow &gt; .sub{min-width:62px}
+.lrow > .sub{min-width:62px}
 .sub{margin:0;font:600 12.5px var(--display);color:var(--muted)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .chip{border:1.5px solid var(--ink);background:var(--white);color:var(--ink);font:600 13px var(--display);padding:4px 10px;border-radius:999px;cursor:pointer;line-height:1.2}
 .chip:hover{background:var(--pre-soft)}
-.chip[aria-pressed=&quot;true&quot;]{background:var(--pre);color:var(--white)}
+.chip[aria-pressed="true"]{background:var(--pre);color:var(--white)}
 .chips.small .chip{font-size:12.5px;padding:3px 9px}
 .custom{display:inline-flex;align-items:center;gap:3px;font-weight:600}
 .custom input{width:70px;border-radius:999px;padding:4px 10px}
@@ -202,8 +169,8 @@ h2 .n{width:22px;height:22px;border-radius:50%;background:var(--img);color:var(-
 .modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
 .mode{border:1.5px solid var(--ink);background:var(--white);color:var(--ink);border-radius:10px;padding:5px 3px;cursor:pointer;font:600 12.5px var(--display);box-shadow:0 3px 0 var(--ink);display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.15;text-align:center}
 .mode svg{width:20px;height:20px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.mode[aria-pressed=&quot;true&quot;]{background:var(--ink);color:var(--white)}
-.mode[aria-pressed=&quot;true&quot;] svg{stroke:var(--sun)}
+.mode[aria-pressed="true"]{background:var(--ink);color:var(--white)}
+.mode[aria-pressed="true"] svg{stroke:var(--sun)}
 .mode:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
 .msg{background:var(--white);border:1.5px solid var(--ink);border-radius:10px;padding:7px 10px;min-height:52px;font-size:12.5px;display:flex;flex-direction:column;gap:2px}
 .msg b{font:700 14.5px var(--display)}
@@ -238,221 +205,221 @@ td .vl{font-weight:600;display:inline-block;min-width:2.8em}
 .speed{display:flex;align-items:center;gap:7px;font:600 12.5px var(--display);padding:0 4px}
 .speed input{flex:1;min-width:0;accent-color:var(--img)}
 @media (prefers-reduced-motion:reduce){.btn,.run,.type{transition:none}.prompt,.stat.bump{animation:none}.btn:active:not(:disabled),.run:active:not(:disabled),.type:active,.mode:active{transform:none}}
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div class=&quot;app&quot;&gt;
-  &lt;header class=&quot;top&quot;&gt;
-    &lt;svg class=&quot;logo&quot; viewBox=&quot;0 0 34 34&quot; aria-hidden=&quot;true&quot;&gt;
-      &lt;path d=&quot;M5 27 L13 9 L21 27 Z&quot; fill=&quot;#E1E4F5&quot; stroke=&quot;#5B6BBF&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;3 2.5&quot; stroke-linejoin=&quot;round&quot;/&gt;
-      &lt;path d=&quot;M14 29 L22 11 L30 29 Z&quot; fill=&quot;#E8775A&quot; stroke=&quot;#2B2D42&quot; stroke-width=&quot;2.2&quot; stroke-linejoin=&quot;round&quot;/&gt;
-      &lt;circle cx=&quot;22&quot; cy=&quot;11&quot; r=&quot;2.6&quot; fill=&quot;#fff&quot; stroke=&quot;#2B2D42&quot; stroke-width=&quot;1.6&quot;/&gt;
-      &lt;circle cx=&quot;14&quot; cy=&quot;29&quot; r=&quot;2.6&quot; fill=&quot;#fff&quot; stroke=&quot;#2B2D42&quot; stroke-width=&quot;1.6&quot;/&gt;
-      &lt;circle cx=&quot;30&quot; cy=&quot;29&quot; r=&quot;2.6&quot; fill=&quot;#fff&quot; stroke=&quot;#2B2D42&quot; stroke-width=&quot;1.6&quot;/&gt;
-    &lt;/svg&gt;
-    &lt;h1&gt;Transformation Lab&lt;/h1&gt;
-    &lt;p class=&quot;lede&quot;&gt;Pick a move, set the details, and press Run. Then test yourself: predict where A′ lands, or hit the target.&lt;/p&gt;
-  &lt;/header&gt;
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <svg class="logo" viewBox="0 0 34 34" aria-hidden="true">
+      <path d="M5 27 L13 9 L21 27 Z" fill="#E1E4F5" stroke="#5B6BBF" stroke-width="2" stroke-dasharray="3 2.5" stroke-linejoin="round"/>
+      <path d="M14 29 L22 11 L30 29 Z" fill="#E8775A" stroke="#2B2D42" stroke-width="2.2" stroke-linejoin="round"/>
+      <circle cx="22" cy="11" r="2.6" fill="#fff" stroke="#2B2D42" stroke-width="1.6"/>
+      <circle cx="14" cy="29" r="2.6" fill="#fff" stroke="#2B2D42" stroke-width="1.6"/>
+      <circle cx="30" cy="29" r="2.6" fill="#fff" stroke="#2B2D42" stroke-width="1.6"/>
+    </svg>
+    <h1>Transformation Lab</h1>
+    <p class="lede">Pick a move, set the details, and press Run. Then test yourself: predict where A′ lands, or hit the target.</p>
+  </header>
 
-  &lt;main class=&quot;layout&quot;&gt;
-    &lt;!-- Board --&gt;
-    &lt;section class=&quot;card board&quot; aria-label=&quot;Coordinate plane&quot;&gt;
-      &lt;div class=&quot;boardhead&quot;&gt;
-        &lt;button class=&quot;arrow&quot; id=&quot;figPrev&quot; aria-label=&quot;Previous shape&quot;&gt;&lt;svg viewBox=&quot;0 0 44 26&quot;&gt;&lt;path d=&quot;M1 13 L15 1 V8 H43 V18 H15 V25 Z&quot; fill=&quot;#2E7D8C&quot; stroke=&quot;#2B2D42&quot; stroke-width=&quot;1.5&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
-        &lt;div class=&quot;figtab&quot; id=&quot;figName&quot;&gt;Triangle&lt;/div&gt;
-        &lt;button class=&quot;arrow&quot; id=&quot;figNext&quot; aria-label=&quot;Next shape&quot;&gt;&lt;svg viewBox=&quot;0 0 44 26&quot;&gt;&lt;path d=&quot;M43 13 L29 1 V8 H1 V18 H29 V25 Z&quot; fill=&quot;#2E7D8C&quot; stroke=&quot;#2B2D42&quot; stroke-width=&quot;1.5&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
-      &lt;/div&gt;
-      &lt;div id=&quot;presets&quot; hidden&gt;
-        &lt;button class=&quot;chip&quot; data-shape=&quot;triangle&quot; aria-pressed=&quot;true&quot;&gt;Triangle&lt;/button&gt;
-        &lt;button class=&quot;chip&quot; data-shape=&quot;rectangle&quot; aria-pressed=&quot;false&quot;&gt;Rectangle&lt;/button&gt;
-        &lt;button class=&quot;chip&quot; data-shape=&quot;trapezoid&quot; aria-pressed=&quot;false&quot;&gt;Trapezoid&lt;/button&gt;
-        &lt;button class=&quot;chip&quot; data-shape=&quot;lshape&quot; aria-pressed=&quot;false&quot;&gt;L-shape&lt;/button&gt;
-        &lt;button class=&quot;chip&quot; data-shape=&quot;pentagon&quot; aria-pressed=&quot;false&quot;&gt;Pentagon&lt;/button&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;canvasWrap&quot; id=&quot;canvasWrap&quot;&gt;
-        &lt;canvas id=&quot;cv&quot; role=&quot;img&quot; aria-label=&quot;Coordinate plane showing the figure and its image&quot;&gt;&lt;/canvas&gt;
-        &lt;div id=&quot;now&quot; class=&quot;now&quot; hidden&gt;&lt;/div&gt;
-        &lt;p class=&quot;draghint&quot; id=&quot;dragHint&quot;&gt;Drag any dot to change your shape.&lt;/p&gt;
-        &lt;div id=&quot;prompt&quot; class=&quot;prompt&quot; hidden&gt;&lt;/div&gt;
-        &lt;div id=&quot;vertsBox&quot; class=&quot;vertsBox&quot; hidden&gt;
-          &lt;div class=&quot;vertsRow&quot;&gt;
-            &lt;label for=&quot;verts&quot;&gt;Points&lt;/label&gt;
-            &lt;input id=&quot;verts&quot; type=&quot;text&quot; spellcheck=&quot;false&quot; autocomplete=&quot;off&quot;&gt;
-            &lt;button id=&quot;plot&quot; class=&quot;btn sm primary&quot;&gt;Plot&lt;/button&gt;
-            &lt;button id=&quot;vertsClose&quot; class=&quot;btn sm&quot; aria-label=&quot;Close&quot;&gt;✕&lt;/button&gt;
-          &lt;/div&gt;
-          &lt;p id=&quot;vertsErr&quot; class=&quot;err&quot; hidden&gt;&lt;/p&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;boardfoot&quot;&gt;
-        &lt;div class=&quot;legend&quot;&gt;&lt;span&gt;&lt;i class=&quot;sw pre&quot;&gt;&lt;/i&gt;Pre-image&lt;/span&gt;&lt;span&gt;&lt;i class=&quot;sw img&quot;&gt;&lt;/i&gt;Image&lt;/span&gt;&lt;span id=&quot;lgTarget&quot; hidden&gt;&lt;i class=&quot;sw tgt&quot;&gt;&lt;/i&gt;Target&lt;/span&gt;&lt;/div&gt;
-        &lt;div class=&quot;footbtns&quot;&gt;
-          &lt;button id=&quot;reset&quot; class=&quot;btn sm&quot;&gt;Reset&lt;/button&gt;
-          &lt;button id=&quot;vertsToggle&quot; class=&quot;btn sm&quot; aria-expanded=&quot;false&quot;&gt;Type points&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/section&gt;
+  <main class="layout">
+    <!-- Board -->
+    <section class="card board" aria-label="Coordinate plane">
+      <div class="boardhead">
+        <button class="arrow" id="figPrev" aria-label="Previous shape"><svg viewBox="0 0 44 26"><path d="M1 13 L15 1 V8 H43 V18 H15 V25 Z" fill="#2E7D8C" stroke="#2B2D42" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+        <div class="figtab" id="figName">Triangle</div>
+        <button class="arrow" id="figNext" aria-label="Next shape"><svg viewBox="0 0 44 26"><path d="M43 13 L29 1 V8 H1 V18 H29 V25 Z" fill="#2E7D8C" stroke="#2B2D42" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div id="presets" hidden>
+        <button class="chip" data-shape="triangle" aria-pressed="true">Triangle</button>
+        <button class="chip" data-shape="rectangle" aria-pressed="false">Rectangle</button>
+        <button class="chip" data-shape="trapezoid" aria-pressed="false">Trapezoid</button>
+        <button class="chip" data-shape="lshape" aria-pressed="false">L-shape</button>
+        <button class="chip" data-shape="pentagon" aria-pressed="false">Pentagon</button>
+      </div>
+      <div class="canvasWrap" id="canvasWrap">
+        <canvas id="cv" role="img" aria-label="Coordinate plane showing the figure and its image"></canvas>
+        <div id="now" class="now" hidden></div>
+        <p class="draghint" id="dragHint">Drag any dot to change your shape.</p>
+        <div id="prompt" class="prompt" hidden></div>
+        <div id="vertsBox" class="vertsBox" hidden>
+          <div class="vertsRow">
+            <label for="verts">Points</label>
+            <input id="verts" type="text" spellcheck="false" autocomplete="off">
+            <button id="plot" class="btn sm primary">Plot</button>
+            <button id="vertsClose" class="btn sm" aria-label="Close">✕</button>
+          </div>
+          <p id="vertsErr" class="err" hidden></p>
+        </div>
+      </div>
+      <div class="boardfoot">
+        <div class="legend"><span><i class="sw pre"></i>Pre-image</span><span><i class="sw img"></i>Image</span><span id="lgTarget" hidden><i class="sw tgt"></i>Target</span></div>
+        <div class="footbtns">
+          <button id="reset" class="btn sm">Reset</button>
+          <button id="vertsToggle" class="btn sm" aria-expanded="false">Type points</button>
+        </div>
+      </div>
+    </section>
 
-    &lt;!-- Controls --&gt;
-    &lt;div class=&quot;col&quot;&gt;
-      &lt;section class=&quot;card controls panel&quot; aria-label=&quot;Transformation controls&quot;&gt;
-        &lt;div class=&quot;tabs&quot; role=&quot;tablist&quot;&gt;
-          &lt;button role=&quot;tab&quot; id=&quot;tab-single&quot; aria-selected=&quot;true&quot;&gt;One move&lt;/button&gt;
-          &lt;button role=&quot;tab&quot; id=&quot;tab-series&quot; aria-selected=&quot;false&quot;&gt;Series &lt;span class=&quot;pill&quot;&gt;Advanced&lt;/span&gt;&lt;/button&gt;
-        &lt;/div&gt;
+    <!-- Controls -->
+    <div class="col">
+      <section class="card controls panel" aria-label="Transformation controls">
+        <div class="tabs" role="tablist">
+          <button role="tab" id="tab-single" aria-selected="true">One move</button>
+          <button role="tab" id="tab-series" aria-selected="false">Series <span class="pill">Advanced</span></button>
+        </div>
 
-        &lt;div class=&quot;stepblock&quot;&gt;
-          &lt;h2&gt;&lt;span class=&quot;n&quot;&gt;1&lt;/span&gt;Choose a move&lt;/h2&gt;
-          &lt;div class=&quot;types&quot; id=&quot;types&quot;&gt;
-            &lt;button class=&quot;type&quot; data-type=&quot;translate&quot; aria-pressed=&quot;false&quot;&gt;
-              &lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M2 18l4-7 4 7z&quot;/&gt;&lt;path d=&quot;M12 11h9m-3-3 3 3-3 3&quot;/&gt;&lt;/svg&gt;Translate&lt;small&gt;slide&lt;/small&gt;&lt;/button&gt;
-            &lt;button class=&quot;type&quot; data-type=&quot;reflect&quot; aria-pressed=&quot;false&quot;&gt;
-              &lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 2v20&quot; stroke-dasharray=&quot;2 2.5&quot;/&gt;&lt;path d=&quot;M3 17l6-9v9z&quot;/&gt;&lt;path d=&quot;M21 17l-6-9v9z&quot;/&gt;&lt;/svg&gt;Reflect&lt;small&gt;flip&lt;/small&gt;&lt;/button&gt;
-            &lt;button class=&quot;type&quot; data-type=&quot;rotate&quot; aria-pressed=&quot;true&quot;&gt;
-              &lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M19.5 13A7.5 7.5 0 1 1 16 6.3&quot;/&gt;&lt;path d=&quot;M17.5 2.5 16.4 6.6l-4-1&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;13&quot; r=&quot;1.2&quot;/&gt;&lt;/svg&gt;Rotate&lt;small&gt;turn&lt;/small&gt;&lt;/button&gt;
-            &lt;button class=&quot;type&quot; data-type=&quot;dilate&quot; aria-pressed=&quot;false&quot;&gt;
-              &lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M3 21l4-6 3 6z&quot;/&gt;&lt;path d=&quot;M3 21l10-15 8 15z&quot; opacity=&quot;.6&quot;/&gt;&lt;/svg&gt;Dilate&lt;small&gt;resize&lt;/small&gt;&lt;/button&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
+        <div class="stepblock">
+          <h2><span class="n">1</span>Choose a move</h2>
+          <div class="types" id="types">
+            <button class="type" data-type="translate" aria-pressed="false">
+              <svg viewBox="0 0 24 24"><path d="M2 18l4-7 4 7z"/><path d="M12 11h9m-3-3 3 3-3 3"/></svg>Translate<small>slide</small></button>
+            <button class="type" data-type="reflect" aria-pressed="false">
+              <svg viewBox="0 0 24 24"><path d="M12 2v20" stroke-dasharray="2 2.5"/><path d="M3 17l6-9v9z"/><path d="M21 17l-6-9v9z"/></svg>Reflect<small>flip</small></button>
+            <button class="type" data-type="rotate" aria-pressed="true">
+              <svg viewBox="0 0 24 24"><path d="M19.5 13A7.5 7.5 0 1 1 16 6.3"/><path d="M17.5 2.5 16.4 6.6l-4-1"/><circle cx="12" cy="13" r="1.2"/></svg>Rotate<small>turn</small></button>
+            <button class="type" data-type="dilate" aria-pressed="false">
+              <svg viewBox="0 0 24 24"><path d="M3 21l4-6 3 6z"/><path d="M3 21l10-15 8 15z" opacity=".6"/></svg>Dilate<small>resize</small></button>
+          </div>
+        </div>
 
-        &lt;div class=&quot;stepblock&quot;&gt;
-          &lt;h2&gt;&lt;span class=&quot;n&quot;&gt;2&lt;/span&gt;Set the details&lt;/h2&gt;
+        <div class="stepblock">
+          <h2><span class="n">2</span>Set the details</h2>
 
-          &lt;div id=&quot;det-translate&quot; class=&quot;det&quot; hidden&gt;
-            &lt;div class=&quot;fields&quot;&gt;
-              &lt;label class=&quot;field&quot;&gt;Slide left or right&lt;input id=&quot;tx&quot; type=&quot;number&quot; step=&quot;1&quot; value=&quot;3&quot;&gt;&lt;small&gt;+ right, − left&lt;/small&gt;&lt;/label&gt;
-              &lt;label class=&quot;field&quot;&gt;Slide up or down&lt;input id=&quot;ty&quot; type=&quot;number&quot; step=&quot;1&quot; value=&quot;-2&quot;&gt;&lt;small&gt;+ up, − down&lt;/small&gt;&lt;/label&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
+          <div id="det-translate" class="det" hidden>
+            <div class="fields">
+              <label class="field">Slide left or right<input id="tx" type="number" step="1" value="3"><small>+ right, − left</small></label>
+              <label class="field">Slide up or down<input id="ty" type="number" step="1" value="-2"><small>+ up, − down</small></label>
+            </div>
+          </div>
 
-          &lt;div id=&quot;det-reflect&quot; class=&quot;det&quot; hidden&gt;
-            &lt;div class=&quot;chips&quot; data-group=&quot;refl&quot;&gt;
-              &lt;button class=&quot;chip&quot; data-val=&quot;x&quot; aria-pressed=&quot;true&quot;&gt;Over the x-axis&lt;/button&gt;
-              &lt;button class=&quot;chip&quot; data-val=&quot;y&quot; aria-pressed=&quot;false&quot;&gt;Over the y-axis&lt;/button&gt;
-              &lt;button class=&quot;chip&quot; data-val=&quot;yx&quot; aria-pressed=&quot;false&quot;&gt;y = x&lt;/button&gt;
-              &lt;button class=&quot;chip&quot; data-val=&quot;ynx&quot; aria-pressed=&quot;false&quot;&gt;y = −x&lt;/button&gt;
-              &lt;button class=&quot;chip&quot; data-val=&quot;other&quot; aria-pressed=&quot;false&quot;&gt;Other line…&lt;/button&gt;
-            &lt;/div&gt;
-            &lt;div id=&quot;reflOther&quot; class=&quot;other&quot; hidden&gt;
-              &lt;div class=&quot;chips small&quot; data-group=&quot;reflForm&quot;&gt;
-                &lt;button class=&quot;chip&quot; data-val=&quot;vert&quot; aria-pressed=&quot;true&quot;&gt;x = a&lt;/button&gt;
-                &lt;button class=&quot;chip&quot; data-val=&quot;horz&quot; aria-pressed=&quot;false&quot;&gt;y = b&lt;/button&gt;
-                &lt;button class=&quot;chip&quot; data-val=&quot;line&quot; aria-pressed=&quot;false&quot;&gt;y = mx + b&lt;/button&gt;
-              &lt;/div&gt;
-              &lt;div id=&quot;rf-vert&quot; class=&quot;eqrow&quot;&gt;&lt;span&gt;x =&lt;/span&gt;&lt;input id=&quot;rvk&quot; type=&quot;text&quot; inputmode=&quot;decimal&quot; value=&quot;2&quot; aria-label=&quot;x equals&quot;&gt;&lt;/div&gt;
-              &lt;div id=&quot;rf-horz&quot; class=&quot;eqrow&quot; hidden&gt;&lt;span&gt;y =&lt;/span&gt;&lt;input id=&quot;rhk&quot; type=&quot;text&quot; inputmode=&quot;decimal&quot; value=&quot;1&quot; aria-label=&quot;y equals&quot;&gt;&lt;/div&gt;
-              &lt;div id=&quot;rf-line&quot; class=&quot;eqrow&quot; hidden&gt;&lt;span&gt;y =&lt;/span&gt;&lt;input id=&quot;rm&quot; type=&quot;text&quot; inputmode=&quot;decimal&quot; value=&quot;2&quot; aria-label=&quot;slope m&quot;&gt;&lt;span&gt;x +&lt;/span&gt;&lt;input id=&quot;rb&quot; type=&quot;text&quot; inputmode=&quot;decimal&quot; value=&quot;1&quot; aria-label=&quot;y-intercept b&quot;&gt;&lt;/div&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
+          <div id="det-reflect" class="det" hidden>
+            <div class="chips" data-group="refl">
+              <button class="chip" data-val="x" aria-pressed="true">Over the x-axis</button>
+              <button class="chip" data-val="y" aria-pressed="false">Over the y-axis</button>
+              <button class="chip" data-val="yx" aria-pressed="false">y = x</button>
+              <button class="chip" data-val="ynx" aria-pressed="false">y = −x</button>
+              <button class="chip" data-val="other" aria-pressed="false">Other line…</button>
+            </div>
+            <div id="reflOther" class="other" hidden>
+              <div class="chips small" data-group="reflForm">
+                <button class="chip" data-val="vert" aria-pressed="true">x = a</button>
+                <button class="chip" data-val="horz" aria-pressed="false">y = b</button>
+                <button class="chip" data-val="line" aria-pressed="false">y = mx + b</button>
+              </div>
+              <div id="rf-vert" class="eqrow"><span>x =</span><input id="rvk" type="text" inputmode="decimal" value="2" aria-label="x equals"></div>
+              <div id="rf-horz" class="eqrow" hidden><span>y =</span><input id="rhk" type="text" inputmode="decimal" value="1" aria-label="y equals"></div>
+              <div id="rf-line" class="eqrow" hidden><span>y =</span><input id="rm" type="text" inputmode="decimal" value="2" aria-label="slope m"><span>x +</span><input id="rb" type="text" inputmode="decimal" value="1" aria-label="y-intercept b"></div>
+            </div>
+          </div>
 
-          &lt;div id=&quot;det-rotate&quot; class=&quot;det&quot;&gt;
-            &lt;div class=&quot;lrow&quot;&gt;&lt;span class=&quot;sub&quot;&gt;Direction&lt;/span&gt;
-              &lt;div class=&quot;chips&quot; data-group=&quot;rotDir&quot;&gt;
-                &lt;button class=&quot;chip&quot; data-val=&quot;ccw&quot; aria-pressed=&quot;true&quot;&gt;↺ Counterclockwise&lt;/button&gt;
-                &lt;button class=&quot;chip&quot; data-val=&quot;cw&quot; aria-pressed=&quot;false&quot;&gt;↻ Clockwise&lt;/button&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;lrow&quot;&gt;&lt;span class=&quot;sub&quot;&gt;Angle&lt;/span&gt;
-              &lt;div class=&quot;chips&quot; data-group=&quot;rotDeg&quot; data-custom=&quot;rotCustom&quot;&gt;
-                &lt;button class=&quot;chip&quot; data-val=&quot;90&quot; aria-pressed=&quot;true&quot;&gt;90°&lt;/button&gt;
-                &lt;button class=&quot;chip&quot; data-val=&quot;180&quot; aria-pressed=&quot;false&quot;&gt;180°&lt;/button&gt;
-                &lt;button class=&quot;chip&quot; data-val=&quot;270&quot; aria-pressed=&quot;false&quot;&gt;270°&lt;/button&gt;
-                &lt;span class=&quot;custom&quot;&gt;&lt;input id=&quot;rotCustom&quot; type=&quot;text&quot; inputmode=&quot;decimal&quot; placeholder=&quot;other&quot; aria-label=&quot;Other angle in degrees&quot;&gt;&lt;span&gt;°&lt;/span&gt;&lt;/span&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;p class=&quot;centerline&quot;&gt;Turn around: &lt;b id=&quot;rotCenterTxt&quot;&gt;the origin (0, 0)&lt;/b&gt; &lt;button class=&quot;link&quot; id=&quot;rotCenterBtn&quot;&gt;Change&lt;/button&gt;&lt;/p&gt;
-            &lt;div id=&quot;rotCenterFields&quot; class=&quot;eqrow&quot; hidden&gt;&lt;span&gt;(&lt;/span&gt;&lt;input id=&quot;rcx&quot; type=&quot;text&quot; inputmode=&quot;decimal&quot; value=&quot;0&quot; aria-label=&quot;Center x&quot;&gt;&lt;span&gt;,&lt;/span&gt;&lt;input id=&quot;rcy&quot; type=&quot;text&quot; inputmode=&quot;decimal&quot; value=&quot;0&quot; aria-label=&quot;Center y&quot;&gt;&lt;span&gt;)&lt;/span&gt;&lt;button class=&quot;link&quot; id=&quot;rotCenterReset&quot;&gt;Use origin&lt;/button&gt;&lt;/div&gt;
-          &lt;/div&gt;
+          <div id="det-rotate" class="det">
+            <div class="lrow"><span class="sub">Direction</span>
+              <div class="chips" data-group="rotDir">
+                <button class="chip" data-val="ccw" aria-pressed="true">↺ Counterclockwise</button>
+                <button class="chip" data-val="cw" aria-pressed="false">↻ Clockwise</button>
+              </div>
+            </div>
+            <div class="lrow"><span class="sub">Angle</span>
+              <div class="chips" data-group="rotDeg" data-custom="rotCustom">
+                <button class="chip" data-val="90" aria-pressed="true">90°</button>
+                <button class="chip" data-val="180" aria-pressed="false">180°</button>
+                <button class="chip" data-val="270" aria-pressed="false">270°</button>
+                <span class="custom"><input id="rotCustom" type="text" inputmode="decimal" placeholder="other" aria-label="Other angle in degrees"><span>°</span></span>
+              </div>
+            </div>
+            <p class="centerline">Turn around: <b id="rotCenterTxt">the origin (0, 0)</b> <button class="link" id="rotCenterBtn">Change</button></p>
+            <div id="rotCenterFields" class="eqrow" hidden><span>(</span><input id="rcx" type="text" inputmode="decimal" value="0" aria-label="Center x"><span>,</span><input id="rcy" type="text" inputmode="decimal" value="0" aria-label="Center y"><span>)</span><button class="link" id="rotCenterReset">Use origin</button></div>
+          </div>
 
-          &lt;div id=&quot;det-dilate&quot; class=&quot;det&quot; hidden&gt;
-            &lt;div class=&quot;lrow&quot;&gt;&lt;span class=&quot;sub&quot;&gt;Scale factor&lt;/span&gt;
-              &lt;div class=&quot;chips&quot; data-group=&quot;dilK&quot; data-custom=&quot;dilCustom&quot;&gt;
-                &lt;button class=&quot;chip&quot; data-val=&quot;0.5&quot; aria-pressed=&quot;false&quot;&gt;½&lt;/button&gt;
-                &lt;button class=&quot;chip&quot; data-val=&quot;2&quot; aria-pressed=&quot;true&quot;&gt;2&lt;/button&gt;
-                &lt;button class=&quot;chip&quot; data-val=&quot;3&quot; aria-pressed=&quot;false&quot;&gt;3&lt;/button&gt;
-                &lt;span class=&quot;custom&quot;&gt;&lt;input id=&quot;dilCustom&quot; type=&quot;text&quot; inputmode=&quot;decimal&quot; placeholder=&quot;other&quot; aria-label=&quot;Other scale factor&quot;&gt;&lt;/span&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;p class=&quot;note&quot;&gt;Bigger than 1 makes it larger. Between 0 and 1 makes it smaller. Fractions like 1/3 work.&lt;/p&gt;
-            &lt;p class=&quot;centerline&quot;&gt;Center: &lt;b id=&quot;dilCenterTxt&quot;&gt;the origin (0, 0)&lt;/b&gt; &lt;button class=&quot;link&quot; id=&quot;dilCenterBtn&quot;&gt;Change&lt;/button&gt;&lt;/p&gt;
-            &lt;div id=&quot;dilCenterFields&quot; class=&quot;eqrow&quot; hidden&gt;&lt;span&gt;(&lt;/span&gt;&lt;input id=&quot;dcx&quot; type=&quot;text&quot; inputmode=&quot;decimal&quot; value=&quot;0&quot; aria-label=&quot;Center x&quot;&gt;&lt;span&gt;,&lt;/span&gt;&lt;input id=&quot;dcy&quot; type=&quot;text&quot; inputmode=&quot;decimal&quot; value=&quot;0&quot; aria-label=&quot;Center y&quot;&gt;&lt;span&gt;)&lt;/span&gt;&lt;button class=&quot;link&quot; id=&quot;dilCenterReset&quot;&gt;Use origin&lt;/button&gt;&lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
+          <div id="det-dilate" class="det" hidden>
+            <div class="lrow"><span class="sub">Scale factor</span>
+              <div class="chips" data-group="dilK" data-custom="dilCustom">
+                <button class="chip" data-val="0.5" aria-pressed="false">½</button>
+                <button class="chip" data-val="2" aria-pressed="true">2</button>
+                <button class="chip" data-val="3" aria-pressed="false">3</button>
+                <span class="custom"><input id="dilCustom" type="text" inputmode="decimal" placeholder="other" aria-label="Other scale factor"></span>
+              </div>
+            </div>
+            <p class="note">Bigger than 1 makes it larger. Between 0 and 1 makes it smaller. Fractions like 1/3 work.</p>
+            <p class="centerline">Center: <b id="dilCenterTxt">the origin (0, 0)</b> <button class="link" id="dilCenterBtn">Change</button></p>
+            <div id="dilCenterFields" class="eqrow" hidden><span>(</span><input id="dcx" type="text" inputmode="decimal" value="0" aria-label="Center x"><span>,</span><input id="dcy" type="text" inputmode="decimal" value="0" aria-label="Center y"><span>)</span><button class="link" id="dilCenterReset">Use origin</button></div>
+          </div>
+        </div>
 
-        &lt;div id=&quot;preview&quot; class=&quot;preview&quot; aria-live=&quot;polite&quot;&gt;&lt;span class=&quot;d&quot;&gt;&lt;/span&gt;&lt;code&gt;&lt;/code&gt;&lt;/div&gt;
+        <div id="preview" class="preview" aria-live="polite"><span class="d"></span><code></code></div>
 
-        &lt;div class=&quot;stepblock grow&quot;&gt;
-          &lt;h2&gt;&lt;span class=&quot;n&quot;&gt;3&lt;/span&gt;&lt;span id=&quot;step3&quot;&gt;Run it&lt;/span&gt;&lt;/h2&gt;
-          &lt;div id=&quot;singleCtl&quot; class=&quot;ctl&quot;&gt;
-            &lt;button id=&quot;run&quot; class=&quot;run&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot;&gt;&lt;path d=&quot;M4 2.5v11l9-5.5z&quot;/&gt;&lt;/svg&gt;&lt;span&gt;Run&lt;/span&gt;&lt;/button&gt;
-          &lt;/div&gt;
-          &lt;div id=&quot;seriesCtl&quot; class=&quot;ctl&quot; hidden style=&quot;flex:1 1 auto&quot;&gt;
-            &lt;div class=&quot;seriesbar&quot;&gt;
-              &lt;button id=&quot;addStep&quot; class=&quot;btn sm primary&quot;&gt;+ Add as a step&lt;/button&gt;
-              &lt;button id=&quot;reverse&quot; class=&quot;btn sm&quot;&gt;Reverse&lt;/button&gt;
-              &lt;button id=&quot;clearSeries&quot; class=&quot;btn sm&quot;&gt;Clear&lt;/button&gt;
-              &lt;span id=&quot;exTag&quot; class=&quot;pill&quot;&gt;Example&lt;/span&gt;
-            &lt;/div&gt;
-            &lt;ol id=&quot;seriesList&quot; class=&quot;slist&quot;&gt;&lt;/ol&gt;
-            &lt;p id=&quot;seriesEmpty&quot; class=&quot;note&quot; hidden&gt;No steps yet. Set up a move above, then add it as a step.&lt;/p&gt;
-            &lt;button id=&quot;runSeries&quot; class=&quot;run&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot;&gt;&lt;path d=&quot;M4 2.5v11l9-5.5z&quot;/&gt;&lt;/svg&gt;&lt;span&gt;Run series&lt;/span&gt;&lt;/button&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/section&gt;
-    &lt;/div&gt;
+        <div class="stepblock grow">
+          <h2><span class="n">3</span><span id="step3">Run it</span></h2>
+          <div id="singleCtl" class="ctl">
+            <button id="run" class="run"><svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg><span>Run</span></button>
+          </div>
+          <div id="seriesCtl" class="ctl" hidden style="flex:1 1 auto">
+            <div class="seriesbar">
+              <button id="addStep" class="btn sm primary">+ Add as a step</button>
+              <button id="reverse" class="btn sm">Reverse</button>
+              <button id="clearSeries" class="btn sm">Clear</button>
+              <span id="exTag" class="pill">Example</span>
+            </div>
+            <ol id="seriesList" class="slist"></ol>
+            <p id="seriesEmpty" class="note" hidden>No steps yet. Set up a move above, then add it as a step.</p>
+            <button id="runSeries" class="run"><svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg><span>Run series</span></button>
+          </div>
+        </div>
+      </section>
+    </div>
 
-    &lt;!-- Play, coordinates, settings --&gt;
-    &lt;div class=&quot;col col3&quot;&gt;
-      &lt;section class=&quot;card play&quot; aria-label=&quot;Play&quot;&gt;
-        &lt;div class=&quot;playhead&quot;&gt;
-          &lt;h2&gt;Play&lt;/h2&gt;
-          &lt;div class=&quot;stats&quot;&gt;
-            &lt;span class=&quot;stat&quot; id=&quot;stStreak&quot; title=&quot;Correct in a row&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot;&gt;&lt;path d=&quot;M8 1.5c.5 2.6 3.8 4 3.8 7.6A3.8 3.8 0 0 1 4.2 9.1c0-1.6.8-2.6 1.6-3.3.1 1.3.7 2 1.4 2.3C6.9 5.7 7.4 3.4 8 1.5z&quot; fill=&quot;#E8775A&quot; stroke=&quot;#2B2D42&quot; stroke-width=&quot;1.1&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;
-            &lt;span class=&quot;stat&quot; id=&quot;stBest&quot; title=&quot;Best streak&quot;&gt;Best &lt;span&gt;0&lt;/span&gt;&lt;/span&gt;
-            &lt;span class=&quot;stat&quot; id=&quot;stScore&quot; title=&quot;Correct out of tries&quot;&gt;&lt;span&gt;0 / 0&lt;/span&gt;&lt;/span&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;modes&quot; id=&quot;modes&quot;&gt;
-          &lt;button class=&quot;mode&quot; data-mode=&quot;explore&quot; aria-pressed=&quot;true&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/&gt;&lt;path d=&quot;m15.5 8.5-2 5-5 2 2-5z&quot;/&gt;&lt;/svg&gt;Explore&lt;/button&gt;
-          &lt;button class=&quot;mode&quot; data-mode=&quot;predict&quot; aria-pressed=&quot;false&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;8&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3.5&quot;/&gt;&lt;path d=&quot;M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4&quot;/&gt;&lt;/svg&gt;Predict A′&lt;/button&gt;
-          &lt;button class=&quot;mode&quot; data-mode=&quot;target&quot; aria-pressed=&quot;false&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M4 19 9 6l5 13z&quot; stroke-dasharray=&quot;3 2.5&quot;/&gt;&lt;path d=&quot;m14 12 6 0m-2.5-2.5L20 12l-2.5 2.5&quot;/&gt;&lt;/svg&gt;Hit the target&lt;/button&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;msg&quot; id=&quot;msg&quot; aria-live=&quot;polite&quot;&gt;&lt;b&gt;Watch the demo&lt;/b&gt;&lt;span&gt;The triangle turns 90° around the origin. Then it&#x27;s your turn.&lt;/span&gt;&lt;/div&gt;
-        &lt;div class=&quot;playrow&quot; id=&quot;targetRow&quot; hidden&gt;
-          &lt;div class=&quot;chips small&quot; id=&quot;levels&quot;&gt;
-            &lt;button class=&quot;chip&quot; data-level=&quot;1&quot; aria-pressed=&quot;true&quot;&gt;1 move&lt;/button&gt;
-            &lt;button class=&quot;chip&quot; data-level=&quot;2&quot; aria-pressed=&quot;false&quot;&gt;2 moves&lt;/button&gt;
-          &lt;/div&gt;
-          &lt;span class=&quot;spacer&quot;&gt;&lt;/span&gt;
-          &lt;button class=&quot;btn sm&quot; id=&quot;hintBtn&quot;&gt;Hint&lt;/button&gt;
-          &lt;button class=&quot;btn sm primary&quot; id=&quot;newTarget&quot;&gt;New target&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/section&gt;
+    <!-- Play, coordinates, settings -->
+    <div class="col col3">
+      <section class="card play" aria-label="Play">
+        <div class="playhead">
+          <h2>Play</h2>
+          <div class="stats">
+            <span class="stat" id="stStreak" title="Correct in a row"><svg viewBox="0 0 16 16"><path d="M8 1.5c.5 2.6 3.8 4 3.8 7.6A3.8 3.8 0 0 1 4.2 9.1c0-1.6.8-2.6 1.6-3.3.1 1.3.7 2 1.4 2.3C6.9 5.7 7.4 3.4 8 1.5z" fill="#E8775A" stroke="#2B2D42" stroke-width="1.1" stroke-linejoin="round"/></svg><span>0</span></span>
+            <span class="stat" id="stBest" title="Best streak">Best <span>0</span></span>
+            <span class="stat" id="stScore" title="Correct out of tries"><span>0 / 0</span></span>
+          </div>
+        </div>
+        <div class="modes" id="modes">
+          <button class="mode" data-mode="explore" aria-pressed="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Explore</button>
+          <button class="mode" data-mode="predict" aria-pressed="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/><path d="M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4"/></svg>Predict A′</button>
+          <button class="mode" data-mode="target" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 19 9 6l5 13z" stroke-dasharray="3 2.5"/><path d="m14 12 6 0m-2.5-2.5L20 12l-2.5 2.5"/></svg>Hit the target</button>
+        </div>
+        <div class="msg" id="msg" aria-live="polite"><b>Watch the demo</b><span>The triangle turns 90° around the origin. Then it's your turn.</span></div>
+        <div class="playrow" id="targetRow" hidden>
+          <div class="chips small" id="levels">
+            <button class="chip" data-level="1" aria-pressed="true">1 move</button>
+            <button class="chip" data-level="2" aria-pressed="false">2 moves</button>
+          </div>
+          <span class="spacer"></span>
+          <button class="btn sm" id="hintBtn">Hint</button>
+          <button class="btn sm primary" id="newTarget">New target</button>
+        </div>
+      </section>
 
-      &lt;section class=&quot;card data&quot; aria-label=&quot;Coordinates&quot;&gt;
-        &lt;h2&gt;Coordinates&lt;/h2&gt;
-        &lt;div class=&quot;datascroll&quot;&gt;
-          &lt;div class=&quot;tablewrap&quot;&gt;&lt;table id=&quot;coords&quot;&gt;&lt;/table&gt;&lt;/div&gt;
-          &lt;ol id=&quot;log&quot; class=&quot;log&quot; hidden&gt;&lt;/ol&gt;
-        &lt;/div&gt;
-      &lt;/section&gt;
+      <section class="card data" aria-label="Coordinates">
+        <h2>Coordinates</h2>
+        <div class="datascroll">
+          <div class="tablewrap"><table id="coords"></table></div>
+          <ol id="log" class="log" hidden></ol>
+        </div>
+      </section>
 
-      &lt;section class=&quot;card settings&quot; aria-label=&quot;Display settings&quot;&gt;
-        &lt;label class=&quot;pillcheck&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;labels&quot; checked&gt; Point labels&lt;/label&gt;
-        &lt;label class=&quot;pillcheck&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;aids&quot; checked&gt; Helper lines&lt;/label&gt;
-        &lt;label class=&quot;pillcheck&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;chain&quot;&gt; Build on last image&lt;/label&gt;
-        &lt;div class=&quot;speed&quot;&gt;&lt;label for=&quot;speed&quot;&gt;Speed&lt;/label&gt;&lt;input type=&quot;range&quot; id=&quot;speed&quot; min=&quot;1&quot; max=&quot;5&quot; value=&quot;3&quot;&gt;&lt;/div&gt;
-      &lt;/section&gt;
-    &lt;/div&gt;
-  &lt;/main&gt;
-&lt;/div&gt;
+      <section class="card settings" aria-label="Display settings">
+        <label class="pillcheck"><input type="checkbox" id="labels" checked> Point labels</label>
+        <label class="pillcheck"><input type="checkbox" id="aids" checked> Helper lines</label>
+        <label class="pillcheck"><input type="checkbox" id="chain"> Build on last image</label>
+        <div class="speed"><label for="speed">Speed</label><input type="range" id="speed" min="1" max="5" value="3"></div>
+      </section>
+    </div>
+  </main>
+</div>
 
-&lt;script&gt;
+<script>
 
-(() =&gt; {
-const $ = id =&gt; document.getElementById(id);
-const cv = $(&#x27;cv&#x27;), ctx = cv.getContext(&#x27;2d&#x27;);
-const LET = &#x27;ABCDEFGHIJKLMNOP&#x27;;
+(() => {
+const $ = id => document.getElementById(id);
+const cv = $('cv'), ctx = cv.getContext('2d');
+const LET = 'ABCDEFGHIJKLMNOP';
 const PRESETS = {
   triangle: [[1,2],[5,1],[2,4]],
   rectangle: [[1,2],[5,2],[5,4],[1,4]],
@@ -460,13 +427,13 @@ const PRESETS = {
   lshape: [[1,2],[4,2],[4,3],[2,3],[2,6],[1,6]],
   pentagon: [[2,1],[4,1],[5,3],[3,5],[1,3]]
 };
-const reduceMotion = matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const state = {
-  stages: [{ pts: PRESETS.triangle.map(p =&gt; p.slice()), t: null }],
-  type: &#x27;rotate&#x27;, refl: &#x27;x&#x27;, reflForm: &#x27;vert&#x27;, rotDir: &#x27;ccw&#x27;, rotDeg: &#x27;90&#x27;, dilK: &#x27;2&#x27;,
+  stages: [{ pts: PRESETS.triangle.map(p => p.slice()), t: null }],
+  type: 'rotate', refl: 'x', reflForm: 'vert', rotDir: 'ccw', rotDeg: '90', dilK: '2',
   rotCenterOpen: false, dilCenterOpen: false,
-  mode: &#x27;single&#x27;,
-  seq: [{ type: &#x27;reflect&#x27;, kind: &#x27;y&#x27; }, { type: &#x27;translate&#x27;, a: 0, b: -3 }],
+  mode: 'single',
+  seq: [{ type: 'reflect', kind: 'y' }, { type: 'translate', a: 0, b: -3 }],
   seqExample: true,
   anim: null, running: false, view: 10, viewTarget: 10, activeStep: -1
 };
@@ -474,112 +441,112 @@ let C = {}, G = null, rafId = null;
 
 /* ---------- numbers ---------- */
 function parseNum(s) {
-  s = String(s).trim().replace(/−/g, &#x27;-&#x27;).replace(/\s+/g, &#x27;&#x27;);
-  if (s === &#x27;&#x27;) return NaN;
+  s = String(s).trim().replace(/−/g, '-').replace(/\s+/g, '');
+  if (s === '') return NaN;
   const m = s.match(/^(-?\d*\.?\d+)\/(\d*\.?\d+)$/);
   if (m) { const d = Number(m[2]); return d === 0 ? NaN : Number(m[1]) / d; }
   const v = Number(s); return isFinite(v) ? v : NaN;
 }
-const clean = v =&gt; { const r = Math.round(v); return Math.abs(v - r) &lt; 1e-9 ? r : Math.round(v * 1e9) / 1e9; };
+const clean = v => { const r = Math.round(v); return Math.abs(v - r) < 1e-9 ? r : Math.round(v * 1e9) / 1e9; };
 function fmt(v, preferFrac) {
-  if (Math.abs(v) &lt; 1e-9) v = 0;
-  const neg = v &lt; 0, a = Math.abs(v);
+  if (Math.abs(v) < 1e-9) v = 0;
+  const neg = v < 0, a = Math.abs(v);
   let s;
-  if (Math.abs(a - Math.round(a)) &lt; 1e-9) s = String(Math.round(a));
+  if (Math.abs(a - Math.round(a)) < 1e-9) s = String(Math.round(a));
   else {
     let frac = null;
-    for (let d = 2; d &lt;= 12; d++) { const n = a * d; if (Math.abs(n - Math.round(n)) &lt; 1e-7) { frac = Math.round(n) + &#x27;/&#x27; + d; break; } }
-    const dec = Math.abs(a * 100 - Math.round(a * 100)) &lt; 1e-7;
-    if (preferFrac &amp;&amp; frac) s = frac;
+    for (let d = 2; d <= 12; d++) { const n = a * d; if (Math.abs(n - Math.round(n)) < 1e-7) { frac = Math.round(n) + '/' + d; break; } }
+    const dec = Math.abs(a * 100 - Math.round(a * 100)) < 1e-7;
+    if (preferFrac && frac) s = frac;
     else if (dec) s = String(+a.toFixed(2));
     else s = frac || String(+a.toFixed(2));
   }
-  return (neg ? &#x27;−&#x27; : &#x27;&#x27;) + s;
+  return (neg ? '−' : '') + s;
 }
-const pt = p =&gt; `(${fmt(p[0])}, ${fmt(p[1])})`;
-const SUP = &#x27;⁰¹²³⁴⁵⁶⁷⁸⁹&#x27;;
-const primes = n =&gt; n &lt;= 3 ? [&#x27;&#x27;, &#x27;′&#x27;, &#x27;″&#x27;, &#x27;‴&#x27;][n] : &#x27;⁽&#x27; + String(n).split(&#x27;&#x27;).map(d =&gt; SUP[d]).join(&#x27;&#x27;) + &#x27;⁾&#x27;;
-const units = v =&gt; Math.abs(v) === 1 ? &#x27;unit&#x27; : &#x27;units&#x27;;
+const pt = p => `(${fmt(p[0])}, ${fmt(p[1])})`;
+const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+const primes = n => n <= 3 ? ['', '′', '″', '‴'][n] : '⁽' + String(n).split('').map(d => SUP[d]).join('') + '⁾';
+const units = v => Math.abs(v) === 1 ? 'unit' : 'units';
 
 /* ---------- transformation math ---------- */
 function lineOf(t) {
   const h = Math.SQRT1_2;
   switch (t.kind) {
-    case &#x27;x&#x27;: return { p: [0, 0], d: [1, 0] };
-    case &#x27;y&#x27;: return { p: [0, 0], d: [0, 1] };
-    case &#x27;yx&#x27;: return { p: [0, 0], d: [h, h] };
-    case &#x27;ynx&#x27;: return { p: [0, 0], d: [h, -h] };
-    case &#x27;vert&#x27;: return { p: [t.k, 0], d: [0, 1] };
-    case &#x27;horz&#x27;: return { p: [0, t.k], d: [1, 0] };
-    case &#x27;line&#x27;: { const L = Math.hypot(1, t.m); return { p: [0, t.b], d: [1 / L, t.m / L] }; }
+    case 'x': return { p: [0, 0], d: [1, 0] };
+    case 'y': return { p: [0, 0], d: [0, 1] };
+    case 'yx': return { p: [0, 0], d: [h, h] };
+    case 'ynx': return { p: [0, 0], d: [h, -h] };
+    case 'vert': return { p: [t.k, 0], d: [0, 1] };
+    case 'horz': return { p: [0, t.k], d: [1, 0] };
+    case 'line': { const L = Math.hypot(1, t.m); return { p: [0, t.b], d: [1 / L, t.m / L] }; }
   }
 }
 function at(t, p, s) {
   const [x, y] = p;
-  if (t.type === &#x27;translate&#x27;) { const [sx, sy] = slidePhases(t, s); return [x + t.a * sx, y + t.b * sy]; }
-  if (t.type === &#x27;rotate&#x27;) {
+  if (t.type === 'translate') { const [sx, sy] = slidePhases(t, s); return [x + t.a * sx, y + t.b * sy]; }
+  if (t.type === 'rotate') {
     const th = t.ang * Math.PI / 180 * s, c = Math.cos(th), sn = Math.sin(th), dx = x - t.cx, dy = y - t.cy;
     return [t.cx + dx * c - dy * sn, t.cy + dx * sn + dy * c];
   }
-  if (t.type === &#x27;dilate&#x27;) { const f = 1 + (t.k - 1) * s; return [t.cx + (x - t.cx) * f, t.cy + (y - t.cy) * f]; }
-  if (t.type === &#x27;reflect&#x27;) {
+  if (t.type === 'dilate') { const f = 1 + (t.k - 1) * s; return [t.cx + (x - t.cx) * f, t.cy + (y - t.cy) * f]; }
+  if (t.type === 'reflect') {
     const L = lineOf(t), vx = x - L.p[0], vy = y - L.p[1], pr = vx * L.d[0] + vy * L.d[1];
     const fx = L.p[0] + pr * L.d[0], fy = L.p[1] + pr * L.d[1], c = Math.cos(Math.PI * s);
     return [fx + (x - fx) * c, fy + (y - fy) * c];
   }
 }
 // Translations slide horizontally first, then vertically, as two separate motions.
-const ease = x =&gt; x &lt; .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 function slidePhases(t, s) {
-  if (s &gt;= 1) return [1, 1];
+  if (s >= 1) return [1, 1];
   if (!t.a || !t.b) return [ease(s), ease(s)];
   return [ease(Math.min(1, s / 0.46)), ease(Math.max(0, (s - 0.54) / 0.46))];
 }
-const finalPts = (t, pts) =&gt; pts.map(p =&gt; at(t, p, 1).map(clean));
-const centerOf = t =&gt; (t.type === &#x27;rotate&#x27; || t.type === &#x27;dilate&#x27;) ? [[t.cx, t.cy]] : [];
+const finalPts = (t, pts) => pts.map(p => at(t, p, 1).map(clean));
+const centerOf = t => (t.type === 'rotate' || t.type === 'dilate') ? [[t.cx, t.cy]] : [];
 
 function lineEq(m, b) {
-  if (m === 0) return &#x27;y = &#x27; + fmt(b);
-  let s = &#x27;y = &#x27; + (m === 1 ? &#x27;&#x27; : m === -1 ? &#x27;−&#x27; : fmt(m, true)) + &#x27;x&#x27;;
-  if (b &gt; 0) s += &#x27; + &#x27; + fmt(b); else if (b &lt; 0) s += &#x27; − &#x27; + fmt(-b);
+  if (m === 0) return 'y = ' + fmt(b);
+  let s = 'y = ' + (m === 1 ? '' : m === -1 ? '−' : fmt(m, true)) + 'x';
+  if (b > 0) s += ' + ' + fmt(b); else if (b < 0) s += ' − ' + fmt(-b);
   return s;
 }
 function lineShort(t) {
-  return { x: &#x27;x-axis&#x27;, y: &#x27;y-axis&#x27;, yx: &#x27;y = x&#x27;, ynx: &#x27;y = −x&#x27; }[t.kind]
-    || (t.kind === &#x27;vert&#x27; ? &#x27;x = &#x27; + fmt(t.k) : t.kind === &#x27;horz&#x27; ? &#x27;y = &#x27; + fmt(t.k) : lineEq(t.m, t.b));
+  return { x: 'x-axis', y: 'y-axis', yx: 'y = x', ynx: 'y = −x' }[t.kind]
+    || (t.kind === 'vert' ? 'x = ' + fmt(t.k) : t.kind === 'horz' ? 'y = ' + fmt(t.k) : lineEq(t.m, t.b));
 }
-const centerName = t =&gt; (t.cx === 0 &amp;&amp; t.cy === 0) ? &#x27;the origin&#x27; : pt([t.cx, t.cy]);
+const centerName = t => (t.cx === 0 && t.cy === 0) ? 'the origin' : pt([t.cx, t.cy]);
 function describe(t) {
-  if (t.type === &#x27;translate&#x27;) {
+  if (t.type === 'translate') {
     const parts = [];
-    if (t.a) parts.push(`${fmt(Math.abs(t.a))} ${units(t.a)} ${t.a &gt; 0 ? &#x27;right&#x27; : &#x27;left&#x27;}`);
-    if (t.b) parts.push(`${fmt(Math.abs(t.b))} ${units(t.b)} ${t.b &gt; 0 ? &#x27;up&#x27; : &#x27;down&#x27;}`);
-    return parts.length ? &#x27;Translate &#x27; + parts.join(&#x27; and &#x27;) : &#x27;Translate 0 units (no movement)&#x27;;
+    if (t.a) parts.push(`${fmt(Math.abs(t.a))} ${units(t.a)} ${t.a > 0 ? 'right' : 'left'}`);
+    if (t.b) parts.push(`${fmt(Math.abs(t.b))} ${units(t.b)} ${t.b > 0 ? 'up' : 'down'}`);
+    return parts.length ? 'Translate ' + parts.join(' and ') : 'Translate 0 units (no movement)';
   }
-  if (t.type === &#x27;reflect&#x27;) {
-    const n = { x: &#x27;the x-axis&#x27;, y: &#x27;the y-axis&#x27; }[t.kind] || &#x27;the line &#x27; + lineShort(t);
-    return &#x27;Reflect over &#x27; + n;
+  if (t.type === 'reflect') {
+    const n = { x: 'the x-axis', y: 'the y-axis' }[t.kind] || 'the line ' + lineShort(t);
+    return 'Reflect over ' + n;
   }
-  if (t.type === &#x27;rotate&#x27;) return `Rotate ${fmt(t.deg)}° ${t.dir === &#x27;cw&#x27; ? &#x27;clockwise&#x27; : &#x27;counterclockwise&#x27;} about ${centerName(t)}`;
-  if (t.type === &#x27;dilate&#x27;) return `Dilate by a scale factor of ${fmt(t.k, true)} centered at ${centerName(t)}`;
+  if (t.type === 'rotate') return `Rotate ${fmt(t.deg)}° ${t.dir === 'cw' ? 'clockwise' : 'counterclockwise'} about ${centerName(t)}`;
+  if (t.type === 'dilate') return `Dilate by a scale factor of ${fmt(t.k, true)} centered at ${centerName(t)}`;
 }
-function term(v, n) { return n &gt; 0 ? `${v} + ${fmt(n)}` : n &lt; 0 ? `${v} − ${fmt(-n)}` : v; }
+function term(v, n) { return n > 0 ? `${v} + ${fmt(n)}` : n < 0 ? `${v} − ${fmt(-n)}` : v; }
 function rule(t) {
-  const L = &#x27;(x, y) → &#x27;;
-  if (t.type === &#x27;translate&#x27;) return L + `(${term(&#x27;x&#x27;, t.a)}, ${term(&#x27;y&#x27;, t.b)})`;
-  if (t.type === &#x27;reflect&#x27;) {
-    const r = { x: &#x27;(x, −y)&#x27;, y: &#x27;(−x, y)&#x27;, yx: &#x27;(y, x)&#x27;, ynx: &#x27;(−y, −x)&#x27; }[t.kind];
+  const L = '(x, y) → ';
+  if (t.type === 'translate') return L + `(${term('x', t.a)}, ${term('y', t.b)})`;
+  if (t.type === 'reflect') {
+    const r = { x: '(x, −y)', y: '(−x, y)', yx: '(y, x)', ynx: '(−y, −x)' }[t.kind];
     if (r) return L + r;
-    if (t.kind === &#x27;vert&#x27;) return L + (t.k === 0 ? &#x27;(−x, y)&#x27; : `(${fmt(2 * t.k)} − x, y)`);
-    if (t.kind === &#x27;horz&#x27;) return L + (t.k === 0 ? &#x27;(x, −y)&#x27; : `(x, ${fmt(2 * t.k)} − y)`);
+    if (t.kind === 'vert') return L + (t.k === 0 ? '(−x, y)' : `(${fmt(2 * t.k)} − x, y)`);
+    if (t.kind === 'horz') return L + (t.k === 0 ? '(x, −y)' : `(x, ${fmt(2 * t.k)} − y)`);
     return null;
   }
-  if (t.type === &#x27;rotate&#x27;) {
+  if (t.type === 'rotate') {
     if (t.cx !== 0 || t.cy !== 0) return null;
     const a = ((t.ang % 360) + 360) % 360;
-    return { 0: L + &#x27;(x, y)&#x27;, 90: L + &#x27;(−y, x)&#x27;, 180: L + &#x27;(−x, −y)&#x27;, 270: L + &#x27;(y, −x)&#x27; }[a] || null;
+    return { 0: L + '(x, y)', 90: L + '(−y, x)', 180: L + '(−x, −y)', 270: L + '(y, −x)' }[a] || null;
   }
-  if (t.type === &#x27;dilate&#x27;) {
+  if (t.type === 'dilate') {
     if (t.cx !== 0 || t.cy !== 0) return null;
     const k = fmt(t.k, true);
     return Number.isInteger(t.k) ? L + `(${k}x, ${k}y)` : L + `(${k}·x, ${k}·y)`;
@@ -587,59 +554,59 @@ function rule(t) {
 }
 
 /* ---------- read controls ---------- */
-const ok = t =&gt; ({ ok: true, t }), bad = msg =&gt; ({ ok: false, msg });
-const num = id =&gt; parseNum($(id).value);
+const ok = t => ({ ok: true, t }), bad = msg => ({ ok: false, msg });
+const num = id => parseNum($(id).value);
 function center(kind) {
-  if (!state[kind + &#x27;CenterOpen&#x27;]) return [0, 0];
-  const x = num(kind === &#x27;rot&#x27; ? &#x27;rcx&#x27; : &#x27;dcx&#x27;), y = num(kind === &#x27;rot&#x27; ? &#x27;rcy&#x27; : &#x27;dcy&#x27;);
-  return (isFinite(x) &amp;&amp; isFinite(y)) ? [x, y] : null;
+  if (!state[kind + 'CenterOpen']) return [0, 0];
+  const x = num(kind === 'rot' ? 'rcx' : 'dcx'), y = num(kind === 'rot' ? 'rcy' : 'dcy');
+  return (isFinite(x) && isFinite(y)) ? [x, y] : null;
 }
 function readTransform() {
   const T = state.type;
-  if (T === &#x27;translate&#x27;) {
-    const a = num(&#x27;tx&#x27;), b = num(&#x27;ty&#x27;);
-    if (!isFinite(a) || !isFinite(b)) return bad(&#x27;Enter a number for both shifts. Use 0 for no shift.&#x27;);
+  if (T === 'translate') {
+    const a = num('tx'), b = num('ty');
+    if (!isFinite(a) || !isFinite(b)) return bad('Enter a number for both shifts. Use 0 for no shift.');
     return ok({ type: T, a, b });
   }
-  if (T === &#x27;reflect&#x27;) {
-    if (state.refl !== &#x27;other&#x27;) return ok({ type: T, kind: state.refl });
-    if (state.reflForm === &#x27;vert&#x27;) { const k = num(&#x27;rvk&#x27;); return isFinite(k) ? ok({ type: T, kind: &#x27;vert&#x27;, k }) : bad(&#x27;Type a number for x = ___.&#x27;); }
-    if (state.reflForm === &#x27;horz&#x27;) { const k = num(&#x27;rhk&#x27;); return isFinite(k) ? ok({ type: T, kind: &#x27;horz&#x27;, k }) : bad(&#x27;Type a number for y = ___.&#x27;); }
-    const m = num(&#x27;rm&#x27;), b = num(&#x27;rb&#x27;);
-    if (!isFinite(m) || !isFinite(b)) return bad(&#x27;Type numbers for m and b. Use 0 for no y-intercept.&#x27;);
-    return ok({ type: T, kind: &#x27;line&#x27;, m, b });
+  if (T === 'reflect') {
+    if (state.refl !== 'other') return ok({ type: T, kind: state.refl });
+    if (state.reflForm === 'vert') { const k = num('rvk'); return isFinite(k) ? ok({ type: T, kind: 'vert', k }) : bad('Type a number for x = ___.'); }
+    if (state.reflForm === 'horz') { const k = num('rhk'); return isFinite(k) ? ok({ type: T, kind: 'horz', k }) : bad('Type a number for y = ___.'); }
+    const m = num('rm'), b = num('rb');
+    if (!isFinite(m) || !isFinite(b)) return bad('Type numbers for m and b. Use 0 for no y-intercept.');
+    return ok({ type: T, kind: 'line', m, b });
   }
-  if (T === &#x27;rotate&#x27;) {
-    const deg = state.rotDeg === &#x27;custom&#x27; ? num(&#x27;rotCustom&#x27;) : Number(state.rotDeg);
-    if (state.rotDeg == null || !isFinite(deg)) return bad(&#x27;Pick 90°, 180° or 270°, or type another angle.&#x27;);
-    const c = center(&#x27;rot&#x27;); if (!c) return bad(&#x27;Type both coordinates for the center of rotation.&#x27;);
-    return ok({ type: T, deg, dir: state.rotDir, ang: state.rotDir === &#x27;cw&#x27; ? -deg : deg, cx: c[0], cy: c[1] });
+  if (T === 'rotate') {
+    const deg = state.rotDeg === 'custom' ? num('rotCustom') : Number(state.rotDeg);
+    if (state.rotDeg == null || !isFinite(deg)) return bad('Pick 90°, 180° or 270°, or type another angle.');
+    const c = center('rot'); if (!c) return bad('Type both coordinates for the center of rotation.');
+    return ok({ type: T, deg, dir: state.rotDir, ang: state.rotDir === 'cw' ? -deg : deg, cx: c[0], cy: c[1] });
   }
-  const k = state.dilK === &#x27;custom&#x27; ? num(&#x27;dilCustom&#x27;) : Number(state.dilK);
-  if (state.dilK == null || !isFinite(k)) return bad(&#x27;Pick a scale factor or type one, like 1/3 or 1.5.&#x27;);
-  if (k === 0) return bad(&#x27;A scale factor of 0 shrinks the figure to a single point. Try another value.&#x27;);
-  const c = center(&#x27;dil&#x27;); if (!c) return bad(&#x27;Type both coordinates for the center of dilation.&#x27;);
-  return ok({ type: &#x27;dilate&#x27;, k, cx: c[0], cy: c[1] });
+  const k = state.dilK === 'custom' ? num('dilCustom') : Number(state.dilK);
+  if (state.dilK == null || !isFinite(k)) return bad('Pick a scale factor or type one, like 1/3 or 1.5.');
+  if (k === 0) return bad('A scale factor of 0 shrinks the figure to a single point. Try another value.');
+  const c = center('dil'); if (!c) return bad('Type both coordinates for the center of dilation.');
+  return ok({ type: 'dilate', k, cx: c[0], cy: c[1] });
 }
 function updatePreview() {
-  const r = readTransform(), box = $(&#x27;preview&#x27;);
-  box.classList.toggle(&#x27;bad&#x27;, !r.ok);
-  box.querySelector(&#x27;.d&#x27;).textContent = r.ok ? describe(r.t) : r.msg;
+  const r = readTransform(), box = $('preview');
+  box.classList.toggle('bad', !r.ok);
+  box.querySelector('.d').textContent = r.ok ? describe(r.t) : r.msg;
   const ru = r.ok ? rule(r.t) : null;
-  const code = box.querySelector(&#x27;code&#x27;);
-  code.textContent = ru || &#x27;&#x27;; code.hidden = !ru;
+  const code = box.querySelector('code');
+  code.textContent = ru || ''; code.hidden = !ru;
   return r;
 }
 
 /* ---------- drawing ---------- */
 function readColors() {
   const cs = getComputedStyle(document.documentElement);
-  [&#x27;panel&#x27;, &#x27;ink&#x27;, &#x27;muted&#x27;, &#x27;grid&#x27;, &#x27;grid-strong&#x27;, &#x27;pre&#x27;, &#x27;img&#x27;, &#x27;aid&#x27;, &#x27;img-ink&#x27;, &#x27;vtx&#x27;, &#x27;sun&#x27;].forEach(k =&gt; C[k] = cs.getPropertyValue(&#x27;--&#x27; + k).trim());
-  C.mono = cs.getPropertyValue(&#x27;--mono&#x27;).trim() || &#x27;monospace&#x27;;
+  ['panel', 'ink', 'muted', 'grid', 'grid-strong', 'pre', 'img', 'aid', 'img-ink', 'vtx', 'sun'].forEach(k => C[k] = cs.getPropertyValue('--' + k).trim());
+  C.mono = cs.getPropertyValue('--mono').trim() || 'monospace';
 }
 function rgba(hex, a) {
-  const h = hex.replace(&#x27;#&#x27;, &#x27;&#x27;); const n = parseInt(h.length === 3 ? h.split(&#x27;&#x27;).map(c =&gt; c + c).join(&#x27;&#x27;) : h, 16);
-  return `rgba(${n &gt;&gt; 16 &amp; 255},${n &gt;&gt; 8 &amp; 255},${n &amp; 255},${a})`;
+  const h = hex.replace('#', ''); const n = parseInt(h.length === 3 ? h.split('').map(c => c + c).join('') : h, 16);
+  return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`;
 }
 function arrowHead(x1, y1, x2, y2, size) {
   const a = Math.atan2(y2 - y1, x2 - x1);
@@ -649,20 +616,20 @@ function arrowHead(x1, y1, x2, y2, size) {
   ctx.closePath(); ctx.fill();
 }
 function haloText(txt, x, y, color, font) {
-  ctx.font = font; ctx.lineJoin = &#x27;round&#x27;;
+  ctx.font = font; ctx.lineJoin = 'round';
   ctx.lineWidth = 4; ctx.strokeStyle = C.panel; ctx.strokeText(txt, x, y);
   ctx.fillStyle = color; ctx.fillText(txt, x, y);
 }
 function drawGrid() {
   const { R, pad, u, W, X, Y } = G;
-  const step = R &lt;= 12 ? 1 : R &lt;= 24 ? 2 : R &lt;= 45 ? 5 : 10;
-  const minor = u &gt;= 8 ? 1 : step;
+  const step = R <= 12 ? 1 : R <= 24 ? 2 : R <= 45 ? 5 : 10;
+  const minor = u >= 8 ? 1 : step;
   const lo = Math.ceil(-R), hi = Math.floor(R);
   ctx.lineWidth = 1;
-  for (let i = lo; i &lt;= hi; i++) {
+  for (let i = lo; i <= hi; i++) {
     if (i % minor) continue;
-    const strong = step === 1 ? i % 5 === 0 : (i % step === 0 &amp;&amp; minor !== step) || i % (step * 5) === 0;
-    ctx.strokeStyle = strong ? C[&#x27;grid-strong&#x27;] : C.grid;
+    const strong = step === 1 ? i % 5 === 0 : (i % step === 0 && minor !== step) || i % (step * 5) === 0;
+    ctx.strokeStyle = strong ? C['grid-strong'] : C.grid;
     const x = Math.round(X(i)) + .5, y = Math.round(Y(i)) + .5;
     ctx.beginPath(); ctx.moveTo(x, pad); ctx.lineTo(x, W - pad); ctx.moveTo(pad, y); ctx.lineTo(W - pad, y); ctx.stroke();
   }
@@ -672,33 +639,33 @@ function drawGrid() {
   arrowHead(ox, oy, W - pad + 12, oy, 8); arrowHead(ox, oy, pad - 12, oy, 8);
   arrowHead(ox, oy, ox, pad - 12, 8); arrowHead(ox, oy, ox, W - pad + 12, 8);
   ctx.font = `11px ${C.mono}`; ctx.fillStyle = C.muted;
-  for (let i = lo; i &lt;= hi; i++) {
+  for (let i = lo; i <= hi; i++) {
     if (i === 0 || i % step) continue;
-    ctx.textAlign = &#x27;center&#x27;; ctx.textBaseline = &#x27;top&#x27;; ctx.fillText(String(i).replace(&#x27;-&#x27;, &#x27;−&#x27;), X(i), oy + 5);
-    ctx.textAlign = &#x27;right&#x27;; ctx.textBaseline = &#x27;middle&#x27;; ctx.fillText(String(i).replace(&#x27;-&#x27;, &#x27;−&#x27;), ox - 6, Y(i));
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(String(i).replace('-', '−'), X(i), oy + 5);
+    ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillText(String(i).replace('-', '−'), ox - 6, Y(i));
   }
-  ctx.textAlign = &#x27;right&#x27;; ctx.textBaseline = &#x27;top&#x27;; ctx.fillText(&#x27;0&#x27;, ox - 5, oy + 5);
+  ctx.textAlign = 'right'; ctx.textBaseline = 'top'; ctx.fillText('0', ox - 5, oy + 5);
   ctx.font = `italic 600 14px ${C.mono}`; ctx.fillStyle = C.ink;
-  ctx.textAlign = &#x27;left&#x27;; ctx.textBaseline = &#x27;bottom&#x27;; ctx.fillText(&#x27;x&#x27;, W - pad + 2, oy - 6);
-  ctx.textAlign = &#x27;left&#x27;; ctx.textBaseline = &#x27;top&#x27;; ctx.fillText(&#x27;y&#x27;, ox + 8, pad - 20);
+  ctx.textAlign = 'left'; ctx.textBaseline = 'bottom'; ctx.fillText('x', W - pad + 2, oy - 6);
+  ctx.textAlign = 'left'; ctx.textBaseline = 'top'; ctx.fillText('y', ox + 8, pad - 20);
 }
 function drawPoly(pts, col, o) {
   const { X, Y } = G;
   ctx.save();
   ctx.globalAlpha = o.faint ? 0.55 : 1;
-  ctx.beginPath(); pts.forEach((p, i) =&gt; i ? ctx.lineTo(X(p[0]), Y(p[1])) : ctx.moveTo(X(p[0]), Y(p[1]))); ctx.closePath();
+  ctx.beginPath(); pts.forEach((p, i) => i ? ctx.lineTo(X(p[0]), Y(p[1])) : ctx.moveTo(X(p[0]), Y(p[1]))); ctx.closePath();
   ctx.fillStyle = rgba(col, o.solid ? 0.88 : 0.1); ctx.fill();
-  ctx.setLineDash(o.solid ? [] : [7, 5]); ctx.lineWidth = o.solid ? 2.75 : 2; ctx.strokeStyle = o.solid ? C.ink : col; ctx.lineJoin = &#x27;round&#x27;; ctx.stroke();
+  ctx.setLineDash(o.solid ? [] : [7, 5]); ctx.lineWidth = o.solid ? 2.75 : 2; ctx.strokeStyle = o.solid ? C.ink : col; ctx.lineJoin = 'round'; ctx.stroke();
   ctx.setLineDash([]);
-  if (o.solid) pts.forEach(p =&gt; { ctx.beginPath(); ctx.arc(X(p[0]), Y(p[1]), 6, 0, 7); ctx.fillStyle = C.vtx; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = C.ink; ctx.stroke(); });
-  if ($(&#x27;labels&#x27;).checked) {
-    const cx = pts.reduce((s, p) =&gt; s + X(p[0]), 0) / pts.length, cy = pts.reduce((s, p) =&gt; s + Y(p[1]), 0) / pts.length;
-    ctx.textAlign = &#x27;center&#x27;; ctx.textBaseline = &#x27;middle&#x27;;
-    pts.forEach((p, i) =&gt; {
+  if (o.solid) pts.forEach(p => { ctx.beginPath(); ctx.arc(X(p[0]), Y(p[1]), 6, 0, 7); ctx.fillStyle = C.vtx; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = C.ink; ctx.stroke(); });
+  if ($('labels').checked) {
+    const cx = pts.reduce((s, p) => s + X(p[0]), 0) / pts.length, cy = pts.reduce((s, p) => s + Y(p[1]), 0) / pts.length;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    pts.forEach((p, i) => {
       const sx = X(p[0]), sy = Y(p[1]); let dx = sx - cx, dy = sy - cy; const d = Math.hypot(dx, dy);
-      if (d &lt; 1) { dx = 0.7; dy = -0.7; } else { dx /= d; dy /= d; }
+      if (d < 1) { dx = 0.7; dy = -0.7; } else { dx /= d; dy /= d; }
       const off = o.solid ? 19 : 14;
-      haloText(LET[i] + primes(o.primes), sx + dx * off, sy + dy * off, col === C.img ? C[&#x27;img-ink&#x27;] : col, `600 ${o.solid ? 15 : 13}px ${C.mono}`);
+      haloText(LET[i] + primes(o.primes), sx + dx * off, sy + dy * off, col === C.img ? C['img-ink'] : col, `600 ${o.solid ? 15 : 13}px ${C.mono}`);
     });
   }
   ctx.restore();
@@ -708,71 +675,71 @@ function centerMark(cx, cy) {
   ctx.setLineDash([]); ctx.lineWidth = 2; ctx.strokeStyle = C.aid; ctx.fillStyle = C.panel;
   ctx.beginPath(); ctx.arc(x, y, 6, 0, 7); ctx.fill(); ctx.stroke();
   ctx.fillStyle = C.aid; ctx.beginPath(); ctx.arc(x, y, 2.2, 0, 7); ctx.fill();
-  if (cx !== 0 || cy !== 0) { ctx.textAlign = &#x27;left&#x27;; ctx.textBaseline = &#x27;top&#x27;; haloText(pt([cx, cy]), x + 9, y + 6, C.aid, `600 12px ${C.mono}`); }
+  if (cx !== 0 || cy !== 0) { ctx.textAlign = 'left'; ctx.textBaseline = 'top'; haloText(pt([cx, cy]), x + 9, y + 6, C.aid, `600 12px ${C.mono}`); }
 }
 function drawAids(t, base, s) {
   const { X, Y, u, R } = G;
   ctx.save(); ctx.strokeStyle = C.aid; ctx.fillStyle = C.aid;
-  if (t.type === &#x27;translate&#x27;) {
+  if (t.type === 'translate') {
     const [px, py] = slidePhases(t, s);
-    const leg = (x1, y1, x2, y2) =&gt; {
+    const leg = (x1, y1, x2, y2) => {
       ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.setLineDash([]);
-      if (Math.hypot(x2 - x1, y2 - y1) &gt; 10) arrowHead(x1, y1, x2, y2, 8);
+      if (Math.hypot(x2 - x1, y2 - y1) > 10) arrowHead(x1, y1, x2, y2, 8);
     };
     ctx.lineWidth = 1.5;
-    base.forEach(p =&gt; {
+    base.forEach(p => {
       const mx = p[0] + t.a * px, my = p[1] + t.b * py;
-      if (t.a &amp;&amp; px &gt; 0) leg(X(p[0]), Y(p[1]), X(mx), Y(p[1]));
-      if (t.b &amp;&amp; py &gt; 0) leg(X(mx), Y(p[1]), X(mx), Y(my));
+      if (t.a && px > 0) leg(X(p[0]), Y(p[1]), X(mx), Y(p[1]));
+      if (t.b && py > 0) leg(X(mx), Y(p[1]), X(mx), Y(my));
     });
     const A0 = base[0];
-    ctx.textAlign = &#x27;center&#x27;; ctx.textBaseline = &#x27;middle&#x27;;
-    if (t.a &amp;&amp; px &gt; 0.2) haloText(`${fmt(Math.abs(t.a))} ${t.a &gt; 0 ? &#x27;right&#x27; : &#x27;left&#x27;}`, X(A0[0] + t.a * px / 2), Y(A0[1]) + (t.b &gt; 0 ? 14 : -14), C.aid, `700 12px ${C.mono}`);
-    if (t.b &amp;&amp; py &gt; 0.2) haloText(`${fmt(Math.abs(t.b))} ${t.b &gt; 0 ? &#x27;up&#x27; : &#x27;down&#x27;}`, X(A0[0] + t.a) + (t.a &gt; 0 ? 34 : -34), Y(A0[1] + t.b * py / 2), C.aid, `700 12px ${C.mono}`);
-  } else if (t.type === &#x27;reflect&#x27;) {
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    if (t.a && px > 0.2) haloText(`${fmt(Math.abs(t.a))} ${t.a > 0 ? 'right' : 'left'}`, X(A0[0] + t.a * px / 2), Y(A0[1]) + (t.b > 0 ? 14 : -14), C.aid, `700 12px ${C.mono}`);
+    if (t.b && py > 0.2) haloText(`${fmt(Math.abs(t.b))} ${t.b > 0 ? 'up' : 'down'}`, X(A0[0] + t.a) + (t.a > 0 ? 34 : -34), Y(A0[1] + t.b * py / 2), C.aid, `700 12px ${C.mono}`);
+  } else if (t.type === 'reflect') {
     const L = lineOf(t);
     ctx.lineWidth = 2.5;
     ctx.beginPath(); ctx.moveTo(X(L.p[0] - L.d[0] * 999), Y(L.p[1] - L.d[1] * 999)); ctx.lineTo(X(L.p[0] + L.d[0] * 999), Y(L.p[1] + L.d[1] * 999)); ctx.stroke();
     ctx.lineWidth = 1; ctx.setLineDash([2, 4]); ctx.globalAlpha = 0.7;
-    base.forEach(p =&gt; { const q = at(t, p, 1); ctx.beginPath(); ctx.moveTo(X(p[0]), Y(p[1])); ctx.lineTo(X(q[0]), Y(q[1])); ctx.stroke(); });
+    base.forEach(p => { const q = at(t, p, 1); ctx.beginPath(); ctx.moveTo(X(p[0]), Y(p[1])); ctx.lineTo(X(q[0]), Y(q[1])); ctx.stroke(); });
     ctx.globalAlpha = 1; ctx.setLineDash([]);
     // label the line near the edge of the visible area
     const m = R * 0.86; let lo = -Infinity, hi = Infinity, vis = true;
-    for (let k = 0; k &lt; 2; k++) {
-      if (Math.abs(L.d[k]) &lt; 1e-9) { if (Math.abs(L.p[k]) &gt; m) vis = false; }
+    for (let k = 0; k < 2; k++) {
+      if (Math.abs(L.d[k]) < 1e-9) { if (Math.abs(L.p[k]) > m) vis = false; }
       else { const a = (-m - L.p[k]) / L.d[k], b = (m - L.p[k]) / L.d[k]; lo = Math.max(lo, Math.min(a, b)); hi = Math.min(hi, Math.max(a, b)); }
     }
-    if (vis &amp;&amp; hi &gt; lo) {
+    if (vis && hi > lo) {
       const lx = L.p[0] + L.d[0] * hi, ly = L.p[1] + L.d[1] * hi;
-      ctx.textAlign = &#x27;center&#x27;; ctx.textBaseline = &#x27;middle&#x27;;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       const nx = -L.d[1], ny = L.d[0];
       haloText(lineShort(t), X(lx + nx * 0.9), Y(ly + ny * 0.9), C.aid, `700 13px ${C.mono}`);
     }
-  } else if (t.type === &#x27;rotate&#x27;) {
+  } else if (t.type === 'rotate') {
     const A = base[0], q = at(t, A, s), cx = X(t.cx), cy = Y(t.cy);
     const r = Math.hypot(A[0] - t.cx, A[1] - t.cy) * u;
     ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
     ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(X(A[0]), Y(A[1])); ctx.moveTo(cx, cy); ctx.lineTo(X(q[0]), Y(q[1])); ctx.stroke();
     ctx.setLineDash([]);
-    if (r &gt; 2) {
+    if (r > 2) {
       const a0 = Math.atan2(A[1] - t.cy, A[0] - t.cx), th = t.ang * Math.PI / 180 * s;
       ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.arc(cx, cy, r, -a0, -(a0 + th), th &gt; 0); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, cy, r, -a0, -(a0 + th), th > 0); ctx.stroke();
       const ar = Math.min(r * 0.35, 34);
-      if (Math.abs(th) &gt; 0.05) {
-        ctx.globalAlpha = 0.85; ctx.beginPath(); ctx.arc(cx, cy, ar, -a0, -(a0 + th), th &gt; 0); ctx.stroke(); ctx.globalAlpha = 1;
+      if (Math.abs(th) > 0.05) {
+        ctx.globalAlpha = 0.85; ctx.beginPath(); ctx.arc(cx, cy, ar, -a0, -(a0 + th), th > 0); ctx.stroke(); ctx.globalAlpha = 1;
         const mid = a0 + th / 2;
-        ctx.textAlign = &#x27;center&#x27;; ctx.textBaseline = &#x27;middle&#x27;;
-        haloText(Math.round(Math.abs(t.deg) * s) + &#x27;°&#x27;, cx + Math.cos(mid) * (ar + 16), cy - Math.sin(mid) * (ar + 16), C.aid, `700 12px ${C.mono}`);
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        haloText(Math.round(Math.abs(t.deg) * s) + '°', cx + Math.cos(mid) * (ar + 16), cy - Math.sin(mid) * (ar + 16), C.aid, `700 12px ${C.mono}`);
       }
     }
     centerMark(t.cx, t.cy);
-  } else if (t.type === &#x27;dilate&#x27;) {
+  } else if (t.type === 'dilate') {
     ctx.lineWidth = 1; ctx.setLineDash([3, 4]);
-    base.forEach(p =&gt; {
+    base.forEach(p => {
       const f = Math.max(1, Math.abs(t.k)) * 1.08;
       const e = [t.cx + (p[0] - t.cx) * f, t.cy + (p[1] - t.cy) * f];
-      const g = t.k &lt; 0 ? [t.cx + (p[0] - t.cx) * -f, t.cy + (p[1] - t.cy) * -f] : [t.cx, t.cy];
+      const g = t.k < 0 ? [t.cx + (p[0] - t.cx) * -f, t.cy + (p[1] - t.cy) * -f] : [t.cx, t.cy];
       ctx.beginPath(); ctx.moveTo(X(g[0]), Y(g[1])); ctx.lineTo(X(e[0]), Y(e[1])); ctx.stroke();
     });
     ctx.setLineDash([]);
@@ -786,90 +753,90 @@ function render() {
   if (cv.width !== px) { cv.width = px; cv.height = px; }
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.fillStyle = C.panel; ctx.fillRect(0, 0, W, W);
-  const R = state.view, pad = W &lt; 420 ? 26 : 32, u = (W - 2 * pad) / (2 * R);
-  G = { R, pad, u, W, X: x =&gt; pad + (x + R) * u, Y: y =&gt; pad + (R - y) * u };
+  const R = state.view, pad = W < 420 ? 26 : 32, u = (W - 2 * pad) / (2 * R);
+  G = { R, pad, u, W, X: x => pad + (x + R) * u, Y: y => pad + (R - y) * u };
   drawGrid();
   ctx.save(); ctx.beginPath(); ctx.rect(pad - 4, pad - 4, W - 2 * pad + 8, W - 2 * pad + 8); ctx.clip();
-  if (window.TLoverlay) window.TLoverlay(ctx, &#x27;under&#x27;);
-  const S = state.stages, A = state.anim, aids = $(&#x27;aids&#x27;).checked;
-  if (aids) { if (A) drawAids(A.t, A.base, A.s); else if (S.length &gt; 1) drawAids(S[S.length - 1].t, S[S.length - 2].pts, 1); }
-  S.forEach((st, i) =&gt; {
+  if (window.TLoverlay) window.TLoverlay(ctx, 'under');
+  const S = state.stages, A = state.anim, aids = $('aids').checked;
+  if (aids) { if (A) drawAids(A.t, A.base, A.s); else if (S.length > 1) drawAids(S[S.length - 1].t, S[S.length - 2].pts, 1); }
+  S.forEach((st, i) => {
     const last = i === S.length - 1;
-    if (i === 0) drawPoly(st.pts, C.pre, { solid: S.length === 1 &amp;&amp; !A, primes: 0 });
-    else drawPoly(st.pts, C.img, { solid: last &amp;&amp; !A, faint: !(last &amp;&amp; !A), primes: i });
+    if (i === 0) drawPoly(st.pts, C.pre, { solid: S.length === 1 && !A, primes: 0 });
+    else drawPoly(st.pts, C.img, { solid: last && !A, faint: !(last && !A), primes: i });
   });
-  if (A) drawPoly(A.base.map(p =&gt; at(A.t, p, A.s)), C.img, { solid: true, primes: S.length });
-  if (window.TLoverlay) window.TLoverlay(ctx, &#x27;top&#x27;);
+  if (A) drawPoly(A.base.map(p => at(A.t, p, A.s)), C.img, { solid: true, primes: S.length });
+  if (window.TLoverlay) window.TLoverlay(ctx, 'top');
   ctx.restore();
 }
 
 /* ---------- animation ---------- */
-function duration() { const d = [3200, 2300, 1600, 1050, 650][$(&#x27;speed&#x27;).value - 1]; return reduceMotion ? Math.min(d, 450) : d; }
+function duration() { const d = [3200, 2300, 1600, 1050, 650][$('speed').value - 1]; return reduceMotion ? Math.min(d, 450) : d; }
 function schedule() { if (!rafId) rafId = requestAnimationFrame(frame); }
 function frame(now) {
   rafId = null; let more = false, finished = false;
   const dv = state.viewTarget - state.view;
-  if (Math.abs(dv) &gt; 0.02) { state.view += dv * 0.16; more = true; } else state.view = state.viewTarget;
+  if (Math.abs(dv) > 0.02) { state.view += dv * 0.16; more = true; } else state.view = state.viewTarget;
   const A = state.anim;
-  if (A) { const r = Math.min(1, (now - A.start) / A.dur); A.s = A.t.type === &#x27;translate&#x27; ? r : ease(r); if (r &lt; 1) more = true; else finished = true; }
+  if (A) { const r = Math.min(1, (now - A.start) / A.dur); A.s = A.t.type === 'translate' ? r : ease(r); if (r < 1) more = true; else finished = true; }
   render();
   if (finished) { state.anim = null; A.done(); }
   if (more) schedule();
 }
 function fitView(points) {
-  let m = 0; points.forEach(p =&gt; { m = Math.max(m, Math.abs(p[0]), Math.abs(p[1])); });
+  let m = 0; points.forEach(p => { m = Math.max(m, Math.abs(p[0]), Math.abs(p[1])); });
   state.viewTarget = Math.min(60, Math.max(10, Math.ceil(m + 1.5)));
   schedule();
 }
 function showNow(t, n) {
-  const el = $(&#x27;now&#x27;);
+  const el = $('now');
   if (!t) { el.hidden = true; return; }
-  el.innerHTML = `&lt;span class=&quot;k&quot;&gt;${n ? &#x27;Step &#x27; + n : &#x27;&#x27;}&lt;/span&gt;`;
+  el.innerHTML = `<span class="k">${n ? 'Step ' + n : ''}</span>`;
   el.appendChild(document.createTextNode(describe(t)));
-  if (!n) el.querySelector(&#x27;.k&#x27;).remove();
+  if (!n) el.querySelector('.k').remove();
   el.hidden = false;
 }
 function startAnim(base, t, done, n) {
   showNow(t, n);
-  const dur = duration() * (t.type === &#x27;translate&#x27; &amp;&amp; t.a &amp;&amp; t.b ? 1.6 : 1);
+  const dur = duration() * (t.type === 'translate' && t.a && t.b ? 1.6 : 1);
   state.anim = { base, t, s: 0, start: performance.now(), dur, done };
   schedule();
 }
-const allPts = () =&gt; state.stages.flatMap(s =&gt; s.pts).concat(window.TLextraPts ? window.TLextraPts() : []);
+const allPts = () => state.stages.flatMap(s => s.pts).concat(window.TLextraPts ? window.TLextraPts() : []);
 
 function runSingle(force) {
   if (state.running) return;
-  if (force !== true &amp;&amp; window.TLbeforeRun &amp;&amp; !window.TLbeforeRun(&#x27;single&#x27;)) return;
+  if (force !== true && window.TLbeforeRun && !window.TLbeforeRun('single')) return;
   const r = updatePreview(); if (!r.ok) return;
   const t = r.t;
-  if (!($(&#x27;chain&#x27;).checked &amp;&amp; state.stages.length &gt; 1)) state.stages = [state.stages[0]];
+  if (!($('chain').checked && state.stages.length > 1)) state.stages = [state.stages[0]];
   const base = state.stages[state.stages.length - 1].pts;
   const target = finalPts(t, base);
   fitView([...allPts(), ...target, ...centerOf(t)]);
   state.running = true; syncUI();
-  startAnim(base, t, () =&gt; {
+  startAnim(base, t, () => {
     state.stages.push({ pts: target, t });
     state.running = false; syncUI(); renderTable(); schedule();
-    if (window.TLafterRun) window.TLafterRun(&#x27;single&#x27;);
+    if (window.TLafterRun) window.TLafterRun('single');
   });
 }
 function runSeries(force) {
   if (state.running || !state.seq.length) return;
-  if (force !== true &amp;&amp; window.TLbeforeRun &amp;&amp; !window.TLbeforeRun(&#x27;series&#x27;)) return;
+  if (force !== true && window.TLbeforeRun && !window.TLbeforeRun('series')) return;
   state.stages = [state.stages[0]];
   let cur = state.stages[0].pts; const all = [...cur];
-  const chain = state.seq.map(t =&gt; { cur = finalPts(t, cur); all.push(...cur, ...centerOf(t)); return cur; });
+  const chain = state.seq.map(t => { cur = finalPts(t, cur); all.push(...cur, ...centerOf(t)); return cur; });
   fitView(all);
   state.running = true; syncUI(); renderTable();
   let i = 0;
-  const step = () =&gt; {
+  const step = () => {
     state.activeStep = i; renderSeries();
     const t = state.seq[i], base = state.stages[state.stages.length - 1].pts;
-    startAnim(base, t, () =&gt; {
+    startAnim(base, t, () => {
       state.stages.push({ pts: chain[i], t }); renderTable(); schedule();
       i++;
-      if (i &lt; state.seq.length) setTimeout(step, reduceMotion ? 150 : 550);
-      else { state.running = false; state.activeStep = -1; renderSeries(); syncUI(); if (window.TLafterRun) window.TLafterRun(&#x27;series&#x27;); }
+      if (i < state.seq.length) setTimeout(step, reduceMotion ? 150 : 550);
+      else { state.running = false; state.activeStep = -1; renderSeries(); syncUI(); if (window.TLafterRun) window.TLafterRun('series'); }
     }, i + 1);
   };
   step();
@@ -878,304 +845,304 @@ function runSeries(force) {
 /* ---------- UI rendering ---------- */
 function syncUI() {
   const r = state.running;
-  [&#x27;run&#x27;, &#x27;runSeries&#x27;, &#x27;addStep&#x27;, &#x27;reset&#x27;, &#x27;plot&#x27;, &#x27;reverse&#x27;, &#x27;clearSeries&#x27;].forEach(id =&gt; $(id).disabled = r);
-  document.querySelectorAll(&#x27;#presets .chip&#x27;).forEach(b =&gt; b.disabled = r);
-  $(&#x27;run&#x27;).querySelector(&#x27;span&#x27;).textContent = r ? &#x27;Running…&#x27; : (window.TLrunLabel ? window.TLrunLabel(&#x27;single&#x27;) : &#x27;Run&#x27;);
-  $(&#x27;runSeries&#x27;).querySelector(&#x27;span&#x27;).textContent = r ? &#x27;Running…&#x27; : (window.TLrunLabel ? window.TLrunLabel(&#x27;series&#x27;) : &#x27;Run series&#x27;);
-  if (!r) $(&#x27;runSeries&#x27;).disabled = !state.seq.length;
-  $(&#x27;dragHint&#x27;).textContent = state.stages.length &gt; 1
-    ? &#x27;To change the shape, press Reset to original, then drag a dot.&#x27;
-    : &#x27;Drag any dot to change your shape.&#x27;;
+  ['run', 'runSeries', 'addStep', 'reset', 'plot', 'reverse', 'clearSeries'].forEach(id => $(id).disabled = r);
+  document.querySelectorAll('#presets .chip').forEach(b => b.disabled = r);
+  $('run').querySelector('span').textContent = r ? 'Running…' : (window.TLrunLabel ? window.TLrunLabel('single') : 'Run');
+  $('runSeries').querySelector('span').textContent = r ? 'Running…' : (window.TLrunLabel ? window.TLrunLabel('series') : 'Run series');
+  if (!r) $('runSeries').disabled = !state.seq.length;
+  $('dragHint').textContent = state.stages.length > 1
+    ? 'To change the shape, press Reset to original, then drag a dot.'
+    : 'Drag any dot to change your shape.';
 }
-function figName(n, i) { return Array.from({ length: n }, (_, k) =&gt; LET[k] + primes(i)).join(&#x27;&#x27;); }
+function figName(n, i) { return Array.from({ length: n }, (_, k) => LET[k] + primes(i)).join(''); }
 function renderTable() {
   const S = state.stages, n = S[0].pts.length;
-  const head = S.map((s, i) =&gt; `&lt;th&gt;${i === 0 ? &#x27;Pre-image&#x27; : S.length === 2 ? &#x27;Image&#x27; : &#x27;After step &#x27; + i}&lt;/th&gt;`).join(&#x27;&#x27;);
-  let rows = &#x27;&#x27;;
-  for (let v = 0; v &lt; n; v++) {
-    rows += &#x27;&lt;tr&gt;&#x27; + S.map((s, i) =&gt; `&lt;td&gt;&lt;span class=&quot;vl&quot; style=&quot;color:var(${i ? &#x27;--img&#x27; : &#x27;--pre&#x27;})&quot;&gt;${LET[v] + primes(i)}&lt;/span&gt;${pt(s.pts[v])}&lt;/td&gt;`).join(&#x27;&#x27;) + &#x27;&lt;/tr&gt;&#x27;;
+  const head = S.map((s, i) => `<th>${i === 0 ? 'Pre-image' : S.length === 2 ? 'Image' : 'After step ' + i}</th>`).join('');
+  let rows = '';
+  for (let v = 0; v < n; v++) {
+    rows += '<tr>' + S.map((s, i) => `<td><span class="vl" style="color:var(${i ? '--img' : '--pre'})">${LET[v] + primes(i)}</span>${pt(s.pts[v])}</td>`).join('') + '</tr>';
   }
-  $(&#x27;coords&#x27;).innerHTML = `&lt;thead&gt;&lt;tr&gt;${head}&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${rows}&lt;/tbody&gt;`;
-  const log = $(&#x27;log&#x27;);
-  if (S.length &gt; 1) {
-    log.innerHTML = S.slice(1).map((s, i) =&gt; {
+  $('coords').innerHTML = `<thead><tr>${head}</tr></thead><tbody>${rows}</tbody>`;
+  const log = $('log');
+  if (S.length > 1) {
+    log.innerHTML = S.slice(1).map((s, i) => {
       const ru = rule(s.t);
-      return `&lt;li&gt;&lt;b&gt;${figName(n, i)} → ${figName(n, i + 1)}:&lt;/b&gt; ${describe(s.t)}${ru ? `&lt;code&gt;${ru}&lt;/code&gt;` : &#x27;&#x27;}&lt;/li&gt;`;
-    }).join(&#x27;&#x27;);
+      return `<li><b>${figName(n, i)} → ${figName(n, i + 1)}:</b> ${describe(s.t)}${ru ? `<code>${ru}</code>` : ''}</li>`;
+    }).join('');
     log.hidden = false;
   } else log.hidden = true;
 }
 function renderSeries() {
-  const list = $(&#x27;seriesList&#x27;);
-  list.innerHTML = state.seq.map((t, i) =&gt;
-    `&lt;li class=&quot;${i === state.activeStep ? &#x27;active&#x27; : &#x27;&#x27;}&quot;&gt;&lt;span class=&quot;sn&quot;&gt;${i + 1}&lt;/span&gt;&lt;span class=&quot;sd&quot;&gt;${describe(t)}&lt;/span&gt;&lt;button class=&quot;x&quot; data-rm=&quot;${i}&quot; aria-label=&quot;Remove step ${i + 1}&quot; ${state.running ? &#x27;disabled&#x27; : &#x27;&#x27;}&gt;×&lt;/button&gt;&lt;/li&gt;`).join(&#x27;&#x27;);
-  $(&#x27;seriesEmpty&#x27;).hidden = state.seq.length &gt; 0;
-  $(&#x27;exTag&#x27;).hidden = !(state.seqExample &amp;&amp; state.seq.length);
-  if (!state.running) $(&#x27;runSeries&#x27;).disabled = !state.seq.length;
+  const list = $('seriesList');
+  list.innerHTML = state.seq.map((t, i) =>
+    `<li class="${i === state.activeStep ? 'active' : ''}"><span class="sn">${i + 1}</span><span class="sd">${describe(t)}</span><button class="x" data-rm="${i}" aria-label="Remove step ${i + 1}" ${state.running ? 'disabled' : ''}>×</button></li>`).join('');
+  $('seriesEmpty').hidden = state.seq.length > 0;
+  $('exTag').hidden = !(state.seqExample && state.seq.length);
+  if (!state.running) $('runSeries').disabled = !state.seq.length;
 }
-const ptsToStr = pts =&gt; pts.map(p =&gt; `(${fmt(p[0]).replace(&#x27;−&#x27;, &#x27;-&#x27;)}, ${fmt(p[1]).replace(&#x27;−&#x27;, &#x27;-&#x27;)})`).join(&#x27;, &#x27;);
+const ptsToStr = pts => pts.map(p => `(${fmt(p[0]).replace('−', '-')}, ${fmt(p[1]).replace('−', '-')})`).join(', ');
 function setFigure(pts, preset) {
   state.stages = [{ pts, t: null }];
-  $(&#x27;verts&#x27;).value = ptsToStr(pts); $(&#x27;vertsErr&#x27;).hidden = true;
-  document.querySelectorAll(&#x27;#presets .chip&#x27;).forEach(b =&gt; b.setAttribute(&#x27;aria-pressed&#x27;, String(b.dataset.shape === preset)));
+  $('verts').value = ptsToStr(pts); $('vertsErr').hidden = true;
+  document.querySelectorAll('#presets .chip').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.shape === preset)));
   showNow(null); fitView(pts); renderTable(); syncUI();
 }
 function setType(type) {
   state.type = type;
-  document.querySelectorAll(&#x27;#types .type&#x27;).forEach(b =&gt; b.setAttribute(&#x27;aria-pressed&#x27;, String(b.dataset.type === type)));
-  [&#x27;translate&#x27;, &#x27;reflect&#x27;, &#x27;rotate&#x27;, &#x27;dilate&#x27;].forEach(k =&gt; $(&#x27;det-&#x27; + k).hidden = k !== type);
+  document.querySelectorAll('#types .type').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.type === type)));
+  ['translate', 'reflect', 'rotate', 'dilate'].forEach(k => $('det-' + k).hidden = k !== type);
   updatePreview();
 }
 function setMode(mode) {
   state.mode = mode;
-  $(&#x27;tab-single&#x27;).setAttribute(&#x27;aria-selected&#x27;, String(mode === &#x27;single&#x27;));
-  $(&#x27;tab-series&#x27;).setAttribute(&#x27;aria-selected&#x27;, String(mode === &#x27;series&#x27;));
-  $(&#x27;singleCtl&#x27;).hidden = mode !== &#x27;single&#x27;; $(&#x27;seriesCtl&#x27;).hidden = mode !== &#x27;series&#x27;;
-  $(&#x27;step3&#x27;).textContent = mode === &#x27;single&#x27; ? &#x27;Run it&#x27; : &#x27;Build and run the series&#x27;;
+  $('tab-single').setAttribute('aria-selected', String(mode === 'single'));
+  $('tab-series').setAttribute('aria-selected', String(mode === 'series'));
+  $('singleCtl').hidden = mode !== 'single'; $('seriesCtl').hidden = mode !== 'series';
+  $('step3').textContent = mode === 'single' ? 'Run it' : 'Build and run the series';
 }
 
 /* ---------- events ---------- */
-document.querySelectorAll(&#x27;#types .type&#x27;).forEach(b =&gt; b.addEventListener(&#x27;click&#x27;, () =&gt; setType(b.dataset.type)));
-$(&#x27;tab-single&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; setMode(&#x27;single&#x27;));
-$(&#x27;tab-series&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; setMode(&#x27;series&#x27;));
+document.querySelectorAll('#types .type').forEach(b => b.addEventListener('click', () => setType(b.dataset.type)));
+$('tab-single').addEventListener('click', () => setMode('single'));
+$('tab-series').addEventListener('click', () => setMode('series'));
 
-document.querySelectorAll(&#x27;.chips[data-group]&#x27;).forEach(g =&gt; g.addEventListener(&#x27;click&#x27;, e =&gt; {
-  const b = e.target.closest(&#x27;button.chip&#x27;); if (!b) return;
+document.querySelectorAll('.chips[data-group]').forEach(g => g.addEventListener('click', e => {
+  const b = e.target.closest('button.chip'); if (!b) return;
   const grp = g.dataset.group;
   state[grp] = b.dataset.val;
-  g.querySelectorAll(&#x27;button.chip&#x27;).forEach(x =&gt; x.setAttribute(&#x27;aria-pressed&#x27;, String(x === b)));
-  if (g.dataset.custom) { const inp = $(g.dataset.custom); inp.value = &#x27;&#x27;; inp.parentElement.classList.remove(&#x27;on&#x27;); }
-  if (grp === &#x27;refl&#x27;) $(&#x27;reflOther&#x27;).hidden = state.refl !== &#x27;other&#x27;;
-  if (grp === &#x27;reflForm&#x27;) [&#x27;vert&#x27;, &#x27;horz&#x27;, &#x27;line&#x27;].forEach(k =&gt; $(&#x27;rf-&#x27; + k).hidden = k !== state.reflForm);
+  g.querySelectorAll('button.chip').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  if (g.dataset.custom) { const inp = $(g.dataset.custom); inp.value = ''; inp.parentElement.classList.remove('on'); }
+  if (grp === 'refl') $('reflOther').hidden = state.refl !== 'other';
+  if (grp === 'reflForm') ['vert', 'horz', 'line'].forEach(k => $('rf-' + k).hidden = k !== state.reflForm);
   updatePreview();
 }));
-[[&#x27;rotCustom&#x27;, &#x27;rotDeg&#x27;], [&#x27;dilCustom&#x27;, &#x27;dilK&#x27;]].forEach(([id, grp]) =&gt; {
-  $(id).addEventListener(&#x27;input&#x27;, () =&gt; {
-    const inp = $(id), g = document.querySelector(`.chips[data-group=&quot;${grp}&quot;]`);
+[['rotCustom', 'rotDeg'], ['dilCustom', 'dilK']].forEach(([id, grp]) => {
+  $(id).addEventListener('input', () => {
+    const inp = $(id), g = document.querySelector(`.chips[data-group="${grp}"]`);
     if (inp.value.trim()) {
-      state[grp] = &#x27;custom&#x27;;
-      g.querySelectorAll(&#x27;button.chip&#x27;).forEach(x =&gt; x.setAttribute(&#x27;aria-pressed&#x27;, &#x27;false&#x27;));
-      inp.parentElement.classList.add(&#x27;on&#x27;);
+      state[grp] = 'custom';
+      g.querySelectorAll('button.chip').forEach(x => x.setAttribute('aria-pressed', 'false'));
+      inp.parentElement.classList.add('on');
     }
   });
 });
 function centerToggle(kind, open) {
-  state[kind + &#x27;CenterOpen&#x27;] = open;
-  $(kind + &#x27;CenterFields&#x27;).hidden = !open; $(kind + &#x27;CenterBtn&#x27;).hidden = open;
-  if (!open) { $(kind === &#x27;rot&#x27; ? &#x27;rcx&#x27; : &#x27;dcx&#x27;).value = &#x27;0&#x27;; $(kind === &#x27;rot&#x27; ? &#x27;rcy&#x27; : &#x27;dcy&#x27;).value = &#x27;0&#x27;; }
+  state[kind + 'CenterOpen'] = open;
+  $(kind + 'CenterFields').hidden = !open; $(kind + 'CenterBtn').hidden = open;
+  if (!open) { $(kind === 'rot' ? 'rcx' : 'dcx').value = '0'; $(kind === 'rot' ? 'rcy' : 'dcy').value = '0'; }
   updateCenterTxt(kind); updatePreview();
-  if (open) $(kind === &#x27;rot&#x27; ? &#x27;rcx&#x27; : &#x27;dcx&#x27;).focus();
+  if (open) $(kind === 'rot' ? 'rcx' : 'dcx').focus();
 }
 function updateCenterTxt(kind) {
   const c = center(kind);
-  $(kind + &#x27;CenterTxt&#x27;).textContent = !c ? &#x27;( ?, ? )&#x27; : (c[0] === 0 &amp;&amp; c[1] === 0) ? &#x27;the origin (0, 0)&#x27; : pt(c);
+  $(kind + 'CenterTxt').textContent = !c ? '( ?, ? )' : (c[0] === 0 && c[1] === 0) ? 'the origin (0, 0)' : pt(c);
 }
-[&#x27;rot&#x27;, &#x27;dil&#x27;].forEach(k =&gt; {
-  $(k + &#x27;CenterBtn&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; centerToggle(k, true));
-  $(k + &#x27;CenterReset&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; centerToggle(k, false));
+['rot', 'dil'].forEach(k => {
+  $(k + 'CenterBtn').addEventListener('click', () => centerToggle(k, true));
+  $(k + 'CenterReset').addEventListener('click', () => centerToggle(k, false));
 });
-document.querySelector(&#x27;.panel&#x27;).addEventListener(&#x27;input&#x27;, () =&gt; { updateCenterTxt(&#x27;rot&#x27;); updateCenterTxt(&#x27;dil&#x27;); updatePreview(); });
-document.querySelector(&#x27;.panel&#x27;).addEventListener(&#x27;keydown&#x27;, e =&gt; {
-  if (e.key === &#x27;Enter&#x27; &amp;&amp; e.target.tagName === &#x27;INPUT&#x27; &amp;&amp; e.target.type !== &#x27;checkbox&#x27;) {
-    e.preventDefault(); state.mode === &#x27;single&#x27; ? runSingle() : $(&#x27;addStep&#x27;).click();
+document.querySelector('.panel').addEventListener('input', () => { updateCenterTxt('rot'); updateCenterTxt('dil'); updatePreview(); });
+document.querySelector('.panel').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type !== 'checkbox') {
+    e.preventDefault(); state.mode === 'single' ? runSingle() : $('addStep').click();
   }
 });
 
-$(&#x27;run&#x27;).addEventListener(&#x27;click&#x27;, runSingle);
-$(&#x27;runSeries&#x27;).addEventListener(&#x27;click&#x27;, runSeries);
-$(&#x27;addStep&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+$('run').addEventListener('click', runSingle);
+$('runSeries').addEventListener('click', runSeries);
+$('addStep').addEventListener('click', () => {
   const r = updatePreview(); if (!r.ok) return;
   state.seq.push(r.t); state.seqExample = false; renderSeries();
 });
-$(&#x27;seriesList&#x27;).addEventListener(&#x27;click&#x27;, e =&gt; {
-  const b = e.target.closest(&#x27;[data-rm]&#x27;); if (!b || state.running) return;
+$('seriesList').addEventListener('click', e => {
+  const b = e.target.closest('[data-rm]'); if (!b || state.running) return;
   state.seq.splice(+b.dataset.rm, 1); state.seqExample = false; renderSeries();
 });
-$(&#x27;reverse&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; { state.seq.reverse(); state.seqExample = false; renderSeries(); });
-$(&#x27;clearSeries&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; { state.seq = []; state.seqExample = false; renderSeries(); });
-$(&#x27;reset&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; { state.stages = [state.stages[0]]; showNow(null); fitView(allPts()); renderTable(); syncUI(); if (window.TLonReset) window.TLonReset(); });
-$(&#x27;labels&#x27;).addEventListener(&#x27;change&#x27;, schedule);
-$(&#x27;aids&#x27;).addEventListener(&#x27;change&#x27;, schedule);
+$('reverse').addEventListener('click', () => { state.seq.reverse(); state.seqExample = false; renderSeries(); });
+$('clearSeries').addEventListener('click', () => { state.seq = []; state.seqExample = false; renderSeries(); });
+$('reset').addEventListener('click', () => { state.stages = [state.stages[0]]; showNow(null); fitView(allPts()); renderTable(); syncUI(); if (window.TLonReset) window.TLonReset(); });
+$('labels').addEventListener('change', schedule);
+$('aids').addEventListener('change', schedule);
 
-document.querySelectorAll(&#x27;#presets .chip&#x27;).forEach(b =&gt; b.addEventListener(&#x27;click&#x27;, () =&gt; setFigure(PRESETS[b.dataset.shape].map(p =&gt; p.slice()), b.dataset.shape)));
+document.querySelectorAll('#presets .chip').forEach(b => b.addEventListener('click', () => setFigure(PRESETS[b.dataset.shape].map(p => p.slice()), b.dataset.shape)));
 function plotVerts() {
-  const m = [...$(&#x27;verts&#x27;).value.matchAll(/\(\s*([^,()]+?)\s*,\s*([^,()]+?)\s*\)/g)];
-  const pts = m.map(x =&gt; [parseNum(x[1]), parseNum(x[2])]);
-  const err = $(&#x27;vertsErr&#x27;);
-  if (pts.length &lt; 3 || pts.some(p =&gt; !isFinite(p[0]) || !isFinite(p[1]))) { err.textContent = &#x27;List at least 3 vertices in order, like (1, 2), (4, 2), (3, 5).&#x27;; err.hidden = false; return; }
-  if (pts.length &gt; 12) { err.textContent = &#x27;Use 12 vertices or fewer.&#x27;; err.hidden = false; return; }
+  const m = [...$('verts').value.matchAll(/\(\s*([^,()]+?)\s*,\s*([^,()]+?)\s*\)/g)];
+  const pts = m.map(x => [parseNum(x[1]), parseNum(x[2])]);
+  const err = $('vertsErr');
+  if (pts.length < 3 || pts.some(p => !isFinite(p[0]) || !isFinite(p[1]))) { err.textContent = 'List at least 3 vertices in order, like (1, 2), (4, 2), (3, 5).'; err.hidden = false; return; }
+  if (pts.length > 12) { err.textContent = 'Use 12 vertices or fewer.'; err.hidden = false; return; }
   setFigure(pts, null);
 }
-$(&#x27;plot&#x27;).addEventListener(&#x27;click&#x27;, plotVerts);
-$(&#x27;verts&#x27;).addEventListener(&#x27;keydown&#x27;, e =&gt; { if (e.key === &#x27;Enter&#x27;) { e.preventDefault(); plotVerts(); } });
+$('plot').addEventListener('click', plotVerts);
+$('verts').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); plotVerts(); } });
 
 /* dragging vertices */
 let drag = null;
 function local(e) { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
 function hit(sx, sy) {
-  if (!G || state.running || state.stages.length &gt; 1) return -1;
+  if (!G || state.running || state.stages.length > 1) return -1;
   let best = -1, bd = 20;
-  state.stages[0].pts.forEach((p, i) =&gt; { const d = Math.hypot(G.X(p[0]) - sx, G.Y(p[1]) - sy); if (d &lt; bd) { bd = d; best = i; } });
+  state.stages[0].pts.forEach((p, i) => { const d = Math.hypot(G.X(p[0]) - sx, G.Y(p[1]) - sy); if (d < bd) { bd = d; best = i; } });
   return best;
 }
-cv.addEventListener(&#x27;touchstart&#x27;, e =&gt; {
+cv.addEventListener('touchstart', e => {
   const r = cv.getBoundingClientRect(), t = e.touches[0];
-  if (hit(t.clientX - r.left, t.clientY - r.top) &gt;= 0) e.preventDefault();
+  if (hit(t.clientX - r.left, t.clientY - r.top) >= 0) e.preventDefault();
 }, { passive: false });
-cv.addEventListener(&#x27;pointerdown&#x27;, e =&gt; {
-  const [sx, sy] = local(e), i = hit(sx, sy); if (i &lt; 0) return;
-  drag = i; cv.setPointerCapture(e.pointerId); cv.style.cursor = &#x27;grabbing&#x27;; e.preventDefault();
+cv.addEventListener('pointerdown', e => {
+  const [sx, sy] = local(e), i = hit(sx, sy); if (i < 0) return;
+  drag = i; cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; e.preventDefault();
 });
-cv.addEventListener(&#x27;pointermove&#x27;, e =&gt; {
+cv.addEventListener('pointermove', e => {
   const [sx, sy] = local(e);
-  if (drag == null) { cv.style.cursor = hit(sx, sy) &gt;= 0 ? &#x27;grab&#x27; : &#x27;default&#x27;; return; }
+  if (drag == null) { cv.style.cursor = hit(sx, sy) >= 0 ? 'grab' : 'default'; return; }
   const m = Math.floor(G.R) - 1;
   const p = [Math.max(-m, Math.min(m, Math.round((sx - G.pad) / G.u - G.R))), Math.max(-m, Math.min(m, Math.round(G.R - (sy - G.pad) / G.u)))];
   const pts = state.stages[0].pts;
   if (pts[drag][0] !== p[0] || pts[drag][1] !== p[1]) {
-    pts[drag] = p; $(&#x27;verts&#x27;).value = ptsToStr(pts);
-    document.querySelectorAll(&#x27;#presets .chip&#x27;).forEach(b =&gt; b.setAttribute(&#x27;aria-pressed&#x27;, &#x27;false&#x27;));
+    pts[drag] = p; $('verts').value = ptsToStr(pts);
+    document.querySelectorAll('#presets .chip').forEach(b => b.setAttribute('aria-pressed', 'false'));
     renderTable(); schedule();
   }
 });
-const endDrag = () =&gt; { drag = null; cv.style.cursor = &#x27;default&#x27;; };
-cv.addEventListener(&#x27;pointerup&#x27;, endDrag); cv.addEventListener(&#x27;pointercancel&#x27;, endDrag);
+const endDrag = () => { drag = null; cv.style.cursor = 'default'; };
+cv.addEventListener('pointerup', endDrag); cv.addEventListener('pointercancel', endDrag);
 
 /* theme + size */
-const refresh = () =&gt; { readColors(); schedule(); };
-matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;).addEventListener(&#x27;change&#x27;, refresh);
-new MutationObserver(refresh).observe(document.documentElement, { attributes: true, attributeFilter: [&#x27;data-theme&#x27;] });
+const refresh = () => { readColors(); schedule(); };
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', refresh);
+new MutationObserver(refresh).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 new ResizeObserver(schedule).observe(cv);
 if (document.fonts) document.fonts.ready.then(refresh);
 
 window.TL = { state, runSingle, runSeries, finalPts, describe, rule, fmt, pt, primes, LET, schedule, render, fitView,
-  allPts: () =&gt; allPts(), showNow, syncUI, renderTable, updatePreview, haloText, rgba,
+  allPts: () => allPts(), showNow, syncUI, renderTable, updatePreview, haloText, rgba,
   get G() { return G; }, get C() { return C; } };
 /* init */
 readColors();
-$(&#x27;verts&#x27;).value = ptsToStr(state.stages[0].pts);
-setType(&#x27;rotate&#x27;); setMode(&#x27;single&#x27;);
+$('verts').value = ptsToStr(state.stages[0].pts);
+setType('rotate'); setMode('single');
 renderSeries(); renderTable(); syncUI(); schedule();
 })();
 
-&lt;/script&gt;
-&lt;script&gt;
+</script>
+<script>
 /* Board helpers: shape stepper, typed points, canvas sizing */
-(() =&gt; {
-  const $ = id =&gt; document.getElementById(id);
-  const chips = [...document.querySelectorAll(&#x27;#presets .chip&#x27;)];
-  const name = $(&#x27;figName&#x27;), prev = $(&#x27;figPrev&#x27;), next = $(&#x27;figNext&#x27;);
-  const cur = () =&gt; chips.findIndex(c =&gt; c.getAttribute(&#x27;aria-pressed&#x27;) === &#x27;true&#x27;);
-  const upd = () =&gt; {
+(() => {
+  const $ = id => document.getElementById(id);
+  const chips = [...document.querySelectorAll('#presets .chip')];
+  const name = $('figName'), prev = $('figPrev'), next = $('figNext');
+  const cur = () => chips.findIndex(c => c.getAttribute('aria-pressed') === 'true');
+  const upd = () => {
     const i = cur();
-    name.textContent = i &lt; 0 ? &#x27;My shape&#x27; : chips[i].textContent;
+    name.textContent = i < 0 ? 'My shape' : chips[i].textContent;
     prev.disabled = next.disabled = chips[0].disabled;
   };
-  prev.addEventListener(&#x27;click&#x27;, () =&gt; { const i = cur(); chips[i &lt; 0 ? chips.length - 1 : (i - 1 + chips.length) % chips.length].click(); });
-  next.addEventListener(&#x27;click&#x27;, () =&gt; { const i = cur(); chips[i &lt; 0 ? 0 : (i + 1) % chips.length].click(); });
-  new MutationObserver(upd).observe($(&#x27;presets&#x27;), { attributes: true, subtree: true, attributeFilter: [&#x27;aria-pressed&#x27;, &#x27;disabled&#x27;] });
+  prev.addEventListener('click', () => { const i = cur(); chips[i < 0 ? chips.length - 1 : (i - 1 + chips.length) % chips.length].click(); });
+  next.addEventListener('click', () => { const i = cur(); chips[i < 0 ? 0 : (i + 1) % chips.length].click(); });
+  new MutationObserver(upd).observe($('presets'), { attributes: true, subtree: true, attributeFilter: ['aria-pressed', 'disabled'] });
   upd();
-  const tog = $(&#x27;vertsToggle&#x27;), box = $(&#x27;vertsBox&#x27;);
-  const setBox = open =&gt; { box.hidden = !open; tog.setAttribute(&#x27;aria-expanded&#x27;, String(open)); if (open) $(&#x27;verts&#x27;).focus(); };
-  tog.addEventListener(&#x27;click&#x27;, () =&gt; setBox(box.hidden));
-  $(&#x27;vertsClose&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; setBox(false));
-  $(&#x27;plot&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; setTimeout(() =&gt; { if ($(&#x27;vertsErr&#x27;).hidden) setBox(false); }, 0));
-  const wrap = $(&#x27;canvasWrap&#x27;), cv = $(&#x27;cv&#x27;);
-  const fit = () =&gt; {
+  const tog = $('vertsToggle'), box = $('vertsBox');
+  const setBox = open => { box.hidden = !open; tog.setAttribute('aria-expanded', String(open)); if (open) $('verts').focus(); };
+  tog.addEventListener('click', () => setBox(box.hidden));
+  $('vertsClose').addEventListener('click', () => setBox(false));
+  $('plot').addEventListener('click', () => setTimeout(() => { if ($('vertsErr').hidden) setBox(false); }, 0));
+  const wrap = $('canvasWrap'), cv = $('cv');
+  const fit = () => {
     const r = wrap.getBoundingClientRect(), s = Math.floor(Math.min(r.width, r.height));
-    if (s &gt; 0) { cv.style.width = s + &#x27;px&#x27;; cv.style.height = s + &#x27;px&#x27;; }
+    if (s > 0) { cv.style.width = s + 'px'; cv.style.height = s + 'px'; }
   };
   new ResizeObserver(fit).observe(wrap); fit();
 })();
-&lt;/script&gt;
-&lt;script&gt;
+</script>
+<script>
 /* Play modes: Explore, Predict A′, Hit the target */
-(() =&gt; {
-  const TL = window.TL, S = TL.state, $ = id =&gt; document.getElementById(id), cv = $(&#x27;cv&#x27;);
-  const reduce = matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
-  let mode = &#x27;explore&#x27;, level = 1, awaiting = null, guess = null, target = null, hint = 0, solved = false, demo = true;
+(() => {
+  const TL = window.TL, S = TL.state, $ = id => document.getElementById(id), cv = $('cv');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let mode = 'explore', level = 1, awaiting = null, guess = null, target = null, hint = 0, solved = false, demo = true;
   let particles = [], fxOn = false;
   const score = { right: 0, total: 0, streak: 0, best: 0 };
-  try { score.best = +localStorage.getItem(&#x27;tl-best&#x27;) || 0; } catch (e) {}
+  try { score.best = +localStorage.getItem('tl-best') || 0; } catch (e) {}
 
-  const ri = (a, b) =&gt; a + Math.floor(Math.random() * (b - a + 1));
-  const pick = a =&gt; a[Math.floor(Math.random() * a.length)];
-  const sig = p =&gt; JSON.stringify(p);
-  const near = (p, q, tol) =&gt; Math.hypot(p[0] - q[0], p[1] - q[1]) &lt;= tol;
-  const lastPts = () =&gt; S.stages[S.stages.length - 1].pts;
-  const nm = (i, k) =&gt; TL.LET[i] + TL.primes(k);
+  const ri = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const sig = p => JSON.stringify(p);
+  const near = (p, q, tol) => Math.hypot(p[0] - q[0], p[1] - q[1]) <= tol;
+  const lastPts = () => S.stages[S.stages.length - 1].pts;
+  const nm = (i, k) => TL.LET[i] + TL.primes(k);
 
   function say(title, body, kind) {
-    const m = $(&#x27;msg&#x27;); m.className = &#x27;msg&#x27; + (kind ? &#x27; &#x27; + kind : &#x27;&#x27;);
-    m.innerHTML = &#x27;&#x27;; const b = document.createElement(&#x27;b&#x27;); b.textContent = title; m.appendChild(b);
-    if (body) { const s = document.createElement(&#x27;span&#x27;); s.textContent = body; m.appendChild(s); }
+    const m = $('msg'); m.className = 'msg' + (kind ? ' ' + kind : '');
+    m.innerHTML = ''; const b = document.createElement('b'); b.textContent = title; m.appendChild(b);
+    if (body) { const s = document.createElement('span'); s.textContent = body; m.appendChild(s); }
   }
   function showStats(bumpWhich) {
-    $(&#x27;stStreak&#x27;).lastElementChild.textContent = score.streak;
-    $(&#x27;stBest&#x27;).lastElementChild.textContent = score.best;
-    $(&#x27;stScore&#x27;).lastElementChild.textContent = `${score.right} / ${score.total}`;
-    (bumpWhich || []).forEach(id =&gt; { const el = $(id); el.classList.remove(&#x27;bump&#x27;); void el.offsetWidth; el.classList.add(&#x27;bump&#x27;); });
+    $('stStreak').lastElementChild.textContent = score.streak;
+    $('stBest').lastElementChild.textContent = score.best;
+    $('stScore').lastElementChild.textContent = `${score.right} / ${score.total}`;
+    (bumpWhich || []).forEach(id => { const el = $(id); el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); });
   }
   function record(ok, counts) {
     if (counts !== false) score.total++;
     if (ok) {
       score.right++; score.streak++;
-      if (score.streak &gt; score.best) { score.best = score.streak; try { localStorage.setItem(&#x27;tl-best&#x27;, score.best); } catch (e) {} }
-      showStats([&#x27;stStreak&#x27;, &#x27;stScore&#x27;]);
-    } else { score.streak = 0; showStats([&#x27;stScore&#x27;]); }
+      if (score.streak > score.best) { score.best = score.streak; try { localStorage.setItem('tl-best', score.best); } catch (e) {} }
+      showStats(['stStreak', 'stScore']);
+    } else { score.streak = 0; showStats(['stScore']); }
   }
-  function prompt(text) { const p = $(&#x27;prompt&#x27;); p.hidden = !text; p.textContent = text || &#x27;&#x27;; $(&#x27;dragHint&#x27;).hidden = !!text; }
+  function prompt(text) { const p = $('prompt'); p.hidden = !text; p.textContent = text || ''; $('dragHint').hidden = !!text; }
 
   /* celebration burst */
   function celebrate(pt) {
     if (reduce || !TL.G) return;
     const G = TL.G, C = TL.C, cols = [C.img, C.pre, C.aid, C.sun];
     const x = G.X(pt[0]), y = G.Y(pt[1]);
-    for (let i = 0; i &lt; 46; i++) {
+    for (let i = 0; i < 46; i++) {
       const a = Math.random() * Math.PI * 2, v = 2 + Math.random() * 5;
-      particles.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 2.5, r: 3 + Math.random() * 3, c: pick(cols), life: 1, sq: Math.random() &lt; .5 });
+      particles.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 2.5, r: 3 + Math.random() * 3, c: pick(cols), life: 1, sq: Math.random() < .5 });
     }
     if (!fxOn) { fxOn = true; requestAnimationFrame(tick); }
   }
   function tick() {
-    particles.forEach(p =&gt; { p.x += p.vx; p.y += p.vy; p.vy += 0.18; p.vx *= 0.985; p.life -= 0.018; });
-    particles = particles.filter(p =&gt; p.life &gt; 0);
+    particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.18; p.vx *= 0.985; p.life -= 0.018; });
+    particles = particles.filter(p => p.life > 0);
     TL.render();
     if (particles.length) requestAnimationFrame(tick); else { fxOn = false; TL.render(); }
   }
 
   /* drawing on the board */
-  window.TLextraPts = () =&gt; {
+  window.TLextraPts = () => {
     const out = [];
-    if (mode === &#x27;target&#x27; &amp;&amp; target) out.push(...target.pts);
+    if (mode === 'target' && target) out.push(...target.pts);
     if (guess) out.push(guess);
     return out;
   };
-  window.TLoverlay = (ctx, layer) =&gt; {
+  window.TLoverlay = (ctx, layer) => {
     const G = TL.G, C = TL.C;
-    if (layer === &#x27;under&#x27; &amp;&amp; mode === &#x27;target&#x27; &amp;&amp; target) {
+    if (layer === 'under' && mode === 'target' && target) {
       const base = S.stages[0].pts;
       if (sig(base) !== target.base) {
         target.base = sig(base);
-        let p = base; target.moves.forEach(m =&gt; p = TL.finalPts(m, p)); target.pts = p;
-        setTimeout(() =&gt; TL.fitView(TL.allPts()), 0);
+        let p = base; target.moves.forEach(m => p = TL.finalPts(m, p)); target.pts = p;
+        setTimeout(() => TL.fitView(TL.allPts()), 0);
       }
       const P = target.pts;
       ctx.save();
-      ctx.beginPath(); P.forEach((q, i) =&gt; i ? ctx.lineTo(G.X(q[0]), G.Y(q[1])) : ctx.moveTo(G.X(q[0]), G.Y(q[1]))); ctx.closePath();
+      ctx.beginPath(); P.forEach((q, i) => i ? ctx.lineTo(G.X(q[0]), G.Y(q[1])) : ctx.moveTo(G.X(q[0]), G.Y(q[1]))); ctx.closePath();
       ctx.fillStyle = TL.rgba(C.aid, solved ? 0.08 : 0.16); ctx.fill();
-      ctx.setLineDash([9, 6]); ctx.lineWidth = 3; ctx.strokeStyle = C.aid; ctx.lineJoin = &#x27;round&#x27;; ctx.stroke(); ctx.setLineDash([]);
-      if (document.getElementById(&#x27;labels&#x27;).checked) {
-        const cx = P.reduce((s, q) =&gt; s + G.X(q[0]), 0) / P.length, cy = P.reduce((s, q) =&gt; s + G.Y(q[1]), 0) / P.length;
-        ctx.textAlign = &#x27;center&#x27;; ctx.textBaseline = &#x27;middle&#x27;;
-        P.forEach((q, i) =&gt; {
+      ctx.setLineDash([9, 6]); ctx.lineWidth = 3; ctx.strokeStyle = C.aid; ctx.lineJoin = 'round'; ctx.stroke(); ctx.setLineDash([]);
+      if (document.getElementById('labels').checked) {
+        const cx = P.reduce((s, q) => s + G.X(q[0]), 0) / P.length, cy = P.reduce((s, q) => s + G.Y(q[1]), 0) / P.length;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        P.forEach((q, i) => {
           const sx = G.X(q[0]), sy = G.Y(q[1]); let dx = sx - cx, dy = sy - cy; const d = Math.hypot(dx, dy) || 1;
           TL.haloText(nm(i, target.moves.length), sx + dx / d * 16, sy + dy / d * 16, C.aid, `700 14px ${C.mono}`);
         });
       }
       ctx.restore();
     }
-    if (layer === &#x27;top&#x27;) {
+    if (layer === 'top') {
       if (guess) {
         const x = G.X(guess[0]), y = G.Y(guess[1]);
         ctx.save();
@@ -1183,11 +1150,11 @@ renderSeries(); renderTable(); syncUI(); schedule();
         ctx.beginPath(); ctx.arc(x, y, 10, 0, 7); ctx.fill(); ctx.stroke();
         ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x - 16, y); ctx.lineTo(x - 6, y); ctx.moveTo(x + 6, y); ctx.lineTo(x + 16, y);
         ctx.moveTo(x, y - 16); ctx.lineTo(x, y - 6); ctx.moveTo(x, y + 6); ctx.lineTo(x, y + 16); ctx.stroke();
-        ctx.textAlign = &#x27;left&#x27;; ctx.textBaseline = &#x27;bottom&#x27;;
-        TL.haloText(&#x27;Your guess&#x27;, x + 12, y - 10, C.aid, `700 13px ${C.mono}`);
+        ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+        TL.haloText('Your guess', x + 12, y - 10, C.aid, `700 13px ${C.mono}`);
         ctx.restore();
       }
-      particles.forEach(p =&gt; {
+      particles.forEach(p => {
         ctx.globalAlpha = Math.max(0, p.life); ctx.fillStyle = p.c;
         if (p.sq) ctx.fillRect(p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
         else { ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill(); }
@@ -1195,109 +1162,109 @@ renderSeries(); renderTable(); syncUI(); schedule();
       ctx.globalAlpha = 1;
     }
   };
-  window.TLrunLabel = kind =&gt; mode === &#x27;predict&#x27; ? (kind === &#x27;single&#x27; ? &#x27;Predict, then Run&#x27; : &#x27;Predict, then Run series&#x27;) : (kind === &#x27;single&#x27; ? &#x27;Run&#x27; : &#x27;Run series&#x27;);
+  window.TLrunLabel = kind => mode === 'predict' ? (kind === 'single' ? 'Predict, then Run' : 'Predict, then Run series') : (kind === 'single' ? 'Run' : 'Run series');
 
   /* run hooks */
-  window.TLbeforeRun = kind =&gt; {
+  window.TLbeforeRun = kind => {
     demo = false;
-    if (mode !== &#x27;predict&#x27;) return true;
-    if (kind === &#x27;single&#x27; &amp;&amp; !TL.updatePreview().ok) return false;
-    const k = kind === &#x27;single&#x27; ? ((document.getElementById(&#x27;chain&#x27;).checked &amp;&amp; S.stages.length &gt; 1) ? S.stages.length : 1) : S.seq.length;
+    if (mode !== 'predict') return true;
+    if (kind === 'single' && !TL.updatePreview().ok) return false;
+    const k = kind === 'single' ? ((document.getElementById('chain').checked && S.stages.length > 1) ? S.stages.length : 1) : S.seq.length;
     awaiting = kind; guess = null; TL.schedule();
     prompt(`Click where ${nm(0, k)} will land`);
-    say(`Where will ${nm(0, k)} land?`, &#x27;Click a point on the grid. Then watch the move to check your guess.&#x27;);
-    document.querySelectorAll(&#x27;.run&#x27;).forEach(b =&gt; b.classList.add(&#x27;wait&#x27;));
+    say(`Where will ${nm(0, k)} land?`, 'Click a point on the grid. Then watch the move to check your guess.');
+    document.querySelectorAll('.run').forEach(b => b.classList.add('wait'));
     return false;
   };
-  cv.addEventListener(&#x27;pointerdown&#x27;, e =&gt; {
+  cv.addEventListener('pointerdown', e => {
     if (!awaiting) return;
     e.stopImmediatePropagation(); e.preventDefault();
     const r = cv.getBoundingClientRect(), G = TL.G, lim = Math.floor(G.R);
     const x = Math.max(-lim, Math.min(lim, Math.round((e.clientX - r.left - G.pad) / G.u - G.R)));
     const y = Math.max(-lim, Math.min(lim, Math.round(G.R - (e.clientY - r.top - G.pad) / G.u)));
     guess = [x, y]; const kind = awaiting; awaiting = null;
-    prompt(null); document.querySelectorAll(&#x27;.run&#x27;).forEach(b =&gt; b.classList.remove(&#x27;wait&#x27;));
-    say(`Your guess: (${TL.fmt(x)}, ${TL.fmt(y)})`, &#x27;Watch closely…&#x27;);
+    prompt(null); document.querySelectorAll('.run').forEach(b => b.classList.remove('wait'));
+    say(`Your guess: (${TL.fmt(x)}, ${TL.fmt(y)})`, 'Watch closely…');
     TL.schedule();
-    setTimeout(() =&gt; kind === &#x27;single&#x27; ? TL.runSingle(true) : TL.runSeries(true), 450);
+    setTimeout(() => kind === 'single' ? TL.runSingle(true) : TL.runSeries(true), 450);
   }, { capture: true });
-  cv.addEventListener(&#x27;touchstart&#x27;, e =&gt; { if (awaiting) e.preventDefault(); }, { passive: false, capture: true });
+  cv.addEventListener('touchstart', e => { if (awaiting) e.preventDefault(); }, { passive: false, capture: true });
 
-  window.TLafterRun = kind =&gt; {
+  window.TLafterRun = kind => {
     const k = S.stages.length - 1, A = lastPts()[0];
-    if (mode === &#x27;predict&#x27; &amp;&amp; guess) {
+    if (mode === 'predict' && guess) {
       const ok = near(guess, A, 0.75);
       record(ok);
-      if (ok) { say(&#x27;Nailed it!&#x27;, `${nm(0, k)} landed at ${TL.pt(A)}, right where you said.`, &#x27;win&#x27;); celebrate(A); }
+      if (ok) { say('Nailed it!', `${nm(0, k)} landed at ${TL.pt(A)}, right where you said.`, 'win'); celebrate(A); }
       else {
         const d = Math.hypot(guess[0] - A[0], guess[1] - A[1]);
-        say(&#x27;Not quite.&#x27;, `${nm(0, k)} landed at ${TL.pt(A)}. Your guess was ${TL.fmt(+d.toFixed(1))} ${+d.toFixed(1) === 1 ? &#x27;unit&#x27; : &#x27;units&#x27;} away. Check the coordinates table, then try another.`, &#x27;miss&#x27;);
+        say('Not quite.', `${nm(0, k)} landed at ${TL.pt(A)}. Your guess was ${TL.fmt(+d.toFixed(1))} ${+d.toFixed(1) === 1 ? 'unit' : 'units'} away. Check the coordinates table, then try another.`, 'miss');
       }
       return;
     }
-    if (mode === &#x27;target&#x27; &amp;&amp; target &amp;&amp; !solved) {
-      const P = lastPts(), hit = P.length === target.pts.length &amp;&amp; P.every((p, i) =&gt; near(p, target.pts[i], 0.01));
+    if (mode === 'target' && target && !solved) {
+      const P = lastPts(), hit = P.length === target.pts.length && P.every((p, i) => near(p, target.pts[i], 0.01));
       if (hit) {
         solved = true;
-        if (hint &gt; 1) { score.total++; score.right++; showStats([&#x27;stScore&#x27;]); } else record(true);
-        say(hint &gt; 1 ? &#x27;You hit it, with a hint.&#x27; : &#x27;Bullseye!&#x27;, `${nm(0, k)} matches the target exactly. Press New target for another.`, &#x27;win&#x27;);
+        if (hint > 1) { score.total++; score.right++; showStats(['stScore']); } else record(true);
+        say(hint > 1 ? 'You hit it, with a hint.' : 'Bullseye!', `${nm(0, k)} matches the target exactly. Press New target for another.`, 'win');
         celebrate(P[0]);
-      } else if (target.moves.length === 2 &amp;&amp; k &lt; 2) {
-        say(&#x27;One move done.&#x27;, &#x27;Now pick the second move. Keep &quot;Build on last image&quot; checked, or use the Series tab.&#x27;, null);
-        document.getElementById(&#x27;chain&#x27;).checked = true;
+      } else if (target.moves.length === 2 && k < 2) {
+        say('One move done.', 'Now pick the second move. Keep "Build on last image" checked, or use the Series tab.', null);
+        document.getElementById('chain').checked = true;
       } else {
         record(false);
-        const off = P.filter((p, i) =&gt; !near(p, target.pts[i], 0.01)).length;
-        say(&#x27;Missed the target.&#x27;, `${off} of ${P.length} points are off. Look at where ${TL.LET[0]} needs to go, then try again.`, &#x27;miss&#x27;);
+        const off = P.filter((p, i) => !near(p, target.pts[i], 0.01)).length;
+        say('Missed the target.', `${off} of ${P.length} points are off. Look at where ${TL.LET[0]} needs to go, then try again.`, 'miss');
       }
       return;
     }
-    if (mode === &#x27;explore&#x27;) {
-      if (demo) { demo = false; say(&#x27;Your turn!&#x27;, &#x27;Pick a move, set the details, and press Run. Ready for a challenge? Try Predict A′ or Hit the target.&#x27;); }
+    if (mode === 'explore') {
+      if (demo) { demo = false; say('Your turn!', 'Pick a move, set the details, and press Run. Ready for a challenge? Try Predict A′ or Hit the target.'); }
     }
   };
-  window.TLonReset = () =&gt; { guess = null; awaiting = null; prompt(null); document.querySelectorAll(&#x27;.run&#x27;).forEach(b =&gt; b.classList.remove(&#x27;wait&#x27;)); TL.schedule(); };
+  window.TLonReset = () => { guess = null; awaiting = null; prompt(null); document.querySelectorAll('.run').forEach(b => b.classList.remove('wait')); TL.schedule(); };
 
   /* targets */
   function genMove() {
-    const kind = pick([&#x27;translate&#x27;, &#x27;translate&#x27;, &#x27;reflect&#x27;, &#x27;reflect&#x27;, &#x27;rotate&#x27;, &#x27;rotate&#x27;, &#x27;dilate&#x27;]);
-    if (kind === &#x27;translate&#x27;) { let a, b; do { a = ri(-6, 6); b = ri(-6, 6); } while (Math.abs(a) + Math.abs(b) &lt; 2); return { type: &#x27;translate&#x27;, a, b }; }
-    if (kind === &#x27;reflect&#x27;) return { type: &#x27;reflect&#x27;, kind: pick([&#x27;x&#x27;, &#x27;y&#x27;, &#x27;x&#x27;, &#x27;y&#x27;, &#x27;yx&#x27;, &#x27;ynx&#x27;]) };
-    if (kind === &#x27;rotate&#x27;) { const deg = pick([90, 180, 270]), dir = pick([&#x27;ccw&#x27;, &#x27;cw&#x27;]); return { type: &#x27;rotate&#x27;, deg, dir, ang: dir === &#x27;cw&#x27; ? -deg : deg, cx: 0, cy: 0 }; }
-    return { type: &#x27;dilate&#x27;, k: 2, cx: 0, cy: 0 };
+    const kind = pick(['translate', 'translate', 'reflect', 'reflect', 'rotate', 'rotate', 'dilate']);
+    if (kind === 'translate') { let a, b; do { a = ri(-6, 6); b = ri(-6, 6); } while (Math.abs(a) + Math.abs(b) < 2); return { type: 'translate', a, b }; }
+    if (kind === 'reflect') return { type: 'reflect', kind: pick(['x', 'y', 'x', 'y', 'yx', 'ynx']) };
+    if (kind === 'rotate') { const deg = pick([90, 180, 270]), dir = pick(['ccw', 'cw']); return { type: 'rotate', deg, dir, ang: dir === 'cw' ? -deg : deg, cx: 0, cy: 0 }; }
+    return { type: 'dilate', k: 2, cx: 0, cy: 0 };
   }
   function newTarget() {
     const base = S.stages[0].pts;
-    const setKey = p =&gt; sig(p.map(q =&gt; q.join(&#x27;,&#x27;)).sort());
-    for (let t = 0; t &lt; 400; t++) {
+    const setKey = p => sig(p.map(q => q.join(',')).sort());
+    for (let t = 0; t < 400; t++) {
       const moves = [genMove()];
       if (level === 2) { let m2; do { m2 = genMove(); } while (m2.type === moves[0].type); moves.push(m2); }
-      let p = base; moves.forEach(m =&gt; p = TL.finalPts(m, p));
-      if (p.some(q =&gt; Math.abs(q[0]) &gt; 9 || Math.abs(q[1]) &gt; 9)) continue;
+      let p = base; moves.forEach(m => p = TL.finalPts(m, p));
+      if (p.some(q => Math.abs(q[0]) > 9 || Math.abs(q[1]) > 9)) continue;
       if (setKey(p) === setKey(base)) continue;
       target = { moves, pts: p, base: sig(base) }; break;
     }
     solved = false; hint = 0; guess = null;
     S.stages = [S.stages[0]]; TL.showNow(null); TL.renderTable(); TL.syncUI();
-    document.getElementById(&#x27;chain&#x27;).checked = false;
+    document.getElementById('chain').checked = false;
     TL.fitView(TL.allPts()); TL.schedule();
-    say(level === 1 ? &#x27;Hit the target&#x27; : &#x27;Hit the target in 2 moves&#x27;,
+    say(level === 1 ? 'Hit the target' : 'Hit the target in 2 moves',
       level === 1 ? `Find one move that lands your shape exactly on the dashed target, with ${TL.LET[0]} on ${nm(0, 1)}. Then press Run.`
-                  : `Find two moves in a row that land your shape on the target, with ${TL.LET[0]} on ${nm(0, 2)}. Use the Series tab or &quot;Build on last image.&quot;`);
+                  : `Find two moves in a row that land your shape on the target, with ${TL.LET[0]} on ${nm(0, 2)}. Use the Series tab or "Build on last image."`);
   }
-  const TYPE = { translate: &#x27;a translation (slide)&#x27;, reflect: &#x27;a reflection (flip)&#x27;, rotate: &#x27;a rotation (turn)&#x27;, dilate: &#x27;a dilation (resize)&#x27; };
-  $(&#x27;hintBtn&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+  const TYPE = { translate: 'a translation (slide)', reflect: 'a reflection (flip)', rotate: 'a rotation (turn)', dilate: 'a dilation (resize)' };
+  $('hintBtn').addEventListener('click', () => {
     if (!target || solved) return;
     hint++;
-    if (hint === 1) say(&#x27;Hint&#x27;, target.moves.length === 1 ? `It&#x27;s ${TYPE[target.moves[0].type]}.` : `Move 1 is ${TYPE[target.moves[0].type]}. Move 2 is ${TYPE[target.moves[1].type]}.`);
-    else say(&#x27;Answer&#x27;, target.moves.map((m, i) =&gt; (target.moves.length &gt; 1 ? `Move ${i + 1}: ` : &#x27;&#x27;) + TL.describe(m) + &#x27;.&#x27;).join(&#x27; &#x27;) + &#x27; (Solving with the answer won\&#x27;t add to your streak.)&#x27;);
-    if (hint &gt; 2) hint = 2;
+    if (hint === 1) say('Hint', target.moves.length === 1 ? `It's ${TYPE[target.moves[0].type]}.` : `Move 1 is ${TYPE[target.moves[0].type]}. Move 2 is ${TYPE[target.moves[1].type]}.`);
+    else say('Answer', target.moves.map((m, i) => (target.moves.length > 1 ? `Move ${i + 1}: ` : '') + TL.describe(m) + '.').join(' ') + ' (Solving with the answer won\'t add to your streak.)');
+    if (hint > 2) hint = 2;
   });
-  $(&#x27;newTarget&#x27;).addEventListener(&#x27;click&#x27;, newTarget);
-  $(&#x27;levels&#x27;).addEventListener(&#x27;click&#x27;, e =&gt; {
-    const b = e.target.closest(&#x27;[data-level]&#x27;); if (!b) return;
+  $('newTarget').addEventListener('click', newTarget);
+  $('levels').addEventListener('click', e => {
+    const b = e.target.closest('[data-level]'); if (!b) return;
     level = +b.dataset.level;
-    $(&#x27;levels&#x27;).querySelectorAll(&#x27;.chip&#x27;).forEach(c =&gt; c.setAttribute(&#x27;aria-pressed&#x27;, String(c === b)));
+    $('levels').querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c === b)));
     newTarget();
   });
 
@@ -1305,38 +1272,25 @@ renderSeries(); renderTable(); syncUI(); schedule();
   function setMode(m) {
     if (S.running) return;
     mode = m; awaiting = null; guess = null; prompt(null); demo = false;
-    document.querySelectorAll(&#x27;.run&#x27;).forEach(b =&gt; b.classList.remove(&#x27;wait&#x27;));
-    $(&#x27;modes&#x27;).querySelectorAll(&#x27;.mode&#x27;).forEach(b =&gt; b.setAttribute(&#x27;aria-pressed&#x27;, String(b.dataset.mode === m)));
-    $(&#x27;targetRow&#x27;).hidden = m !== &#x27;target&#x27;; $(&#x27;lgTarget&#x27;).hidden = m !== &#x27;target&#x27;;
-    if (m === &#x27;target&#x27;) newTarget();
+    document.querySelectorAll('.run').forEach(b => b.classList.remove('wait'));
+    $('modes').querySelectorAll('.mode').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+    $('targetRow').hidden = m !== 'target'; $('lgTarget').hidden = m !== 'target';
+    if (m === 'target') newTarget();
     else {
       target = null;
-      if (m === &#x27;predict&#x27;) say(&#x27;Predict A′&#x27;, &#x27;Set up a move and press Run. Before it moves, click where you think A′ will land.&#x27;);
-      else say(&#x27;Explore&#x27;, &#x27;Pick a move, set the details, and press Run. Drag the dots to change your shape.&#x27;);
+      if (m === 'predict') say('Predict A′', 'Set up a move and press Run. Before it moves, click where you think A′ will land.');
+      else say('Explore', 'Pick a move, set the details, and press Run. Drag the dots to change your shape.');
       TL.fitView(TL.allPts());
     }
     TL.syncUI(); TL.schedule();
   }
-  $(&#x27;modes&#x27;).addEventListener(&#x27;click&#x27;, e =&gt; { const b = e.target.closest(&#x27;[data-mode]&#x27;); if (b) setMode(b.dataset.mode); });
-  document.addEventListener(&#x27;keydown&#x27;, e =&gt; { if (e.key === &#x27;Escape&#x27; &amp;&amp; awaiting) { awaiting = null; prompt(null); document.querySelectorAll(&#x27;.run&#x27;).forEach(b =&gt; b.classList.remove(&#x27;wait&#x27;)); say(&#x27;Prediction canceled.&#x27;, &#x27;Press Run when you are ready.&#x27;); } });
+  $('modes').addEventListener('click', e => { const b = e.target.closest('[data-mode]'); if (b) setMode(b.dataset.mode); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && awaiting) { awaiting = null; prompt(null); document.querySelectorAll('.run').forEach(b => b.classList.remove('wait')); say('Prediction canceled.', 'Press Run when you are ready.'); } });
 
   showStats();
   /* demo on load */
-  setTimeout(() =&gt; { if (demo &amp;&amp; !S.running &amp;&amp; S.stages.length === 1) TL.runSingle(true); }, 900);
+  setTimeout(() => { if (demo && !S.running && S.stages.length === 1) TL.runSingle(true); }, 900);
 })();
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</textarea>
-  </div>
-</div>
-<script>
-const ta = document.getElementById('code'), st = document.getElementById('status');
-document.getElementById('copy').addEventListener('click', () => {
-  const done = () => { st.className = 'status ok'; st.textContent = 'Copied. Now paste it into GitHub.'; };
-  const manual = () => { ta.focus(); ta.select(); st.className = 'status'; st.textContent = 'The code is selected. Press Ctrl + C to copy it.'; };
-  try { navigator.clipboard.writeText(ta.value).then(done, manual); } catch (e) { manual(); }
-});
 </script>
-
-</body></html>
+</body>
+</html>
