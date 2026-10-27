@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Polygon Angle Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Lexend:wght@400;500;600&display=swap">
+<style>
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+[hidden] { display: none !important; }
+</style>
+<style>
+/* Layout: chunky outlined "toy" UI — workspace left, notebook right; stacks on phones. One action color (periwinkle), teal for navigation arrows. */
+:root {
+  --bg: #e3e4e8;
+  --paper: #fbfaf6;
+  --grid: #e7e9ef;
+  --ink: #2b2f48;
+  --outline: #2b2f48;
+  --muted: #555b72;
+  --peri: #5a6cb8;
+  --peri-soft: #dfe3f5;
+  --teal: #2a8299;
+  --teal-soft: #d4edf1;
+  --on-accent: #ffffff;
+  --t1: #3aa6b9; --t2: #f0b43c; --t3: #6bb85a; --t4: #8a79d6;
+  --shape: #e9765f;
+  --good: #23875a; --bad: #c2412d;
+  --display: "Fredoka", "Trebuchet MS", sans-serif;
+  --body: "Lexend", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1b1f2e; --paper: #272c41; --grid: #30364d; --ink: #eef0f7; --outline: #0b0d17; --muted: #b4bad0;
+  --peri: #8496e6; --peri-soft: #363f66; --teal: #4fb8cc; --teal-soft: #22434c; --on-accent: #12152a;
+  --t1: #4fc0d2; --t2: #f4c25a; --t3: #84d073; --t4: #a596ee; --shape: #f08a75; --good: #55cf8f; --bad: #f08a75; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #1b1f2e; --paper: #272c41; --grid: #30364d; --ink: #eef0f7; --outline: #0b0d17; --muted: #b4bad0;
+  --peri: #8496e6; --peri-soft: #363f66; --teal: #4fb8cc; --teal-soft: #22434c; --on-accent: #12152a;
+  --t1: #4fc0d2; --t2: #f4c25a; --t3: #84d073; --t4: #a596ee; --shape: #f08a75; --good: #55cf8f; --bad: #f08a75; color-scheme: dark }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 48px; }
+.wrap { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+header h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2rem, 4.5vw, 2.8rem); line-height: 1.05; margin: 0; text-wrap: balance; }
+header p { margin: 8px 0 0; color: var(--muted); max-width: 58ch; }
+.main { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 880px) { .main { grid-template-columns: minmax(0, 1fr); } }
+
+.stage, .card { background: var(--paper); border: 3px solid var(--outline); border-radius: 18px; }
+.stage { overflow: hidden; display: flex; flex-direction: column; }
+.bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; padding: 14px; }
+.bar + .bar, .bar.top { border-top: 3px solid var(--outline); }
+.bar.top { border-top: 0; border-bottom: 3px solid var(--outline); background: var(--bg); }
+
+/* sides picker: arrow · plate · arrow */
+.picker { display: flex; align-items: center; gap: 14px; }
+.arrow { background: none; border: 0; padding: 4px; cursor: pointer; border-radius: 12px; line-height: 0; }
+.arrow svg { width: 72px; height: 44px; display: block; }
+.arrow:hover svg path { fill: var(--t1); }
+.arrow:active { transform: translateY(2px); }
+.arrow:disabled { opacity: 0.35; cursor: default; transform: none; }
+.arrow:disabled:hover svg path { fill: var(--teal); }
+.plate { background: var(--peri); color: var(--on-accent); border: 3px solid var(--outline); border-radius: 14px; padding: 6px 22px; min-width: 9.5em; text-align: center;
+  font-family: var(--display); font-weight: 600; font-size: 1.35rem; line-height: 1.2; position: relative; }
+.plate::before, .plate::after { content: ""; position: absolute; top: -11px; width: 12px; height: 18px; border: 3px solid var(--outline); border-radius: 6px; background: var(--paper); }
+.plate::before { left: 14px; } .plate::after { right: 14px; }
+.plate b { font-size: 1.7rem; font-weight: 700; }
+
+canvas { display: block; width: 100%; aspect-ratio: 4 / 3; max-width: 100%; touch-action: none; cursor: grab; }
+canvas.dragging { cursor: grabbing; }
+canvas.cutting { cursor: crosshair; }
+.hint { padding: 12px 18px; font-size: 1rem; border-top: 3px solid var(--outline); min-height: 3.2em; background: var(--peri-soft); }
+.hint.good { color: var(--good); font-weight: 600; } .hint.bad { color: var(--bad); font-weight: 600; }
+
+/* chunky buttons */
+button.btn { font-family: var(--display); font-weight: 600; font-size: 1.05rem; min-height: 46px; padding: 6px 18px; border-radius: 12px;
+  border: 3px solid var(--outline); background: var(--paper); color: var(--ink); cursor: pointer; box-shadow: 0 4px 0 var(--outline); transition: transform .08s, box-shadow .08s; }
+button.btn:hover { background: var(--peri-soft); }
+button.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--outline); }
+button.btn:disabled { opacity: 0.4; cursor: default; transform: none; box-shadow: 0 4px 0 var(--outline); background: var(--paper); }
+button.btn.primary { background: var(--peri); color: var(--on-accent); }
+button.btn.primary:hover { filter: brightness(1.08); }
+button.btn[aria-pressed="true"] { background: var(--teal); color: var(--on-accent); }
+button:focus-visible, .chip input:focus-visible + span, input[type=number]:focus-visible { outline: 4px solid var(--t2); outline-offset: 3px; }
+
+/* toggle chips */
+.chip { position: relative; cursor: pointer; }
+.chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.chip span { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 6px 16px 6px 12px; border: 3px solid var(--outline); border-radius: 999px;
+  background: var(--paper); font-weight: 500; font-size: 1rem; }
+.chip span::before { content: ""; width: 22px; height: 22px; border: 3px solid var(--outline); border-radius: 7px; background: var(--paper); flex: none;
+  display: grid; place-items: center; font-size: 15px; font-weight: 700; line-height: 1; color: var(--on-accent); }
+.chip input:checked + span { background: var(--teal-soft); }
+.chip input:checked + span::before { content: "✓"; background: var(--teal); }
+
+.panel { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.card { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.card h2 { font-family: var(--display); font-weight: 600; font-size: 1.3rem; margin: 0; }
+.shapename { font-family: var(--display); font-weight: 700; font-size: 2.2rem; line-height: 1.05; margin: 0; }
+.sub { color: var(--muted); margin: 0; }
+.bigsum { font-family: var(--display); font-weight: 700; font-size: 2.6rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.bigsum small { font-size: 1rem; color: var(--muted); font-family: var(--body); font-weight: 400; }
+.eq { font-size: 1.1rem; background: var(--peri-soft); border: 3px solid var(--outline); border-radius: 12px; padding: 12px 14px; line-height: 1.8; overflow-x: auto; font-variant-numeric: tabular-nums; }
+.eq .hl, .steps .hl { color: var(--peri); font-weight: 600; }
+.angles { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+.angles span { padding: 3px 10px; border-radius: 999px; border: 2px solid var(--outline); background: var(--paper); }
+.angles span.reflex { border-color: var(--t4); color: var(--t4); font-weight: 600; }
+.note { font-size: 1rem; color: var(--muted); margin: 0; }
+
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.steps li { border: 3px solid var(--outline); border-radius: 12px; padding: 10px 14px; display: flex; flex-direction: column; gap: 2px; opacity: 0.6; }
+.steps li.current { background: var(--peri-soft); opacity: 1; }
+.steps .label { font-weight: 600; }
+.steps .math { font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+
+.tablewrap { overflow-x: auto; border: 3px solid var(--outline); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 1rem; }
+th, td { text-align: right; padding: 8px 10px; border-bottom: 2px solid var(--grid); white-space: nowrap; }
+th { font-size: 0.9rem; color: var(--ink); font-weight: 600; background: var(--peri-soft); border-bottom: 3px solid var(--outline); }
+td.name, th.name { text-align: left; }
+tbody tr:last-child td { border-bottom: 0; }
+tr.empty td { text-align: left; color: var(--muted); }
+table.no-tri [data-col="tri"], table.no-ang [data-col="ang"], table.no-form [data-col="form"] { display: none; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.challenge input { font: inherit; width: 7.5em; min-height: 46px; padding: 6px 10px; border-radius: 12px; border: 3px solid var(--outline); background: var(--paper); color: var(--ink); }
+.feedback { font-weight: 600; min-height: 1.5em; margin: 0; }
+.feedback.good { color: var(--good); } .feedback.bad { color: var(--bad); }
+/* one-screen fit */
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 18px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand svg { width: 44px; height: 44px; flex: none; }
+header h1 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
+header p { margin: 0; }
+.bar { padding: 10px 12px; }
+.hint { padding: 8px 16px; min-height: 2.7em; }
+.canvasbox { position: relative; aspect-ratio: 4 / 3; max-width: 100%; }
+.canvasbox canvas { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }
+.card { padding: 14px 16px; gap: 10px; }
+.shapename { font-size: 1.9rem; }
+.chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.chips .chip span { width: 100%; }
+@media (min-width: 881px) {
+  html, body { height: 100%; }
+  body { overflow: hidden; padding-block: 12px; }
+  .wrap { height: 100%; gap: 12px; }
+  .main { flex: 1; min-height: 0; gap: 16px; align-items: stretch; }
+  .stage { min-height: 0; }
+  .canvasbox { flex: 1; aspect-ratio: auto; min-height: 0; }
+  .panel { min-height: 0; overflow-y: auto; gap: 12px; padding: 2px 4px 6px 2px; }
+}
+@media (max-width: 480px) { .arrow svg { width: 56px; height: 36px; } .plate { min-width: 7.5em; padding: 6px 14px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M22 4 L40 17 L33 39 L11 39 L4 17 Z" fill="var(--shape)" stroke="var(--outline)" stroke-width="3.5" stroke-linejoin="round"/><path d="M22 4 L11 39 M22 4 L33 39" stroke="var(--outline)" stroke-width="2" stroke-dasharray="3 3" fill="none"/></svg>
+      <h1>Polygon Angle Lab</h1>
+    </div>
+    <p>Pick how many sides. Drag the dots to make your own shape. Add each shape to your table.</p>
+  </header>
+
+  <div class="main">
+    <section class="stage" aria-label="Polygon workspace">
+      <div class="bar top">
+        <div class="picker">
+          <button class="arrow" id="nMinus" type="button" aria-label="Fewer sides">
+            <svg viewBox="0 0 72 44" aria-hidden="true"><path d="M3 22 L24 4 Q27 2 27 6 V13 H64 Q69 13 69 18 V26 Q69 31 64 31 H27 V38 Q27 42 24 40 Z" fill="var(--teal)" stroke="var(--outline)" stroke-width="3.5" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="plate" aria-live="polite"><b id="nval">5</b> sides</div>
+          <button class="arrow" id="nPlus" type="button" aria-label="More sides">
+            <svg viewBox="0 0 72 44" aria-hidden="true"><path d="M69 22 L48 4 Q45 2 45 6 V13 H8 Q3 13 3 18 V26 Q3 31 8 31 H45 V38 Q45 42 48 40 Z" fill="var(--teal)" stroke="var(--outline)" stroke-width="3.5" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="canvasbox" id="cvbox"><canvas id="cv" aria-label="Polygon workspace"></canvas></div>
+      <div class="hint" id="hint" aria-live="polite">Drag any dot to change your shape.</div>
+      <div class="bar">
+        <button class="btn" id="regular" type="button">Make regular</button>
+        <button class="btn" id="scramble" type="button">Random shape</button>
+        <button class="btn" id="cutBtn" type="button" aria-pressed="false">Draw cuts</button>
+        <button class="btn" id="clearCuts" type="button" disabled>Clear cuts</button>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <div class="card">
+        <div class="chips">
+          <label class="chip" for="showAng"><input type="checkbox" id="showAng"><span>Show angles</span></label>
+          <label class="chip" for="showTri"><input type="checkbox" id="showTri"><span>Show triangles</span></label>
+          <label class="chip" for="showForm"><input type="checkbox" id="showForm"><span>Show formula</span></label>
+          <label class="chip" for="showModel"><input type="checkbox" id="showModel"><span>Model formula</span></label>
+        </div>
+      </div>
+
+      <div class="card" id="shapeCard">
+        <p class="shapename" id="shapeName">Pentagon</p>
+        <p class="sub" id="sidesLabel">5 sides</p>
+        <div id="sumBlock" hidden>
+          <div class="bigsum" id="sum">540° <small>all angles added</small></div>
+        </div>
+        <div class="angles" id="angles" hidden></div>
+        <div class="eq" id="eq" hidden></div>
+        <p class="note" id="note"></p>
+      </div>
+
+      <div class="card" id="modelCard" hidden>
+        <h2>Model formula use</h2>
+        <ol class="steps" id="steps"></ol>
+        <div class="row">
+          <button class="btn" id="mBack" type="button">Back</button>
+          <button class="btn primary" id="mNext" type="button">Next step</button>
+          <button class="btn" id="mRestart" type="button">Start over</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>My shapes</h2>
+        <div class="row">
+          <button class="btn primary" id="record" type="button">Add this shape</button>
+          <button class="btn" id="clear" type="button">Clear table</button>
+        </div>
+        <div class="tablewrap">
+          <table id="table" class="no-tri no-ang no-form">
+            <thead><tr><th class="name">Shape</th><th>Sides (n)</th><th data-col="tri">Triangles</th><th data-col="ang">Angle sum</th><th data-col="form">(n − 2) × 180°</th></tr></thead>
+            <tbody id="tbody"><tr class="empty"><td colspan="5">No shapes yet. Press "Add this shape."</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card challenge" id="challengeCard" hidden>
+        <h2>Challenge</h2>
+        <p class="note" id="chQ"></p>
+        <div class="row">
+          <input type="number" id="chA" inputmode="numeric" aria-label="Your answer in degrees" placeholder="degrees">
+          <button class="btn primary" id="chCheck" type="button">Check</button>
+          <button class="btn" id="chNew" type="button">New one</button>
+        </div>
+        <p class="feedback" id="chFb" aria-live="polite"></p>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+(() => {
+  const NAMES = {3:"Triangle",4:"Quadrilateral",5:"Pentagon",6:"Hexagon",7:"Heptagon",8:"Octagon",9:"Nonagon",10:"Decagon",11:"Hendecagon",12:"Dodecagon"};
+  const $ = id => document.getElementById(id);
+  const cv = $("cv"), ctx = cv.getContext("2d");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const F = (w, s) => `${w} ${s}px Lexend, "Segoe UI", sans-serif`;
+  const FD = (w, s) => `${w} ${s}px Fredoka, "Trebuchet MS", sans-serif`;
+  let W = 800, H = 600, pts = [], n = 5, drag = -1;
+  let cutMode = false, cuts = [], cutStart = -1, cutPointer = null, cutMoved = false;
+  let modelStep = 0, modelReveal = 0, revealTimer = null;
+  let hintOverride = null, hintTimer = null;
+
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+  function resize() {
+    const r = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+    if (r.width < 10 || r.height < 10) return;
+    const oldW = W, oldH = H;
+    W = r.width; H = r.height;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (pts.length && oldW && oldH) {
+      const s = Math.min(W / oldW, H / oldH);
+      pts = pts.map(p => ({ x: W / 2 + (p.x - oldW / 2) * s, y: H / 2 + (p.y - oldH / 2) * s }));
+    }
+    draw();
+  }
+
+  function regular(k) {
+    const cx = W / 2, cy = H / 2, R = Math.min(W, H) * 0.35;
+    pts = Array.from({ length: k }, (_, i) => {
+      const a = -Math.PI / 2 + (i * 2 * Math.PI) / k;
+      return { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a) };
+    });
+  }
+  function scramble() {
+    for (let tries = 0; tries < 200; tries++) {
+      const cx = W / 2, cy = H / 2, R = Math.min(W, H) * 0.38;
+      const angs = Array.from({ length: n }, () => Math.random() * 2 * Math.PI).sort((a, b) => a - b);
+      const cand = angs.map(a => { const r = R * (0.55 + Math.random() * 0.45); return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) }; });
+      if (simple(cand) && minAngleOK(cand)) { pts = cand; return; }
+    }
+    regular(n);
+  }
+  function newShape(fn) { fn(); cuts = []; cutStart = -1; restartModel(); draw(); }
+
+  // geometry
+  const sub = (a, b) => ({ x: a.x - b.x, y: a.y - b.y });
+  const cross = (a, b) => a.x * b.y - a.y * b.x;
+  const dot = (a, b) => a.x * b.x + a.y * b.y;
+  function area(P) { let s = 0; for (let i = 0; i < P.length; i++) { const a = P[i], b = P[(i + 1) % P.length]; s += a.x * b.y - b.x * a.y; } return s / 2; }
+  function segX(p1, p2, p3, p4) {
+    const d1 = cross(sub(p4, p3), sub(p1, p3)), d2 = cross(sub(p4, p3), sub(p2, p3));
+    const d3 = cross(sub(p2, p1), sub(p3, p1)), d4 = cross(sub(p2, p1), sub(p4, p1));
+    return ((d1 > 0) !== (d2 > 0)) && ((d3 > 0) !== (d4 > 0));
+  }
+  function simple(P) {
+    const k = P.length;
+    for (let i = 0; i < k; i++) for (let j = i + 1; j < k; j++) {
+      if (j === i + 1 || (i === 0 && j === k - 1)) continue;
+      if (segX(P[i], P[(i + 1) % k], P[j], P[(j + 1) % k])) return false;
+    }
+    for (let i = 0; i < k; i++) for (let j = i + 1; j < k; j++) if (Math.hypot(P[i].x - P[j].x, P[i].y - P[j].y) < 16) return false;
+    return Math.abs(area(P)) > 200;
+  }
+  function inside(p, P) {
+    let c = false;
+    for (let i = 0, j = P.length - 1; i < P.length; j = i++) {
+      if (((P[i].y > p.y) !== (P[j].y > p.y)) && (p.x < (P[j].x - P[i].x) * (p.y - P[i].y) / (P[j].y - P[i].y) + P[i].x)) c = !c;
+    }
+    return c;
+  }
+  function interiorAngles(P) {
+    const s = Math.sign(area(P)), k = P.length;
+    return P.map((c, i) => {
+      const pr = P[(i - 1 + k) % k], nx = P[(i + 1) % k];
+      const a = sub(pr, c), b = sub(nx, c);
+      const th = Math.acos(Math.max(-1, Math.min(1, dot(a, b) / (Math.hypot(a.x, a.y) * Math.hypot(b.x, b.y))))) * 180 / Math.PI;
+      const convex = Math.sign(cross(sub(c, pr), sub(nx, c))) === s;
+      return convex ? th : 360 - th;
+    });
+  }
+  function minAngleOK(P) { return interiorAngles(P).every(a => a > 25 && a < 335); }
+  function isConvex(P) { return interiorAngles(P).every(a => a < 180); }
+
+  function pointInTri(p, a, b, c) {
+    const d1 = cross(sub(b, a), sub(p, a)), d2 = cross(sub(c, b), sub(p, b)), d3 = cross(sub(a, c), sub(p, c));
+    return !(((d1 < 0) || (d2 < 0) || (d3 < 0)) && ((d1 > 0) || (d2 > 0) || (d3 > 0)));
+  }
+  function triangulate(P) {
+    if (isConvex(P)) return { tris: Array.from({ length: P.length - 2 }, (_, i) => [0, i + 1, i + 2]), fan: true };
+    const s = Math.sign(area(P)); const idx = P.map((_, i) => i); const tris = []; let guard = 0;
+    while (idx.length > 3 && guard++ < 500) {
+      let found = false;
+      for (let i = 0; i < idx.length; i++) {
+        const ia = idx[(i - 1 + idx.length) % idx.length], ib = idx[i], ic = idx[(i + 1) % idx.length];
+        const a = P[ia], b = P[ib], c = P[ic];
+        if (Math.sign(cross(sub(b, a), sub(c, b))) !== s) continue;
+        if (idx.some(j => j !== ia && j !== ib && j !== ic && pointInTri(P[j], a, b, c))) continue;
+        tris.push([ia, ib, ic]); idx.splice(i, 1); found = true; break;
+      }
+      if (!found) break;
+    }
+    if (idx.length === 3) tris.push(idx);
+    return { tris, fan: false };
+  }
+
+  // user cuts
+  function cutProblem(a, b, list) {
+    const k = pts.length;
+    if (a === b) return "Pick a different corner.";
+    if ((a + 1) % k === b || (b + 1) % k === a) return "Those two corners are already joined by a side. Pick a corner that is not next to it.";
+    if (list.some(([x, y]) => (x === a && y === b) || (x === b && y === a))) return "That cut is already there.";
+    const A = pts[a], B = pts[b];
+    for (let i = 0; i < k; i++) {
+      const j = (i + 1) % k;
+      if (i === a || i === b || j === a || j === b) continue;
+      if (segX(A, B, pts[i], pts[j])) return "That line goes outside the shape. Cuts must stay inside.";
+    }
+    if (!inside({ x: (A.x + B.x) / 2, y: (A.y + B.y) / 2 }, pts)) return "That line goes outside the shape. Cuts must stay inside.";
+    for (const [x, y] of list) {
+      if (x === a || x === b || y === a || y === b) continue;
+      if (segX(A, B, pts[x], pts[y])) return "Cuts can't cross each other. Try two different corners.";
+    }
+    return null;
+  }
+  function pieces() {
+    const ps = [pts.map((_, i) => i)];
+    for (const [a, b] of cuts) {
+      const pi = ps.findIndex(p => p.includes(a) && p.includes(b));
+      if (pi < 0) continue;
+      const p = ps[pi]; let ia = p.indexOf(a), ib = p.indexOf(b);
+      if (ia > ib) [ia, ib] = [ib, ia];
+      ps.splice(pi, 1, p.slice(ia, ib + 1), p.slice(ib).concat(p.slice(0, ia + 1)));
+    }
+    return ps;
+  }
+  function revalidateCuts() {
+    const kept = [];
+    for (const c of cuts) if (!cutProblem(c[0], c[1], kept)) kept.push(c);
+    cuts = kept;
+  }
+  function flash(msg, kind) {
+    hintOverride = { msg, kind }; clearTimeout(hintTimer);
+    hintTimer = setTimeout(() => { hintOverride = null; updateHint(); }, 3200);
+    updateHint();
+  }
+  function tryCut(a, b) {
+    const prob = cutProblem(a, b, cuts);
+    if (prob) { flash(prob, "bad"); return; }
+    cuts.push([a, b]); hintOverride = null;
+  }
+  function updateHint() {
+    const h = $("hint");
+    if (hintOverride) { h.textContent = hintOverride.msg; h.className = "hint " + (hintOverride.kind || ""); return; }
+    h.className = "hint";
+    if ($("showModel").checked) { h.textContent = "Follow the steps in the Model formula use box."; return; }
+    if (!cutMode) { h.textContent = cuts.length ? "Press Draw cuts to keep cutting, or drag a dot to change your shape." : "Drag any dot to change your shape."; return; }
+    const ps = pieces(), allTri = ps.every(p => p.length === 3);
+    if (!cuts.length) h.textContent = "Tap a corner. Then tap another corner to draw a straight cut inside.";
+    else if (allTri) { h.textContent = `Every piece is a triangle! You made ${ps.length} triangles.`; h.className = "hint good"; }
+    else h.textContent = `${ps.length} pieces so far. Keep cutting until every piece is a triangle.`;
+  }
+
+  // model
+  function restartModel() { modelStep = 0; modelReveal = 0; clearInterval(revealTimer); }
+  function setModelStep(s) {
+    modelStep = Math.max(0, Math.min(3, s));
+    clearInterval(revealTimer);
+    const total = n - 2;
+    if (modelStep === 1) {
+      if (reduceMotion) modelReveal = total;
+      else { modelReveal = 0; revealTimer = setInterval(() => { modelReveal++; draw(); if (modelReveal >= total) clearInterval(revealTimer); }, 500); }
+    } else modelReveal = total;
+    draw();
+  }
+  function renderModel(angTotal) {
+    const t = n - 2, S = [
+      { label: "Step 1: Count the sides.", math: `n = <span class="hl">${n}</span>` },
+      { label: "Step 2: Subtract 2. That is how many triangles fit inside.", math: `${n} − 2 = <span class="hl">${t}</span> triangles` },
+      { label: "Step 3: Each triangle has 180°. Multiply.", math: `${t} × 180° = <span class="hl">${t * 180}°</span>` },
+      { label: "Step 4: Check. Add the angles you measured.", math: `Angles add to <span class="hl">${Math.round(angTotal)}°</span> ✓` }
+    ];
+    $("steps").innerHTML = S.slice(0, modelStep + 1).map((s, i) =>
+      `<li class="${i === modelStep ? "current" : ""}"><span class="label">${s.label}</span><span class="math">${s.math}</span></li>`).join("");
+    $("mBack").disabled = modelStep === 0;
+    $("mNext").disabled = modelStep === 3;
+  }
+
+  // drawing
+  function pathPoly(idx) { ctx.beginPath(); idx.forEach((j, k) => k ? ctx.lineTo(pts[j].x, pts[j].y) : ctx.moveTo(pts[j].x, pts[j].y)); ctx.closePath(); }
+  function fillPoly(idx, color, alpha, solid) { pathPoly(idx); if (solid) { ctx.fillStyle = css("--paper"); ctx.fill(); } ctx.globalAlpha = alpha; ctx.fillStyle = color; ctx.fill(); ctx.globalAlpha = 1; }
+  function centroid(idx) { let x = 0, y = 0; idx.forEach(j => { x += pts[j].x; y += pts[j].y; }); return { x: x / idx.length, y: y / idx.length }; }
+  function label(txt, x, y, font, color, bg, border) {
+    ctx.font = font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    if (bg) {
+      const tw = ctx.measureText(txt).width, w = tw + 14, h = 24;
+      ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x - w / 2, y - h / 2, w, h, 8) : ctx.rect(x - w / 2, y - h / 2, w, h);
+      ctx.fillStyle = bg; ctx.fill(); if (border) { ctx.lineWidth = 2; ctx.strokeStyle = border; ctx.stroke(); }
+    }
+    ctx.fillStyle = color; ctx.fillText(txt, x, y + 1);
+  }
+  function triBadge(i, m, c, text) {
+    ctx.beginPath(); ctx.arc(m.x, m.y, text.length > 2 ? 22 : 15, 0, 2 * Math.PI);
+    ctx.fillStyle = c.paper; ctx.fill(); ctx.lineWidth = 2.5; ctx.strokeStyle = c.outline; ctx.stroke();
+    label(text, m.x, m.y, FD(700, text.length > 2 ? 14 : 16), c.ink);
+  }
+
+  function draw() {
+    const c = { grid: css("--grid"), ink: css("--ink"), outline: css("--outline"), muted: css("--muted"), paper: css("--paper"), peri: css("--peri"),
+      teal: css("--teal"), onAccent: css("--on-accent"), t: [css("--t1"), css("--t2"), css("--t3"), css("--t4")], shape: css("--shape") };
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = c.paper; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = c.grid; ctx.lineWidth = 1;
+    for (let x = 0; x < W; x += 28) { ctx.beginPath(); ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, H); ctx.stroke(); }
+    for (let y = 0; y < H; y += 28) { ctx.beginPath(); ctx.moveTo(0, y + 0.5); ctx.lineTo(W, y + 0.5); ctx.stroke(); }
+    if (!pts.length) return;
+
+    const { tris, fan } = triangulate(pts);
+    const angs = interiorAngles(pts);
+    const model = $("showModel").checked;
+    const showT = $("showTri").checked, showA = $("showAng").checked || (model && modelStep === 3);
+    const k = pts.length;
+    const drawTris = (list, labelFn) => list.forEach((t, i) => {
+      fillPoly(t, c.t[i % 4], 0.5, true);
+      pathPoly(t); ctx.strokeStyle = c.outline; ctx.lineWidth = 2; ctx.setLineDash([8, 6]); ctx.stroke(); ctx.setLineDash([]);
+      triBadge(i, centroid(t), c, labelFn(i));
+    });
+
+    fillPoly(pts.map((_, i) => i), c.shape, 1);
+
+    if (model) { if (modelStep >= 1) drawTris(tris.slice(0, modelReveal), i => modelStep >= 2 ? "180°" : String(i + 1)); }
+    else if (cuts.length) {
+      let tn = 0;
+      pieces().forEach(p => { if (p.length === 3) { fillPoly(p, c.t[tn % 4], 0.5, true); tn++; triBadge(tn, centroid(p), c, String(tn)); } });
+    } else if (showT) drawTris(tris, i => String(i + 1));
+
+    pathPoly(pts.map((_, i) => i));
+    ctx.strokeStyle = c.outline; ctx.lineWidth = 4.5; ctx.lineJoin = "round"; ctx.stroke();
+
+    if (!model) {
+      ctx.strokeStyle = c.peri; ctx.lineWidth = 4; ctx.lineCap = "round";
+      cuts.forEach(([a, b]) => { ctx.beginPath(); ctx.moveTo(pts[a].x, pts[a].y); ctx.lineTo(pts[b].x, pts[b].y); ctx.stroke(); });
+      if (cutMode && cutStart >= 0 && cutPointer) {
+        ctx.setLineDash([9, 7]); ctx.beginPath(); ctx.moveTo(pts[cutStart].x, pts[cutStart].y); ctx.lineTo(cutPointer.x, cutPointer.y); ctx.stroke(); ctx.setLineDash([]);
+      }
+    }
+
+    if (model && modelStep === 0) {
+      const cen = centroid(pts.map((_, i) => i));
+      pts.forEach((p, i) => {
+        const q = pts[(i + 1) % k], mx = (p.x + q.x) / 2, my = (p.y + q.y) / 2;
+        const dx = mx - cen.x, dy = my - cen.y, d = Math.hypot(dx, dy) || 1;
+        const lx = Math.max(18, Math.min(W - 18, mx + dx / d * 24)), ly = Math.max(18, Math.min(H - 18, my + dy / d * 24));
+        ctx.beginPath(); ctx.arc(lx, ly, 15, 0, 2 * Math.PI); ctx.fillStyle = c.peri; ctx.fill();
+        ctx.lineWidth = 2.5; ctx.strokeStyle = c.outline; ctx.stroke();
+        label(String(i + 1), lx, ly, FD(700, 16), c.onAccent);
+      });
+    }
+
+    if (showA) {
+      pts.forEach((p, i) => {
+        const a = sub(pts[(i - 1 + k) % k], p), b = sub(pts[(i + 1) % k], p);
+        const angA = Math.atan2(a.y, a.x), angB = Math.atan2(b.y, b.x);
+        const interior = angs[i] * Math.PI / 180;
+        let sweep = ((angB - angA) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+        let start = angA;
+        if (Math.abs(sweep - interior) > 0.01) { start = angB; sweep = 2 * Math.PI - sweep; }
+        const r = Math.min(28, Math.hypot(a.x, a.y) * 0.3, Math.hypot(b.x, b.y) * 0.3) + 4;
+        const col = angs[i] > 180 ? c.t[3] : c.peri;
+        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.arc(p.x, p.y, r, start, start + sweep, false); ctx.closePath();
+        ctx.fillStyle = col; ctx.globalAlpha = 0.3; ctx.fill(); ctx.globalAlpha = 1;
+        ctx.beginPath(); ctx.arc(p.x, p.y, r, start, start + sweep, false); ctx.strokeStyle = col; ctx.lineWidth = 3; ctx.stroke();
+        const mid = start + sweep / 2, lr = r + 26;
+        const lx = Math.max(28, Math.min(W - 28, p.x + lr * Math.cos(mid))), ly = Math.max(14, Math.min(H - 14, p.y + lr * Math.sin(mid)));
+        label(Math.round(angs[i]) + "°", lx, ly, F(600, 14), c.ink, c.paper, col);
+      });
+    }
+
+    pts.forEach((p, i) => {
+      const active = i === drag || i === cutStart;
+      ctx.beginPath(); ctx.arc(p.x, p.y, active ? 13 : 11, 0, 2 * Math.PI);
+      const fanCorner = fan && ((showT && !cuts.length && !model) || (model && modelStep >= 1)) && i === 0;
+      ctx.fillStyle = i === cutStart ? c.peri : fanCorner ? c.t[1] : c.paper; ctx.fill();
+      ctx.lineWidth = 3.5; ctx.strokeStyle = c.outline; ctx.stroke();
+    });
+
+    updatePanel(angs, tris.length, fan);
+    updateHint();
+  }
+
+  function updatePanel(angs, triCount, fan) {
+    const total = angs.reduce((s, a) => s + a, 0);
+    const showA = $("showAng").checked, showT = $("showTri").checked, showF = $("showForm").checked, model = $("showModel").checked;
+    $("nval").textContent = n;
+    $("nMinus").disabled = n === 3; $("nPlus").disabled = n === 12;
+    $("sidesLabel").textContent = `${n} sides`;
+    $("shapeName").textContent = NAMES[n];
+    $("sumBlock").hidden = !showA; $("angles").hidden = !showA;
+    $("sum").innerHTML = `${Math.round(total)}° <small>all angles added</small>`;
+    $("angles").innerHTML = angs.map(a => `<span class="${a > 180 ? "reflex" : ""}">${Math.round(a)}°</span>`).join("");
+    $("eq").hidden = !showF;
+    $("eq").innerHTML = (showT ? `${triCount} triangles × 180° = <span class="hl">${triCount * 180}°</span><br>` : "") +
+      `(n − 2) × 180° = (${n} − 2) × 180° = <span class="hl">${(n - 2) * 180}°</span>`;
+    let note = "";
+    if (showT && !cuts.length) note = fan
+      ? `Lines from the gold corner split the ${NAMES[n].toLowerCase()} into ${n - 2} triangles.`
+      : `This shape is dented (concave), so the lines can't all start from one corner. It still splits into ${triCount} triangles.`;
+    else if (!showA && !showT && !showF) note = "Drag the dots to make your own shape. When you like it, press Add this shape.";
+    $("note").textContent = note; $("note").hidden = !note;
+    $("modelCard").hidden = !model;
+    $("shapeCard").hidden = model;
+    if (model) renderModel(total);
+    $("challengeCard").hidden = !showF;
+    $("clearCuts").disabled = !cuts.length;
+    const tbl = $("table");
+    tbl.classList.toggle("no-tri", !(showT || cuts.length || model));
+    tbl.classList.toggle("no-ang", !showA);
+    tbl.classList.toggle("no-form", !showF);
+    lastRecord = { n, tri: triCount, sum: Math.round(total) };
+  }
+
+  // table
+  let rows = [], lastRecord = null;
+  function renderTable() {
+    const tb = $("tbody");
+    if (!rows.length) { tb.innerHTML = `<tr class="empty"><td colspan="5">No shapes yet. Press "Add this shape."</td></tr>`; return; }
+    tb.innerHTML = rows.map(r => `<tr><td class="name">${NAMES[r.n]}</td><td>${r.n}</td><td data-col="tri">${r.tri}</td><td data-col="ang">${r.sum}°</td><td data-col="form">${(r.n - 2) * 180}°</td></tr>`).join("");
+  }
+  $("record").onclick = () => { if (!lastRecord) return; rows.push({ ...lastRecord }); rows.sort((a, b) => a.n - b.n); renderTable(); flash(`${NAMES[n]} added to your table.`, "good"); };
+  $("clear").onclick = () => { rows = []; renderTable(); };
+
+  // challenge
+  let chN = 0;
+  function newChallenge() {
+    chN = [13, 15, 16, 18, 20, 24, 30, 50, 100][Math.floor(Math.random() * 9)];
+    $("chQ").textContent = `A polygon has ${chN} sides. What do its angles add up to? That's too many to draw, so use the formula.`;
+    $("chA").value = ""; $("chFb").textContent = ""; $("chFb").className = "feedback";
+  }
+  $("chCheck").onclick = () => {
+    const v = Number($("chA").value), ans = (chN - 2) * 180, fb = $("chFb");
+    if ($("chA").value === "") { fb.textContent = "Type your answer in degrees first."; fb.className = "feedback"; return; }
+    if (v === ans) { fb.textContent = `✓ Yes! (${chN} − 2) × 180° = ${ans}°`; fb.className = "feedback good"; }
+    else { fb.textContent = `Not yet. How many triangles fit inside a ${chN}-sided shape?`; fb.className = "feedback bad"; }
+  };
+  $("chA").addEventListener("keydown", e => { if (e.key === "Enter") $("chCheck").click(); });
+  $("chNew").onclick = newChallenge;
+
+  // controls
+  const setN = v => { n = Math.max(3, Math.min(12, v)); newShape(() => regular(n)); };
+  $("nMinus").onclick = () => setN(n - 1);
+  $("nPlus").onclick = () => setN(n + 1);
+  $("regular").onclick = () => newShape(() => regular(n));
+  $("scramble").onclick = () => newShape(scramble);
+  ["showTri", "showAng", "showForm"].forEach(id => $(id).onchange = draw);
+  $("showModel").onchange = () => { if ($("showModel").checked) { setCut(false); setModelStep(0); } else { clearInterval(revealTimer); draw(); } };
+  $("mNext").onclick = () => setModelStep(modelStep + 1);
+  $("mBack").onclick = () => setModelStep(modelStep - 1);
+  $("mRestart").onclick = () => setModelStep(0);
+
+  function setCut(on) {
+    cutMode = on; cutStart = -1; cutPointer = null;
+    $("cutBtn").setAttribute("aria-pressed", String(on));
+    $("cutBtn").textContent = on ? "Done cutting" : "Draw cuts";
+    cv.classList.toggle("cutting", on);
+    if (on && $("showModel").checked) { $("showModel").checked = false; clearInterval(revealTimer); }
+    hintOverride = null; draw();
+  }
+  $("cutBtn").onclick = () => setCut(!cutMode);
+  $("clearCuts").onclick = () => { cuts = []; cutStart = -1; draw(); };
+
+  function pos(e) { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+  function nearest(p, rad) { let best = -1, bd = rad; pts.forEach((q, i) => { const d = Math.hypot(q.x - p.x, q.y - p.y); if (d < bd) { bd = d; best = i; } }); return best; }
+
+  cv.addEventListener("pointerdown", e => {
+    const p = pos(e), hit = nearest(p, 32);
+    if (cutMode) {
+      cv.setPointerCapture(e.pointerId);
+      if (cutStart >= 0 && hit >= 0 && hit !== cutStart) { tryCut(cutStart, hit); cutStart = -1; cutPointer = null; }
+      else if (hit >= 0) { cutStart = hit; cutPointer = p; cutMoved = false; }
+      else { cutStart = -1; cutPointer = null; }
+      draw(); return;
+    }
+    if ($("showModel").checked) return;
+    if (hit >= 0) { drag = hit; cv.setPointerCapture(e.pointerId); cv.classList.add("dragging"); draw(); }
+  });
+  cv.addEventListener("pointermove", e => {
+    const p = pos(e);
+    if (cutMode) { if (cutStart >= 0) { if (cutPointer && Math.hypot(p.x - cutPointer.x, p.y - cutPointer.y) > 6) cutMoved = true; cutPointer = p; draw(); } return; }
+    if (drag < 0) return;
+    p.x = Math.max(12, Math.min(W - 12, p.x)); p.y = Math.max(12, Math.min(H - 12, p.y));
+    const cand = pts.slice(); cand[drag] = p;
+    if (simple(cand)) { pts = cand; revalidateCuts(); draw(); }
+  });
+  cv.addEventListener("pointerup", e => {
+    if (cutMode) {
+      if (cutStart >= 0 && cutMoved) {
+        const hit = nearest(pos(e), 32);
+        if (hit >= 0 && hit !== cutStart) tryCut(cutStart, hit);
+        cutStart = -1; cutPointer = null;
+      }
+      draw(); return;
+    }
+    drag = -1; cv.classList.remove("dragging"); draw();
+  });
+  cv.addEventListener("pointercancel", () => { drag = -1; cutStart = -1; cutPointer = null; cv.classList.remove("dragging"); draw(); });
+
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+  new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  if (window.ResizeObserver) new ResizeObserver(() => resize()).observe($("cvbox"));
+  else window.addEventListener("resize", resize);
+
+  const r = cv.getBoundingClientRect(); W = r.width || 800; H = r.height || 600;
+  regular(n); resize(); newChallenge();
+  if (document.fonts) document.fonts.ready.then(draw);
+})();
+</script>
+</body>
+</html>
